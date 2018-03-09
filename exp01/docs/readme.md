@@ -28,11 +28,11 @@ O mesmo procedimento deverá ser depois repetido para todas as demais simulaçõ
 (por exemplo, `aula_2` para esta prática), mas cada aluno deve usar a solução que julgar apropriada.
 * Ainda com o Windows Explorer, selecione `Rede`=> `NEWSERVERLAB` => `psi3451` => `aula_2`. Copie todos os arquivos deste diretório para a sua pasta `X:\psi3451\aula_2`. São três arquivos *.vhd: `full_adder` (1 e 2) e `ripple_carry_1`.
 * Como serão realizadas cindo (5) simulações recomendamos que sejam criadas pastas separadas para cada uma delas com o objetivo de salvar adequadamente os resultados. Por exemplo, crie as pastas:
-        * `X:\psi3451\aula_2\fa_1`
-        * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_1` modificado)
-        * `X:\psi3451\aula_2\fa_1`
-        * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_2` modificado)
-        * `X:\psi3451\aula_2\rc_1`
+            * `X:\psi3451\aula_2\fa_1`
+            * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_1` modificado)
+            * `X:\psi3451\aula_2\fa_1`
+            * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_2` modificado)
+            * `X:\psi3451\aula_2\rc_1`
 
 Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pastas correspondentes (sem a terminação m).
 
@@ -40,15 +40,15 @@ Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pa
 
 ***ATENÇÃO***: o procedimento apresentado a seguir, de CAPTURA, COMPILAÇÃO E SIMULAÇÃO do arquivo `full_adder_1` no programa ModelSim deverá ser seguido em todos os demais experimentos a serem realizados nesta e nas demais aulas práticas que terão como case a ferramenta ModelSim.
 
-* Abra o arquivo `full_adder_1.vhd` (já salvo na sua pasta `X:\psi3451\aula_2\fa_1`) usando o NotePad++. Este somador está codificado no modelo VHDL `dataflow`. Analise o código da descrição tenha certeza de ter entendido todos os conceitos VHDL deste modelo:
-        * Biblioteca `Library IEEE`
-        * Comando `use IEEE.STD_LOGIC_1164.all`
-        * Par `entity`/`architecture`
-        * Declaração de sinais internos `signal` .....
-        * Transferência de sinais `<=`
-        * Tipo `STD_LOGIC`
-        * Atraso inercial `after`. ***ATENÇÃO***: os atrasos anotados no modelo devem ser cuidadosamente observados e identificados durante as simulações.
-        * A descrição arquitetural comparada às equações da apostila de conceitos.
+* Abra o arquivo `full_adder_1.vhd` (já salvo na sua pasta `X:\psi3451\aula_2\fa_1`) usando o NotePad++. Este somador está codificado no modelo VHDL *dataflow*. Analise o código da descrição tenha certeza de ter entendido todos os conceitos VHDL deste modelo:
+            * Biblioteca `Library IEEE`
+            * Comando `use IEEE.STD_LOGIC_1164.all`
+            * Par `entity`/`architecture`
+            * Declaração de sinais internos `signal` ...
+            * Transferência de sinais `<=`
+            * Tipo `STD_LOGIC`
+            * Atraso inercial `after`. ***ATENÇÃO***: os atrasos anotados no modelo devem ser cuidadosamente observados e identificados durante as simulações.
+            * A descrição arquitetural comparada às equações da apostila de conceitos.
 * Clique no botão Iniciar (do Windows) e digite modelsim no campo de busca. Nas opções que surgirem, escolha **modelsim**. Isto disparará o software (***certifique-se que trata-se do modelsim se 10 ou 10.1d***).
 * Feche a janela de boas vindas e de **release notes** do ***modelsim***, caso esta janela abra automaticamente.
 * Observe inicialmente que há uma janela **Library** de bibliotecas VHDL (já com várias instaladas). Observe que na parte inferior do software existe a janela **Transcript**. Nela o usuário pode digitar comandos e verificar mensagens informativas e de erros sobre seus procedimentos.
@@ -58,7 +58,7 @@ Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pa
 
 **Pergunta**: qual é o comando-linha correspondente?
 
-> Responsta: `vlib work` seguido de `vmap work work`
+> Resposta: `vlib work` seguido de `vmap work work`
 
 ***Observação***: Na janela superior deve aparecer a biblioteca `work` listada junto com outras que já existiam (e que devem ser ignoradas no momento). A biblioteca `work` ainda deve estar vazia.
 
@@ -82,7 +82,7 @@ Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pa
 
 **Pergunta**: qual é o comando-linha correspondente?
 
-> Responsta: `vcom -reportprogress 300 -work work X:/projects/cis2/exp01/fa_1/full_adder_1.vhd`
+> Resposta: `vcom -reportprogress 300 -work work X:/projects/cis2/exp01/fa_1/full_adder_1.vhd`
 
 Neste momento é possível observar que o arquivo VHDL compilado aparece na biblioteca `work`. Clique no símbolo + que aparece ao lado da biblioteca `work` e em seguida no + que aparece ao lado do módulo de interesse. Aparecerá o nome da arquitetura (**dataflow**) do modelo VHDL importado.
 
@@ -101,11 +101,11 @@ Para realizar a simulação do modelo VHDL (após sua compilação e captura par
 * Na aba **Sim** selecione o módulo de interesse com um clique simples.
 * Certifique-se de que todos objetos da entidade em questão estejam visíveis habilitando no menu **View** as janelas **Objects**, **Processes** e **Locals**.
 * Clique em **Add** => **Wave** => **All items in region**. Todos os portos de entrada e saída do modelo VHDL serão transferidos para a janela **Wave** do simulador. No caso do full_adder os portos são:
-        * `sim:/full_adder/a_in`
-        * `sim:/full_adder/b_in`
-        * `sim:/full_adder/c_in`
-        * `sim:/full_adder/z_out`
-        * `sim:/full_adder/c_out`
+            * `sim:/full_adder/a_in`
+            * `sim:/full_adder/b_in`
+            * `sim:/full_adder/c_in`
+            * `sim:/full_adder/z_out`
+            * `sim:/full_adder/c_out`
 
 A partir deste momento, o simulador está pronto para receber os comandos referentes aos estímulos de entrada que se deseja observar (comando `force`) assim como ao avanço no tempo de simulação (comando `run`).
 
@@ -122,7 +122,7 @@ mostrarão o resultado da soma A+B+C = 0+1+0 = 1. ***Atenção***, os resultados
 atrasos codificados no modelo VHDL sendo simulado.
 
 > Resultado:
-![Resultado da simulação](img/img1.png)
+![Resultado da simulação no Modelsim 10.1d](img/img1.png)
 
 Comandos semelhantes permitem observar outras combinações dos valores das entradas.
 
@@ -152,4 +152,63 @@ Para ativar este script, com a janela **Wave** ativada (estando nela carregado o
 
 ### 2) Captura e simulação do somador completo full_adder_1 com atraso delta
 
-* Faça uma cópia do arquivo full_adder_1.vhd e salve este novo arquivo com o nome full_adder_1m.vhd na pasta X:\psi3451\aula_2\fa_1m. No arquivo, mude o nome da instância (e em todos os pontos em que é usado) para full_adder_1m.
+* Faça uma cópia do arquivo `full_adder_1.vhd` e salve este novo arquivo com o nome `full_adder_1m.vhd` na pasta `X:\psi3451\aula_2\fa_1m`. No arquivo, mude o nome da instância (e em todos os pontos em que é usado) para `full_adder_1m`.
+* Em seguida modifique o arquivo (com o programa WordPad) removendo todas as menções de atraso (`AFTER k ns`).
+
+Conceitos VHDL deste modelo: atraso DELTA.
+
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+Atenção: realize a simulação com a mesma sequência de combinações de valores de entrada (do comando `force`) da simulação da seção 1.
+
+> Resultado:
+```tcl
+# Definindo o diretório do projeto
+cd X:/projects/cis2/exp01/fa_1m
+# Criando as libraries do projeto
+vlib work
+vmap work work
+# Compilando o projeto
+vcom -reportprogress 300 -work work X:/projects/cis2/exp01/fa_1m/full_adder_1m.vhd
+# Modificando as opções de visualização do projeto
+vsim -gui -voptargs=+acc work.full_adder_1m
+# Configurando os sinais a serem apresentados
+add wave -position insertpoint  \
+sim:/full_adder_1m/a_in \
+sim:/full_adder_1m/b_in \
+sim:/full_adder_1m/c_in \
+sim:/full_adder_1m/z_out \
+sim:/full_adder_1m/c_out \
+sim:/full_adder_1m/aux_xor \
+sim:/full_adder_1m/aux_and_1 \
+sim:/full_adder_1m/aux_and_2 \
+sim:/full_adder_1m/aux_and_3
+# Realizando simulação por 100ns
+force a_in 0
+force b_in 1
+force c_in 0
+run 100ns
+```
+
+![Resultado da simulação sem atrasos](img/img2.png)
+
+
+**Pergunta**: como é o novo comportamento do circuito em termos de tempos de atraso? De que forma as dependências entre as operações lógicas na descrição influenciam os atrasos?
+
+> Resposta: podemos ver que nessa simulação todos os estados quiescentes foram atingidos desde o início da simulação devido à inexistência de atrasos de propagação.
+
+### 3) Captura e simulação do somador completo `full_adder_2` no modelo estrutural
+
+* Abra o arquivo `full_adder_2.vhd` da pasta `X:\psi3451\aula_2\fa_2`. Ele está codificado no modelo VHDL estrutural (*structural*).
+* Analise toda a descrição, linha a linha. Tenha certeza que tenha encontrado e entendido os itens seguintes:
+            * a declaração de componentes
+            * o modelo VHDL dataflow do AND2, XOR2 e OR3 (entity e architecture)
+            * os parâmetros de tempo generic de cada um dos modelos acima e a sua utilização nas respectivas arquiteturas
+            * o posicionamento de todas as declarações de bibliotecas e pacotes
+            * as instanciações e os nomes das instâncias
+            * port map e generic map
+            * no port map, casos de associação implícita e explícita para os sinais
+            * a correspondência do full adder com o esquemático apresentado na apostila de conceitos (verifique as conexões entre as instâncias do VHDL).
+
+
+TODO

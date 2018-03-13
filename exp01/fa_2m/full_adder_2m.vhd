@@ -1,14 +1,14 @@
 Library IEEE;
 USE IEEE.STD_LOGIC_1164.all;
 
-ENTITY full_adder_2 IS
+ENTITY full_adder_2m IS
     PORT (
         a_in, b_in, c_in:   IN STD_LOGIC;
         z_out, c_out:       OUT STD_LOGIC
     );
-END full_adder_2;
+END full_adder_2m;
 
-architecture structural OF full_adder_2 IS
+architecture structural OF full_adder_2m IS
     COMPONENT and2
         GENERIC (t_and: time := 2 ns);
         PORT (
@@ -35,30 +35,30 @@ architecture structural OF full_adder_2 IS
 signal aux_xor, aux_and_1, aux_and_2, aux_and_3 : STD_LOGIC;
 
 begin
-    XOR_2: xor2 GENERIC MAP (10 ns) PORT MAP (x => c_in,
-                                              y => aux_xor,
-                                              z => z_out);
+    XOR_2: xor2 PORT MAP (x => c_in,
+                          y => aux_xor,
+                          z => z_out);
 
-    XOR_1: xor2 GENERIC MAP (10 ns) PORT MAP (x => a_in,
-                                              y => b_in,
-                                              z => aux_xor);
+    XOR_1: xor2 PORT MAP (x => a_in,
+                          y => b_in,
+                          z => aux_xor);
 
-    AND_1: and2 GENERIC MAP (10 ns) PORT MAP (x => a_in,
-                                              y => b_in,
-                                              z => aux_and_1);
+    AND_1: and2 PORT MAP (x => a_in,
+                          y => b_in,
+                          z => aux_and_1);
 
-    AND_2: and2 GENERIC MAP (10 ns) PORT MAP (x => a_in,
-                                              y => c_in,
-                                              z => aux_and_2);
+    AND_2: and2 PORT MAP (x => a_in,
+                          y => c_in,
+                          z => aux_and_2);
 
-    OR_3: or3 GENERIC MAP (10 ns) PORT MAP (w => aux_and_1,
-                                            x => aux_and_2,
-                                            y => aux_and_3,
-                                            z => c_out);
+    OR_3: or3 PORT MAP (w => aux_and_1,
+                        x => aux_and_2,
+                        y => aux_and_3,
+                        z => c_out);
 
-    AND_3: and2 GENERIC MAP (10 ns) PORT MAP (x => b_in,
-                                              y => c_in,
-                                              z => aux_and_3);
+    AND_3: and2 PORT MAP (x => b_in,
+                          y => c_in,
+                          z => aux_and_3);
 END structural;
 
 Library IEEE;

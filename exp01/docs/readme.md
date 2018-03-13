@@ -27,11 +27,11 @@ O mesmo procedimento deverá ser depois repetido para todas as demais simulaçõ
 (por exemplo, `aula_2` para esta prática), mas cada aluno deve usar a solução que julgar apropriada.
 * Ainda com o Windows Explorer, selecione `Rede`=> `NEWSERVERLAB` => `psi3451` => `aula_2`. Copie todos os arquivos deste diretório para a sua pasta `X:\psi3451\aula_2`. São três arquivos *.vhd: `full_adder` (1 e 2) e `ripple_carry_1`.
 * Como serão realizadas cindo (5) simulações recomendamos que sejam criadas pastas separadas para cada uma delas com o objetivo de salvar adequadamente os resultados. Por exemplo, crie as pastas:
-		* `X:\psi3451\aula_2\fa_1`
-		* `X:\psi3451\aula_2\fa_1m` (para o `full_adder_1` modificado)
-		* `X:\psi3451\aula_2\fa_1`
-		* `X:\psi3451\aula_2\fa_1m` (para o `full_adder_2` modificado)
-		* `X:\psi3451\aula_2\rc_1`
+    * `X:\psi3451\aula_2\fa_1`
+    * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_1` modificado)
+    * `X:\psi3451\aula_2\fa_1`
+    * `X:\psi3451\aula_2\fa_1m` (para o `full_adder_2` modificado)
+    * `X:\psi3451\aula_2\rc_1`
 
 Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pastas correspondentes (sem a terminação m).
 
@@ -40,14 +40,14 @@ Transfira cada um dos três arquivos VHDL copiados do serverlab para as três pa
 ***ATENÇÃO***: o procedimento apresentado a seguir, de CAPTURA, COMPILAÇÃO E SIMULAÇÃO do arquivo `full_adder_1` no programa ModelSim deverá ser seguido em todos os demais experimentos a serem realizados nesta e nas demais aulas práticas que terão como case a ferramenta ModelSim.
 
 * Abra o arquivo `full_adder_1.vhd` (já salvo na sua pasta `X:\psi3451\aula_2\fa_1`) usando o NotePad++. Este somador está codificado no modelo VHDL *dataflow*. Analise o código da descrição tenha certeza de ter entendido todos os conceitos VHDL deste modelo:
-		* Biblioteca `Library IEEE`
-		* Comando `use IEEE.STD_LOGIC_1164.all`
-		* Par `entity`/`architecture`
-		* Declaração de sinais internos `signal` ...
-		* Transferência de sinais `<=`
-		* Tipo `STD_LOGIC`
-		* Atraso inercial `after`. ***ATENÇÃO***: os atrasos anotados no modelo devem ser cuidadosamente observados e identificados durante as simulações.
-		* A descrição arquitetural comparada às equações da apostila de conceitos.
+    * Biblioteca `Library IEEE`
+    * Comando `use IEEE.STD_LOGIC_1164.all`
+    * Par `entity`/`architecture`
+    * Declaração de sinais internos `signal` ...
+    * Transferência de sinais `<=`
+    * Tipo `STD_LOGIC`
+    * Atraso inercial `after`. ***ATENÇÃO***: os atrasos anotados no modelo devem ser cuidadosamente observados e identificados durante as simulações.
+    * A descrição arquitetural comparada às equações da apostila de conceitos.
 * Clique no botão Iniciar (do Windows) e digite modelsim no campo de busca. Nas opções que surgirem, escolha **modelsim**. Isto disparará o software (***certifique-se que trata-se do modelsim se 10 ou 10.1d***).
 * Feche a janela de boas vindas e de **release notes** do ***modelsim***, caso esta janela abra automaticamente.
 * Observe inicialmente que há uma janela **Library** de bibliotecas VHDL (já com várias instaladas). Observe que na parte inferior do software existe a janela **Transcript**. Nela o usuário pode digitar comandos e verificar mensagens informativas e de erros sobre seus procedimentos.
@@ -100,11 +100,11 @@ Para realizar a simulação do modelo VHDL (após sua compilação e captura par
 * Na aba **Sim** selecione o módulo de interesse com um clique simples.
 * Certifique-se de que todos objetos da entidade em questão estejam visíveis habilitando no menu **View** as janelas **Objects**, **Processes** e **Locals**.
 * Clique em **Add** => **Wave** => **All items in region**. Todos os portos de entrada e saída do modelo VHDL serão transferidos para a janela **Wave** do simulador. No caso do full_adder os portos são:
-		* `sim:/full_adder/a_in`
-		* `sim:/full_adder/b_in`
-		* `sim:/full_adder/c_in`
-		* `sim:/full_adder/z_out`
-		* `sim:/full_adder/c_out`
+    * `sim:/full_adder/a_in`
+    * `sim:/full_adder/b_in`
+    * `sim:/full_adder/c_in`
+    * `sim:/full_adder/z_out`
+    * `sim:/full_adder/c_out`
 
 A partir deste momento, o simulador está pronto para receber os comandos referentes aos estímulos de entrada que se deseja observar (comando `force`) assim como ao avanço no tempo de simulação (comando `run`).
 
@@ -200,14 +200,14 @@ run 100ns
 
 * Abra o arquivo `full_adder_2.vhd` da pasta `X:\psi3451\aula_2\fa_2`. Ele está codificado no modelo VHDL estrutural (*structural*).
 * Analise toda a descrição, linha a linha. Tenha certeza que tenha encontrado e entendido os itens seguintes:
-		* a declaração de componentes
-		* o modelo VHDL dataflow do AND2, XOR2 e OR3 (entity e architecture)
-		* os parâmetros de tempo generic de cada um dos modelos acima e a sua utilização nas respectivas arquiteturas
-		* o posicionamento de todas as declarações de bibliotecas e pacotes
-		* as instanciações e os nomes das instâncias
-		* port map e generic map
-		* no port map, casos de associação implícita e explícita para os sinais
-		* a correspondência do full adder com o esquemático apresentado na apostila de conceitos (verifique as conexões entre as instâncias do VHDL).
+    * a declaração de componentes
+    * o modelo VHDL dataflow do AND2, XOR2 e OR3 (entity e architecture)
+    * os parâmetros de tempo generic de cada um dos modelos acima e a sua utilização nas respectivas arquiteturas
+    * o posicionamento de todas as declarações de bibliotecas e pacotes
+    * as instanciações e os nomes das instâncias
+    * port map e generic map
+    * no port map, casos de associação implícita e explícita para os sinais
+    * a correspondência do full adder com o esquemático apresentado na apostila de conceitos (verifique as conexões entre as instâncias do VHDL).
 * Faça o procedimento de captura, compilação e simulação conforme descrito anteriormente.
 
 ***Recomendação***:: realize a simulação para verificar:
@@ -256,8 +256,8 @@ Guarde os resultados do Wave para comparação.
 
 * Abra o arquivo `rc_adder_1.vhd` para a pasta da `X:\psi3451\aula_2\rc_1`. Ele está codificado no modelo VHDL estrutural (`structural`). Observe que apenas a entidade (`entity`) está descrita. A arquitetura deverá ser preparada pelo(a) aluno(a).
 * Analise a descrição da entity, linha a linha. Tenha certeza que tenha encontrado e entendido os itens seguintes:
-		* o posicionamento de todas as declarações de bibliotecas e pacotes
-		* a descrição dos vetores de entrada e saída array de bits
+    * o posicionamento de todas as declarações de bibliotecas e pacotes
+    * a descrição dos vetores de entrada e saída array de bits
 * Abra o arquivo arquivo `full_adder_2.vhd` e copie o seu conteúdo para o `rc_adder_1.vhd`, pois servirá como seu componente.
 * Faça um esboço do *ripple-carry adder* com todos os seus sinais externos e internos.
 * Faça a declaração do componente do `full_adder`.
@@ -280,5 +280,3 @@ Guarde os resultados do Wave para futuras referências e comparações.
 
 **Pergunta**: quantos níveis de hierarquia há no seu projeto? Onde as bibliotecas foram declaradas?
 > Resposta: nesse projeto temos 3 níveis de hierarquia: as portas lógias, os somadores e o somador ripple carry. Todos esses elementos foram declarados no mesmo arquivo.
-
-

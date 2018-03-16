@@ -111,3 +111,86 @@ X:\psi3451\aula_3\ rb_3 (reg_bank_simplificado_3.vhd)
 >
 > fa_3 (original):
 > ![Resultado da simulação de fa_3](img/fa_3_wave.bmp)
+>
+> O que mostra que o ordem das declarações não alteraram o resultado.
+
+### 4) Captura e simulação do somador completo full_adder_4 no modelo comportamental, com processo
+
+* Abra o arquivo `full_adder_4.vhd` para a pasta `X:\psi3451\aula_3\fa_4`. Ele está codificado no modelo VHDL comportamental (behavioral). Estude o código e compare com o da Seção 1 (`fa_3`) Conceitos VHDL deste modelo:
+    * comando process (sintaxe)
+    * lista de sensibilidade
+    * declaração de variáveis
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: Realize uma simulação com a mesma sequência de estímulos adotada na Seção 1.
+
+**Pergunta**: como é o novo comportamento do circuito comparado aos do `full_adder_3` acima? Há alguma equivalência entre os modelos? De que forma?
+
+> Resposta:
+> `full_adder_4`:
+> ![Resultado da simulação de `full_adder_4`](img/fa_4_wave.bmp)
+> O comportamento desse circuito é idêntico ao do primeiro item.
+
+### 5) Captura e simulação do somador completo `full_adder_4` no modelo comportamental, com alteração na ordem das designações
+
+* Faça uma cópia do arquivo `full_adder_4.vhd` e salve este novo arquivo com o nome `full_adder_4m.vhd` (para posição de linhas alterada) na pasta `X:\psi3451\aula_3\fa_4m`.
+* Em seguida modifique o arquivo (com o programa *NotePad++*) ***trocando a posição*** da designação de `c_out_aux` para logo após a designação de `aux_xor`. Observe que são variáveis. Conceito VHDL deste modelo: efeito do tempo de atraso nulo de variável em execução sequencial (de processo).
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: Realize uma simulação com a mesma sequência de estímulos adotada na Seção 1.
+
+**Pergunta**: como é o novo comportamento do circuito comparado o observado na seção 1? Por que?
+
+> Resposta:
+> `full_adder_4m`:
+> ![Resultado da simulação de `full_adder_4` modificado](img/fa_4m_wave.bmp)
+> Podemos ver aqui que esta modificação na ordem das atribuições das variáveis causou um comportamento errôneo no somador (1 + 0 = 0)
+
+
+### 6) Captura, compilação e simulação do contador `step_counter` no modelo comportamental, com processo
+
+* Abra o arquivo `step_counter_1.vhd` para a pasta `X:\psi3451\aula_3\sc_1`. Ele está codificado no modelo VHDL comportamental (*behavioral*).
+* Analise toda a descrição, linha a linha. Tenha certeza que tenha encontrado e entendido cada uma das construções abaixo (conceitos VHDL):
+    * pacote `numeric_std` (ieee) e tipo `unsigned`
+    * parâmetro `generic COUNT_MAX`
+    * reset síncrono
+    * lista de sensibilidade do processo
+    * processo de lógica sequencial (com clock)
+* Faça o procedimento de captura, compilação e simulação conforme descrito em exemplos trabalhados anteriormente. Atente que o sinal de relógio, `clk`, deve ser periódico. Para isto, na janela de *Transcript* do *Modelsim*, use o comando
+
+```tcl
+force -freeze clk 1 0, 0 {10 ns} -r 20
+```
+
+***Recomendação***: realize a simulação para verificar:
+
+* o funcionamento de `res`
+* a contagem rotativa - acompanhe os valores da contagem em `cnt_s` e `cnt_value`
+* a geração do pulso em `cnt_rdy`
+
+Guarde os resultados do *Wave* para comparação na seção seguinte.
+
+**Pergunta**: seguindo as recomendações, a simulação mostrou o comportamento esperado do circuito como descrito na apostila de conceitos?
+
+> Pulando... (Não solicitado pelo professor)
+
+### 7) Captura e simulação do mux no modelo *dataflow*
+
+* Abra o arquivo `reg_bank_simplificado_1.vhd` que se encontra na pasta `X:\psi3451\aula_3\rb_1`. Este modelo é descrito no modelo VHDL *dataflow*. Conceitos VHDL deste modelo:
+    * comando `use work.my_package.all`;
+    * comando `generic` (no interior da *entity*)
+    * parâmetro `WIDTH`
+    * tipo `NATURAL`
+    * tipo enumerado `RB_SEL`
+    * tipo `STD_LOGIC_VECTOR`
+    * comando `when`-`else`
+    * comando `others`
+* Repita o procedimento de captura, compilação e simulação conforme descrito nas seções anteriores
+
+***Recomendação***: por se tratar de um circuito combinatório de poucas entradas, realize a simulação com todas os possíveis valores de seleção.
+
+**Pergunta**: identifica o circuito como um mux do esquema da figura 1 (a) ou (b)? Entendeu o uso do tipo `RB_SEL`?
+
+> Resposta:
+> `reg_bank_simplificado_1`:
+> ![Resultado da simulação de `reg_bank_simplificado_1`](img/rb_1_wave.bmp)

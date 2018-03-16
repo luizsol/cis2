@@ -107,7 +107,7 @@ X:\psi3451\aula_3\ rb_3 (reg_bank_simplificado_3.vhd)
 > Resposta: o comportamento observado do novo `full_adder` foi exatamente o mesmo do original.
 >
 > `full_adder_3_m2` (novo):
-> ![Resultado da simulação de `full_adder_3_m1`](img/fa_3_m1_2_wave.bmp)
+> ![Resultado da simulação de `full_adder_3_m1`](img/fa_3_m2_2_wave.bmp)
 >
 > fa_3 (original):
 > ![Resultado da simulação de fa_3](img/fa_3_wave.bmp)

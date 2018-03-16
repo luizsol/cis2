@@ -47,4 +47,4 @@ X:\psi3451\aula_3\ rb_3 (reg_bank_simplificado_3.vhd)
 > fa_3:
 > ![Resultado da simulação de fa_3](img/fa_3_wave.bmp)
 > fa_2:
-> ![Resultado da simulação de fa_3](../exp01/docs/img/img3.png)
+> ![Resultado da simulação de fa_3](../../exp01/docs/img/img3.png)

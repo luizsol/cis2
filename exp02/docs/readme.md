@@ -214,3 +214,89 @@ end package;
 ...
 ```
 > E na simulação podemos ver que cada um desses valores de enum leva uma entrada (definida dentro do componente) à saída do multiplexador.
+
+### 8) Captura e simulação do mux no modelo dataflow sem todas as opções de seleção
+
+* Faça uma cópia do arquivo `reg_bank_simplificado_1.vhd` e salve este novo arquivo com o nome `reg_bank_simplificado_1_m.vhd` na pasta `X:\psi3451\aula_3\rb_1m`.
+* Há duas alterações que devem ser feitas e testadas independentemente:
+    * 1- Apagar (ou deixar comentada) a linha correspondente à seleção `FIFO_OUT`;
+    * 2- Apagar (ou deixar comentada) as linhas correspondentes à seleção `FIFO_OUT` e `OTHERS`;
+Conceito VHDL deste modelo: lista de sensibilidade.
+* Repita o procedimento de captura, compilação e simulação cf. descrito no item 1 acima.
+
+
+***Recomendação***: Realize as mesmas simulações feitas no item 7 e observe as diferenças.
+
+**Pergunta**: como é o novo comportamento do mux? O resultado desta simulação deve ser identificado com o esquema da figura 2 (a) ou (b)? Que cuidado deve se ter para representar corretamente um mux combinatório em VHDL?
+
+> Resposta:
+> `reg_bank_simplificado_1` modificado:
+> ![Resultado da simulação de `reg_bank_simplificado_1` modificado](img/rb_1m_wave.bmp)
+> Aqui temos que o componente só lida com dois valores do ENUM. Quando acessamos um valor que não é por ele tratado temos que a saída é indefinida. Nesse caso ele está mais semelhante à figura (a).
+
+
+### 9) Captura e simulação do mux no modelo comportamental, construção `case-when`
+
+* Abra o arquivo `reg_bank_simplificado_2.vhd` que se encontra na pasta `X:\psi3451\aula_3\rb_2`. Este modelo é descrito no modelo VHDL comportamental. Conceitos VHDL deste modelo:
+    * comando `process`
+    * comando `case is`
+    * `when`
+    * comando `others`
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: por se tratar de um circuito combinatório de poucas entradas, realize a simulação com todas os possíveis valores de seleção.
+
+**Pergunta**: identifique o circuito com esquema da figura 2 (a) ou (b)? Há alguma diferença em relação ao experimento da Seção 5?
+> Resposta:
+> `reg_bank_simplificado_2`:
+> ![Resultado da simulação de `reg_bank_simplificado_2`](img/rb_2_wave.bmp)
+> Podemos ver que esse circuito se comportou exatamente igual ao `reg_bank_simplificado_1`
+
+### 10) Captura e simulação do mux no modelo comportamental, construção case-when sem todas as opções de seleção
+
+* Faça uma cópia do arquivo `reg_bank_simplificado_2.vhd` e salve este novo arquivo com o nome `reg_bank_simplificado_2_m.vhd` na pasta `X:\psi3451\aula_2\rb_2m`.
+* Há duas alterações que devem ser feitas e testadas independentemente:
+    * 1- Apagar (ou deixar comentada) a linha correspondente à seleção `FIFO_OUT`;
+    * 2- Apagar (ou deixar comentadas) as linhas correspondentes à seleção `FIFO_OUT` e `OTHERS`;
+Conceito VHDL deste modelo: lista de sensibilidade.
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: Realize as mesmas simulações feitas no item 7 e observe as diferenças.
+
+**Pergunta**: como é o novo comportamento do mux? O resultado desta simulação deve ser identificado com o esquema da figura 2 (a) ou (b)? Que cuidado deve se ter para representar corretamente um mux combinatório em VHDL?
+
+> Resposta:
+> Neste caso nào foi possível compilar o mux pois nem todas as possibilidades de entrada foram tratadas:
+> ![Resultado da compilação de `reg_bank_simplificado_2_m`](img/erro_compilacao.png)
+
+### 11) Captura e simulação do mux no modelo comportamental, construção if-then-else
+
+* Abra o arquivo reg_bank_simplificado_3.vhd que se encontra na pasta `X:\psi3451\aula_3\rb_3`. Este modelo é descrito no modelo VHDL comportamental. Conceitos VHDL deste modelo:
+    * comando `process`
+    * comando `if-then-elseif-then`
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: Realize as mesmas simulações feitas no item 7 e observe as diferenças.
+
+**Pergunta**: identifique o circuito com esquema da figura 2 (a) ou (b). Há alguma diferença em relação aos experimentos dos itens 5 e 7?
+
+> Resposta:
+> Resultado da simulação:
+> ![Resultado da compilação de `reg_bank_simplificado_3`](img/rb_3_wave.bmp)
+> O resultado da simulação foi idêntico aos dos itens 5 e 7. Nesse caso ele está mais semelhante à figura (a).
+
+
+### 12) Captura e simulação do mux no modelo comportamental, construção if-then-else sem todas as opções de seleção
+
+* Faça uma cópia do arquivo `reg_bank_simplificado_3.vhd` e salve este novo arquivo com o nome `reg_bank_simplificado_3_m.vhd` na pasta `X:\psi3451\aula_2\rb_3m`.
+* Apague (ou deixar comentada) a linha correspondente à seleção `FIFO_OUT`;
+* Repita o procedimento de captura, compilação e simulação cf. descrito no item 1 acima.
+
+***Recomendação***: Realize uma simulação com a adotada na Seção 7 e observe a diferenças.
+
+**Pergunta**: como é o novo comportamento do mux? Identifique o circuito com esquema da figura 2 (a) ou (b)? Que cuidados deve se ter para a codificação de um mux combinacional?
+
+> Resposta:
+> Resultado da simulação:
+> ![Resultado da compilação de `reg_bank_simplificado_3`](img/rb_3m_wave.bmp)
+> O resultado da simulação apresenta um comportamento de latch, se assemelhando à figura 2 (b)

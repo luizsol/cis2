@@ -63,8 +63,8 @@ begin
 					alu_out	<= 	head_out_s;
 			elsif (out_sel = REG2_OUT ) then
 					alu_out	<= 	reg2_out_s;
-			elsif (out_sel = FIFO_OUT ) then
-					alu_out	<= 	fifo_out_s;
+			--elsif (out_sel = FIFO_OUT ) then
+					--alu_out	<= 	fifo_out_s;
 
 			end if;
 	end process;

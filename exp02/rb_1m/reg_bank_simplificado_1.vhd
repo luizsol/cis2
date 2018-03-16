@@ -29,7 +29,6 @@ use work.my_package.all;
 
 
 
-
 entity reg_bank is
 	generic
 	(
@@ -41,11 +40,13 @@ entity reg_bank is
 	out_sel		: in RB_SEL;
 	alu_out		: out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
 	);
+
+
 end reg_bank;
 
 
-architecture process_if_else of reg_bank is
 
+architecture arch of reg_bank is
 
 --***********************************
 --*	INTERNAL SIGNAL DECLARATIONS	*
@@ -57,17 +58,14 @@ signal fifo_out_s	: STD_LOGIC_VECTOR(WIDTH-1 downto 0)	:= "01010101";
 begin
 
 
-	process (out_sel)
-			begin
-			if (out_sel = HEAD_OUT) then
-					alu_out	<= 	head_out_s;
-			elsif (out_sel = REG2_OUT ) then
-					alu_out	<= 	reg2_out_s;
-			elsif (out_sel = FIFO_OUT ) then
-					alu_out	<= 	fifo_out_s;
+	--*******************************
+	--*	SIGNAL ASSIGNMENTS			*
+	--*******************************
 
-			end if;
-	end process;
+	alu_out	<= 	head_out_s	when (out_sel = HEAD_OUT) else
+				reg2_out_s	when (out_sel = REG2_OUT) else
+				--fifo_out_s	when (out_sel = FIFO_OUT) else
+				(others => 'X');
 
 
-end process_if_else ;
+end arch;

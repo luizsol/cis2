@@ -17,7 +17,7 @@ package my_package is
 					REG2_OUT,
 					FIFO_OUT
 					);
-					
+
 end package;
 
 
@@ -29,7 +29,7 @@ use work.my_package.all;
 
 
 
-entity reg_bank is 
+entity reg_bank is
 	generic
 	(
 	WIDTH		: NATURAL	:= 8
@@ -60,16 +60,16 @@ process (out_sel)
 			begin
 				case out_sel 	is
 					when HEAD_OUT	=> 	alu_out	<= 	head_out_s;
-												
+
 					when REG2_OUT 	=>  	alu_out	<= 	reg2_out_s;
-												
+
 					when FIFO_OUT 	=>  alu_out	<= 	fifo_out_s;
-									
+
 					when others	=> null;
-			
+
 				end case;
 			end process;
 
-				
+
 
 end process_case;

@@ -1,0 +1,123 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp02\rb_1m
+T_opt
+V7b=DD@iAYTVDW32lRNKUl1
+04 8 4 work reg_bank arch 1
+=1-782bcbbffd2c-5aac1a27-ce-1d94
+Z1 o-quiet -auto_acc_if_foreign -work work +acc
+n@_opt
+Z2 OL;O;10.1d;51
+Z3 dX:\projects\cis2\exp02\rb_1m
+T_opt1
+VBaWKBgkZ]T;Dn>SU8DL201
+04 8 12 work reg_bank process_case 1
+=1-782bcbbffd2c-5aac15b3-1a3-2138
+R1
+n@_opt1
+R2
+R3
+T_opt2
+VlV40GCdSB=Gj?j70XO4z=1
+04 8 15 work reg_bank process_if_else 1
+=1-782bcbbffd2c-5aac1d5a-ec-26f8
+R1
+n@_opt2
+R2
+R3
+Pmy_package
+Z4 w1521221234
+R3
+Z5 8X:/projects/cis2/exp02/rb_3m/reg_bank_simplificado_3m.vhd
+Z6 FX:/projects/cis2/exp02/rb_3m/reg_bank_simplificado_3m.vhd
+l0
+L13
+VCjG5DVUYHgOhiVj2D9Uf<3
+!s100 ;3Y?CGM4<T3G8Kn^6_IG;3
+Z7 OL;C;10.1d;51
+32
+!i10b 1
+Z8 !s108 1521229173.749000
+Z9 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp02/rb_3m/reg_bank_simplificado_3m.vhd|
+Z10 !s107 X:/projects/cis2/exp02/rb_3m/reg_bank_simplificado_3m.vhd|
+Z11 o-work work
+Z12 tExplicit 1
+Ereg_bank
+R4
+Z13 DPx4 work 10 my_package 0 22 CjG5DVUYHgOhiVj2D9Uf<3
+Z14 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z15 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+R3
+R5
+R6
+l0
+L33
+Vl`95H^P^2NIC^kDHDkg3Y2
+!s100 8fiae]^?[DQ0MbDHC<l@22
+R7
+32
+!i10b 1
+R8
+R9
+R10
+R11
+R12
+Aprocess_if_else
+R13
+R14
+R15
+Z16 DEx4 work 8 reg_bank 0 22 l`95H^P^2NIC^kDHDkg3Y2
+l57
+L47
+Z17 VETzX4@A^<Z@iDK=dZ6@K30
+Z18 !s100 24[Yed>;6I>dV==P]Qd<Y1
+R7
+32
+!i10b 1
+R8
+R9
+R10
+R11
+R12
+Aarch
+R13
+R14
+R15
+R16
+l58
+L49
+V4UIRO>0=IWS4YJ@^PJVF60
+R7
+32
+R11
+R12
+FX:/projects/cis2/exp02/rb_1m/reg_bank_simplificado_1.vhd
+w1521220464
+8X:/projects/cis2/exp02/rb_1m/reg_bank_simplificado_1.vhd
+!s108 1521228326.453000
+!s90 -reportprogress|300|-work|work|X:/projects/cis2/exp02/rb_1m/reg_bank_simplificado_1.vhd|
+!s107 X:/projects/cis2/exp02/rb_1m/reg_bank_simplificado_1.vhd|
+!s100 GCK?SLMBMGfJzF37V]7bl0
+!i10b 1
+Aprocess_case
+R13
+R14
+R15
+R16
+l56
+L46
+Vd846Y7NKk4[CG;ARL:cZ70
+R7
+32
+R11
+R12
+FX:/projects/cis2/exp02/rb_2m/reg_bank_simplificado_2.vhd
+8X:/projects/cis2/exp02/rb_2m/reg_bank_simplificado_2.vhd
+w1521220016
+!s100 ^C^EYH3h2[g2K:R8[ZY1V3
+!s108 1521227788.263000
+!s90 -reportprogress|300|-work|work|X:/projects/cis2/exp02/rb_2m/reg_bank_simplificado_2.vhd|
+!s107 X:/projects/cis2/exp02/rb_2m/reg_bank_simplificado_2.vhd|
+!i10b 1

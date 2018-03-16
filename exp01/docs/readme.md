@@ -1,4 +1,5 @@
 # PSI-3451 Projeto de CI Lógicos Integrados
+# Experimento 1
 
 Sejam bem-vindos ao laboratório do PSI. Esta primeira prática de VHDL pretende familiarizar o aluno com o software para simulação ModelSim. Através dele serão testadas diversas características da linguagem tais como tipos, entidades, processos e alguns comandos.
 

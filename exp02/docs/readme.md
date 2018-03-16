@@ -1,4 +1,5 @@
 # PSI-3451 Projeto de CI Lógicos Integrados
+# Luiz Sol - 8586861
 # Experimento 2
 
 Esta segunda prática de VHDL pretende colocar o aluno em contato com mais algumas estruturas sintáticas da linguagem. As mesmas recomendações dadas na apostila da aula 2 permanecem e solicitamos que todos revisitem a parte inicial daquele texto. Tenha certeza que sabe responder as perguntas listadas abaixo após a observação dos arquivos ou dos resultados de simulações.

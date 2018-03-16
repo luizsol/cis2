@@ -17,7 +17,7 @@ package my_package is
 					REG2_OUT,
 					FIFO_OUT
 					);
-					
+
 end package;
 
 
@@ -29,22 +29,18 @@ use work.my_package.all;
 
 
 
-entity reg_bank is 
-  
- 
-					
+entity reg_bank is
 	generic
 	(
 	WIDTH		: NATURAL	:= 8
 	);
-
 
 	port
 	(
 	out_sel		: in RB_SEL;
 	alu_out		: out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
 	);
-	
+
 
 end reg_bank;
 
@@ -61,15 +57,15 @@ signal fifo_out_s	: STD_LOGIC_VECTOR(WIDTH-1 downto 0)	:= "01010101";
 
 begin
 
-						
+
 	--*******************************
 	--*	SIGNAL ASSIGNMENTS			*
 	--*******************************
-	
+
 	alu_out	<= 	head_out_s	when (out_sel = HEAD_OUT) else
 				reg2_out_s	when (out_sel = REG2_OUT) else
 				fifo_out_s	when (out_sel = FIFO_OUT) else
 				(others => 'X');
-	
+
 
 end arch;

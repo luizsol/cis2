@@ -194,3 +194,23 @@ Guarde os resultados do *Wave* para comparação na seção seguinte.
 > Resposta:
 > `reg_bank_simplificado_1`:
 > ![Resultado da simulação de `reg_bank_simplificado_1`](img/rb_1_wave.bmp)
+> A entrada do componente é um ENUM, ou seja, os valores de entrada estão restritos a um conjunto finito de possibilidades definidos no código:
+```VHDL
+-- Criando o conjunto de valores possíveis para o select:
+package my_package is
+     type RB_SEL is (
+                    HEAD_OUT,
+                    REG2_OUT,
+                    FIFO_OUT
+                    );
+
+end package;
+...
+    port
+    (
+    out_sel     : in RB_SEL; -- A entrada do select só pode ser um dos valores acima
+    alu_out     : out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
+    );
+...
+```
+> E na simulação podemos ver que cada um desses valores de enum leva uma entrada (definida dentro do componente) à saída do multiplexador.

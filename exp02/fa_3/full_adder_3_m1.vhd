@@ -12,7 +12,7 @@ ARCHITECTURE behaviour OF full_adder IS
     SIGNAL aux_xor, aux_and_1, aux_and_2, aux_and_3 : STD_LOGIC;
 
     BEGIN
-        PROCESS(a_in, b_in, c_in, aux_xor, aux_and_1, aux_and_2, aux_and_3)
+        PROCESS(a_in, b_in, c_in, aux_and_2, aux_and_3)
             BEGIN
                 aux_xor <= a_in XOR b_in AFTER 4 ns;
                 aux_and_1 <= a_in AND b_in AFTER 2 ns;

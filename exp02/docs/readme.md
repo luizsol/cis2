@@ -43,8 +43,71 @@ X:\psi3451\aula_3\ rb_3 (reg_bank_simplificado_3.vhd)
 
 **Pergunta**: como é o novo comportamento do circuito comparado aos `fa_1` e `fa_2` da Aula 2 (anterior)? Há equivalência entre os modelos?
 
-> Resposta: o comportamento é idêntico ao do circuito `fa_2` tanto em resultado como em atrasos:
+> Resposta: o comportamento é idêntico ao do circuito `fa_1` tanto em resultado como em atrasos:
+>
 > fa_3:
 > ![Resultado da simulação de fa_3](img/fa_3_wave.bmp)
-> fa_2:
+> fa_1:
+> ![Resultado da simulação de fa_3](img/img1.png)
+>
+> Já o `fa_2` possui tempos de atrasos muito maiores que o `fa_3`, ainda que o mesmo resultado:
 > ![Resultado da simulação de fa_3](img/img3.png)
+
+### 2) Captura e simulação do somador completo `full_adder_3` no modelo comportamental, com lista de sensibilidade alterada
+
+* Faça uma cópia do arquivo `full_adder_3.vhd` e salve este novo arquivo com o nome `full_adder_3_m1.vhd` (para lista de sensibilidade alterada) na pasta `X:\psi3451\aula_3\fa_3_m1`.
+* Em seguida modifique o arquivo (com o programa *NotePad++*) ***removendo os sinais `aux_xor` e `aux_and_1` da lista de sensibilidade**. Conceito VHDL deste modelo: lista de sensibilidade.
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+***Recomendação***: Realize uma simulação com a mesma sequência de estímulos adotada na Seção 1.
+
+**Pergunta**: como é o novo comportamento do circuito comparado o observado na seção anterior? Como a lista de sensibilidade afeta a atualização/propagação de sinais? O que você esperaria caso as menções aos atrasos (`AFTER`) fossem retiradas?
+
+> Resposta: o comportamento observado do novo `full_adder` foi diferente do esperado, como é possível ver na seguinte imagem:
+>
+> `full_adder_3_m1`:
+> ![Resultado da simulação de `full_adder_3_m1`](img/fa_3_m1_wave.bmp)
+>
+> A imagem mostra que a saída ficou em um estado indeterminado durante toda a simulação.
+> Isso se deveu devido à forma com que simulador de VHDL realiza as simulações.
+> O simulador irá realizar as operações descritas dentro do `PROCESS` sempre que um dos valores dos sinais contidos na lista de sensibilidade for alterado:
+```VHDL
+...
+        PROCESS(a_in, b_in, c_in, aux_and_2, aux_and_3)  -- lista de sensibilidade
+            BEGIN  -- Esse bloco do código só será executado se o valor dos sinais listados acima for alterado
+                aux_xor <= a_in XOR b_in AFTER 4 ns;
+                aux_and_1 <= a_in AND b_in AFTER 2 ns;
+                aux_and_2 <= a_in AND c_in AFTER 2 ns;
+                aux_and_3 <= b_in AND c_in AFTER 2 ns;
+                c_out <= aux_and_1 OR aux_and_2 OR aux_and_3 AFTER 4 ns;
+                z_out <= aux_xor XOR c_in AFTER 4 ns;
+            END PROCESS;
+...
+```
+> Como no código do `full_adder_3_m1` nós tiramos alguns sinais cruciais ao correto comportamento do somador este acabou se comportando de maneira aberrante.
+>
+> Removendo as declarações de atraso do `full_adder_3_m1`, temos o seguinte comportamento:
+>
+> `full_adder_3_m2`:
+> ![Resultado da simulação de `full_adder_3_m2`](img/fa_3_m2_wave.bmp)
+> Aqui observamos que o `full_adder` se comportou como desejado depois de removermos os atrasos nas propagações de sinais.
+> A diferença desse para o caso anterior é que com os atrasos o valor de `z_out` foi lido como indefinido no primeiro instante da simulação e a partir daí nunca mais foi atualizado (uma vez que os sinais que o determinam não faziam parte da lista de sensibilidade). Já nesse caso, no momento da leitura do valor de `z_out` como não existem atrasos de propagação os valores que o determinam já haviam sido calculados e, portanto, esse acabou sendo determinado corretamente.
+
+### 3) Captura e simulação do somador completo full_adder_3 no modelo comportamental, com alteração na ordem das designações
+
+* Faça uma cópia do arquivo `full_adder_3.vhd` e salve este novo arquivo com o nome `full_adder_3_m2.vhd` (para posição de linhas alterada) na pasta `X:\psi3451\aula_3\fa_3_m2`.
+* Em seguida modifique o arquivo (com o programa *WordPad*) trocando a a posição da designação de `c_out` para logo após a designação de `aux_xor`. Conceito VHDL deste modelo: efeito do tempo de atraso não nulo de sinal em execução sequencial (de processo).
+* Repita o procedimento de captura, compilação e simulação conforme descrito no item 1 acima.
+
+
+***Recomendação***: Realize uma simulação com a mesma sequência de estímulos adotada na Seção 1.
+
+**Pergunta**: como é o novo comportamento do circuito comparado o observado na seção 1? Por que?
+
+> Resposta: o comportamento observado do novo `full_adder` foi exatamente o mesmo do original.
+>
+> `full_adder_3_m2` (novo):
+> ![Resultado da simulação de `full_adder_3_m1`](img/fa_3_m1_2_wave.bmp)
+>
+> fa_3 (original):
+> ![Resultado da simulação de fa_3](img/fa_3_wave.bmp)

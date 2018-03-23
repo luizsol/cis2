@@ -22,29 +22,29 @@ Z7 FX:/projects/cis2/exp03/ng_1/num_gen_1.vhd
 l0
 L18
 VS=Ik1=Z_WhKZXX_]<0ABV1
-!s100 ?_CGf?H^NBiHAgSf>6SKf3
 Z8 OL;C;10.1d;51
 32
-!i10b 1
 Z9 !s108 1521822973.460000
 Z10 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp03/ng_1/num_gen_1.vhd|
 Z11 !s107 X:/projects/cis2/exp03/ng_1/num_gen_1.vhd|
 Z12 o-work work
 Z13 tExplicit 1
+!s100 ?_CGf?H^NBiHAgSf>6SKf3
+!i10b 1
 Aarch
 R3
 R4
 R5
-Z14 DEx4 work 14 num_gen_direct 0 22 S=Ik1=Z_WhKZXX_]<0ABV1
+DEx4 work 14 num_gen_direct 0 22 S=Ik1=Z_WhKZXX_]<0ABV1
 l43
 L34
-Z15 Vn`ziLDJz4>X^Am]h_OhH[0
-Z16 !s100 JMmeXhNS]`zfF8TT0FeU>1
+Vn`ziLDJz4>X^Am]h_OhH[0
 R8
 32
-!i10b 1
 R9
 R10
 R11
 R12
 R13
+!s100 JMmeXhNS]`zfF8TT0FeU>1
+!i10b 1

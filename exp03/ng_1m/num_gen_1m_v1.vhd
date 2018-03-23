@@ -1,5 +1,5 @@
 LIBRARY IEEE;
-USE IEEE.std_logic_1164.all;
+-- USE IEEE.std_logic_1164.all; Comentário solicitado no exercício
 USE IEEE.numeric_std.all;
 
 

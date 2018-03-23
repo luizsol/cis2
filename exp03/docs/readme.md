@@ -172,14 +172,17 @@ run [expr {8 * $meio_periodo}]
 ```vhdl
 {rand_num_direct <= (to_unsigned (YOUR_NUMBER_DECIMAL, number'length));}
 ```
+
 por
 ```vhdl
 { rand_num_direct <= YOUR_NUMBER_DECIMAL;}.
 ```
+
     * **SUBSTITUIR** a linha
 ```vhdl
 {rand_num_direct <= (to_unsigned (YOUR_NUMBER_DECIMAL, number'length));}
 ```
+
 por
 ```vhdl
 { rand_num_direct <= "YOUR_NUMBER_BINARY ";}
@@ -188,6 +191,7 @@ por
 ```vhdl
 {std_logic_vector (rand_num_direct)}
 ```
+
 por
 ```vhdl
 { rand_num_direct}

@@ -156,3 +156,39 @@ run [expr {8 * $meio_periodo}]
 > ![Resultado da primeira simulação](img/ng_1_wave01.bmp)
 >
 > Conclusão: o resultado foi o esperado
+
+
+## 2) Captura, compilação e simulação do circuito `num_gen_direct` no modelo *dataflow*, com alterações de sintaxe
+
+1. Faça uma cópia do arquivo `num_gen_1.vhd` e salve-o com o nome `num_gen_1m.vhd` na pasta `X:\psi3451\aula_3\ng_1m`.
+2. Em seguida modifique o arquivo (com o programa Notepad++), COMENTANDO a linha onde se declara o uso do pacote `std_logic_1164`.
+3. Faça o procedimento de captura, compilação e simulação.
+
+**Perguntas**: O que ocorreu na compilação? Houve erro? Se positivo, qual foi o erro apontado pelo compilador? Por que?
+
+4. Partindo novamente do arquivo `num_gen_1.vhd` (ATENÇÃO: antes de ser modificado) repita os itens *i*, *ii* e *iii* fazendo as modificações listadas a seguir (uma de cada vez) e responda sempre a mesma pergunta acima.
+    * **COMENTAR** a linha onde se declara o pacote `numeric_std`
+    * **SUBSTITUIR** a linha
+```vhdl
+{rand_num_direct <= (to_unsigned (YOUR_NUMBER_DECIMAL, number'length));}
+```
+por
+```vhdl
+{ rand_num_direct <= YOUR_NUMBER_DECIMAL;}.
+```
+    * **SUBSTITUIR** a linha
+```vhdl
+{rand_num_direct <= (to_unsigned (YOUR_NUMBER_DECIMAL, number'length));}
+```
+por
+```vhdl
+{ rand_num_direct <= "YOUR_NUMBER_BINARY ";}
+```
+    * Na linha de comando de atribuição de `one_gen_s` **SUBSTITUIR**
+```vhdl
+{std_logic_vector (rand_num_direct)}
+```
+por
+```vhdl
+{ rand_num_direct}
+```

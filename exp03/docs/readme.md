@@ -502,3 +502,12 @@ Como características principais, as funções:
     * a declaração de atraso inercial
 3. Complete ao arquivo `num_gen_2.vhd` com os dados solicitados para a função (baseados no seu número USP)
 4. Faça o procedimento de captura, compilação e simulação
+
+Recomendação: realize a simulação para verificar:
+
+    * o funcionamento do circuito de acordo com a tabela da apostila de conceitos
+    * Guarde os resultados do Wave para comparação na seção seguinte.
+
+**Perguntas**: seguindo as recomendações, a simulação mostrou o comportamento esperado do circuito como descrito na apostila de conceitos? O tempo de atraso especificado foi observado na simulação?
+
+> Terminar...

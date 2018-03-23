@@ -1,0 +1,50 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp03\ng_2
+T_opt
+V8akcj?5m2_]7d=kEYY7kB0
+04 21 4 work num_gen_with_function arch 1
+=1-782bcbbffd2c-5ab54ce2-20f-2494
+o-quiet -auto_acc_if_foreign -work work +acc
+n@_opt
+OL;O;10.1d;51
+Z1 dX:\projects\cis2\exp03\ng_2
+Enum_gen_with_function
+Z2 w1521831125
+Z3 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z4 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z5 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+R1
+Z6 8X:/projects/cis2/exp03/ng_2/num_gen_2.vhd
+Z7 FX:/projects/cis2/exp03/ng_2/num_gen_2.vhd
+l0
+L6
+VYLR>8gQDbMoJ?U1Y3MmhJ2
+!s100 XZ`M9N9K1EQ]KEAUkZdCU3
+Z8 OL;C;10.1d;51
+32
+!i10b 1
+Z9 !s108 1521833985.350000
+Z10 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp03/ng_2/num_gen_2.vhd|
+Z11 !s107 X:/projects/cis2/exp03/ng_2/num_gen_2.vhd|
+Z12 o-work work
+Z13 tExplicit 1
+Aarch
+R3
+R4
+R5
+Z14 DEx4 work 21 num_gen_with_function 0 22 YLR>8gQDbMoJ?U1Y3MmhJ2
+l46
+L22
+Z15 Vfe7Yf4CH9;iDUTG@M=:9I3
+Z16 !s100 ZP^CeKB^J]9YnbV618>`S2
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13

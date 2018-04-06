@@ -1,0 +1,124 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp04\comb
+T_opt
+V<cE<FoV>;>kF`UVPjaACR3
+04 31 4 work tb_num_gen_direct_combinatorial test 1
+=1-782bcbbffd2c-5ac7916d-2e0-18e0
+o-quiet -auto_acc_if_foreign -work work +acc
+n@_opt
+OL;O;10.1d;51
+Z1 dX:\projects\cis2\exp04\comb
+Enum_gen_direct
+Z2 w1521826989
+Z3 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z4 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z5 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+R1
+Z6 8X:/projects/cis2/exp04/comb/num_gen_1.vhd
+Z7 FX:/projects/cis2/exp04/comb/num_gen_1.vhd
+l0
+L6
+VS=Ik1=Z_WhKZXX_]<0ABV1
+Z8 OL;C;10.1d;51
+32
+Z9 !s108 1523028573.186000
+Z10 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/num_gen_1.vhd|
+Z11 !s107 X:/projects/cis2/exp04/comb/num_gen_1.vhd|
+Z12 o-work work
+Z13 tExplicit 1
+!s100 ^a=4XBnWH>@jZhHD^^<ml2
+!i10b 1
+Aarch
+R3
+R4
+R5
+DEx4 work 14 num_gen_direct 0 22 S=Ik1=Z_WhKZXX_]<0ABV1
+l31
+L22
+Vn`ziLDJz4>X^Am]h_OhH[0
+R8
+32
+R9
+R10
+R11
+R12
+R13
+!s100 FiDb49ohZXY=daom@l_[71
+!i10b 1
+Estimuli_module
+Z14 w1522880868
+R3
+R4
+R5
+R1
+Z15 8X:/projects/cis2/exp04/comb/stimuli_comb.vhd
+Z16 FX:/projects/cis2/exp04/comb/stimuli_comb.vhd
+l0
+L5
+Vl:eNhhA5?>lc7ThE``;k30
+R8
+32
+Z17 !s108 1523028573.378000
+Z18 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/stimuli_comb.vhd|
+Z19 !s107 X:/projects/cis2/exp04/comb/stimuli_comb.vhd|
+R12
+R13
+!s100 ^72RI[c9czHo=DUegXNQz0
+!i10b 1
+Atest
+R3
+R4
+R5
+DEx4 work 14 stimuli_module 0 22 l:eNhhA5?>lc7ThE``;k30
+l30
+L21
+V`AFf@bN?[BhLPMD12eiUA2
+!s100 e`Fh?Jk1Hb5PeE?YTXV@j0
+R8
+32
+R17
+R18
+R19
+R12
+R13
+!i10b 1
+Etb_num_gen_direct_combinatorial
+Z20 w1523028034
+R3
+R4
+R5
+R1
+Z21 8X:/projects/cis2/exp04/comb/testbench_comb.vhd
+Z22 FX:/projects/cis2/exp04/comb/testbench_comb.vhd
+l0
+L5
+VOimg1EmI@JUOh]c>?^lL43
+!s100 O?O2gD@l44Ze20NRd^^Q[3
+R8
+32
+!i10b 1
+Z23 !s108 1523028573.562000
+Z24 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/testbench_comb.vhd|
+Z25 !s107 X:/projects/cis2/exp04/comb/testbench_comb.vhd|
+R12
+R13
+Atest
+R3
+R4
+R5
+Z26 DEx4 work 31 tb_num_gen_direct_combinatorial 0 22 Oimg1EmI@JUOh]c>?^lL43
+l47
+L11
+Z27 VjCzR;`P6onH>2G70b`PYF2
+Z28 !s100 fodkj7Ez7WSc98m[0i;;E0
+R8
+32
+!i10b 1
+R23
+R24
+R25
+R12
+R13

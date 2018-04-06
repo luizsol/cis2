@@ -4,9 +4,9 @@ K3
 cModel Technology
 Z0 dX:\projects\cis2\exp04\seq_2
 T_opt
-VTXhT13f9N4PER82zTL5Y^3
+V5Wf;cXa@2P>`;SN`jN]=41
 04 17 4 work tb_fsm_main_seq_2 test 1
-=1-782bcbbffd2c-5ac7a5ae-49-1d8c
+=1-782bcbbffd2c-5ac7b5cd-370-1b5c
 o-quiet -auto_acc_if_foreign -work work +acc
 n@_opt
 OL;O;10.1d;51
@@ -22,7 +22,7 @@ L4
 V3P3mhojPLDXS_RGP:fFDN0
 Z7 OL;C;10.1d;51
 32
-Z8 !s108 1523033517.238000
+Z8 !s108 1523037645.163000
 Z9 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/seq_2/clock_generator.vhd|
 Z10 !s107 X:/projects/cis2/exp04/seq_2/clock_generator.vhd|
 Z11 o-work work
@@ -46,7 +46,7 @@ R12
 !s100 SToQ2c^?6KcNA1jh`6Gi92
 !i10b 1
 Efsm_main
-Z13 w1523033425
+Z13 w1523033717
 Z14 DPx4 work 10 my_package 0 22 3lT]Wf_]=I=QhW7=UJP3F0
 Z15 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
 Z16 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
@@ -60,7 +60,7 @@ L40
 V<anmGNTR]M1WjS7YDCL?M2
 R7
 32
-Z19 !s108 1523033516.976000
+Z19 !s108 1523037644.921000
 Z20 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/seq_2/fsm_main_2.vhd|
 Z21 !s107 X:/projects/cis2/exp04/seq_2/fsm_main_2.vhd|
 R11
@@ -84,7 +84,7 @@ R20
 R21
 R11
 R12
-!s100 AEIj6`nHe=_[B;6[<:_:c1
+!s100 L2NkmLX:32H1fZghI[PN43
 !i10b 1
 Pmy_package
 R13
@@ -104,7 +104,7 @@ R12
 !s100 PLISTRZl4L`59Qo6@KU9]1
 !i10b 1
 Estimuli_seq_2
-Z22 w1523032435
+Z22 w1523037636
 Z23 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 R2
 R3
@@ -116,7 +116,7 @@ L5
 Vb:5^@3`@kV1_PjW1U`lVo1
 R7
 32
-Z26 !s108 1523033517.407000
+Z26 !s108 1523037645.334000
 Z27 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/seq_2/stimuli_seq_2.vhd|
 Z28 !s107 X:/projects/cis2/exp04/seq_2/stimuli_seq_2.vhd|
 R11
@@ -130,7 +130,7 @@ R3
 DEx4 work 13 stimuli_seq_2 0 22 b:5^@3`@kV1_PjW1U`lVo1
 l43
 L29
-V0>]DSBfMbnQM;9N?m?>l93
+VOkNK1Mij4V7cWDmPeRJB?0
 R7
 32
 R26
@@ -138,7 +138,7 @@ R27
 R28
 R11
 R12
-!s100 E[lWg<Od^<zbMYM=SkU7>0
+!s100 RC1YSEEbG97Do7SNT7]=G2
 !i10b 1
 Etb_fsm_main_seq_2
 Z29 w1523032576
@@ -154,7 +154,7 @@ L6
 V;YXikc4?1Y[UHdZ[zSe<e3
 R7
 32
-Z32 !s108 1523033517.582000
+Z32 !s108 1523037645.534000
 Z33 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/seq_2/testbench_seq_2.vhd|
 Z34 !s107 X:/projects/cis2/exp04/seq_2/testbench_seq_2.vhd|
 R11
@@ -170,7 +170,6 @@ DEx4 work 17 tb_fsm_main_seq_2 0 22 ;YXikc4?1Y[UHdZ[zSe<e3
 l59
 L12
 VfRmF2?nmW_VDH5W?67z4g0
-!s100 2HL2IKTO6ESQMSH4GEWd_1
 R7
 32
 R32
@@ -178,4 +177,5 @@ R33
 R34
 R11
 R12
+!s100 2HL2IKTO6ESQMSH4GEWd_1
 !i10b 1

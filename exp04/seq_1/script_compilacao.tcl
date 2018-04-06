@@ -31,4 +31,6 @@ vsim -gui -voptargs=+acc work.$componente4
 view wave
 # Configurando os sinais a serem apresentados
 add wave -position insertpoint sim:/$componente4/*
+add wave -position insertpoint sim:/$componente4/dut/STATE
+add wave -position insertpoint sim:/$componente4/dut/NEXT_STATE
 run $duration ns

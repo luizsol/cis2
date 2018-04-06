@@ -235,6 +235,8 @@ vsim -gui -voptargs=+acc work.$componente4
 view wave
 # Configurando os sinais a serem apresentados
 add wave -position insertpoint sim:/$componente4/*
+add wave -position insertpoint sim:/$componente4/dut/STATE
+add wave -position insertpoint sim:/$componente4/dut/NEXT_STATE
 run $duration ns
 ```
 
@@ -305,6 +307,8 @@ vsim -gui -voptargs=+acc work.$componente4
 view wave
 # Configurando os sinais a serem apresentados
 add wave -position insertpoint sim:/$componente4/*
+add wave -position insertpoint sim:/$componente4/dut/STATE
+add wave -position insertpoint sim:/$componente4/dut/NEXT_STATE
 run $duration ns
 ```
 
@@ -490,3 +494,7 @@ end process;
 
 end arch;
 ```
+
+## 4) Modificação de Testbench para `fsm_main`
+
+***Perguntas***: Conseguiu verificar a passagem pelo novo estado IDLE e as suas transições? Seguindo as recomendações, a simulação mostrou o comportamento esperado do testbench como descrito na apostila de conceitos?

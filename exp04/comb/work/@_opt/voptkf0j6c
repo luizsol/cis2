@@ -4,9 +4,9 @@ K3
 cModel Technology
 Z0 dX:\projects\cis2\exp04\comb
 T_opt
-V<cE<FoV>;>kF`UVPjaACR3
+VYbV:O5EERGB>J6gWjV7@b3
 04 31 4 work tb_num_gen_direct_combinatorial test 1
-=1-782bcbbffd2c-5ac7916d-2e0-18e0
+=1-782bcbbffd2c-5ac795e2-347-217c
 o-quiet -auto_acc_if_foreign -work work +acc
 n@_opt
 OL;O;10.1d;51
@@ -23,7 +23,7 @@ L6
 VS=Ik1=Z_WhKZXX_]<0ABV1
 Z8 OL;C;10.1d;51
 32
-Z9 !s108 1523028332.937000
+Z9 !s108 1523029474.102000
 Z10 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/num_gen_1.vhd|
 Z11 !s107 X:/projects/cis2/exp04/comb/num_gen_1.vhd|
 Z12 o-work work
@@ -48,7 +48,7 @@ R13
 !s100 FiDb49ohZXY=daom@l_[71
 !i10b 1
 Estimuli_module
-Z14 w1522880868
+Z14 w1523029441
 R2
 R3
 R4
@@ -60,7 +60,7 @@ L5
 Vl:eNhhA5?>lc7ThE``;k30
 R8
 32
-Z17 !s108 1523028333.137000
+Z17 !s108 1523029474.293000
 Z18 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/stimuli_comb.vhd|
 Z19 !s107 X:/projects/cis2/exp04/comb/stimuli_comb.vhd|
 R12
@@ -74,7 +74,7 @@ R4
 DEx4 work 14 stimuli_module 0 22 l:eNhhA5?>lc7ThE``;k30
 l30
 L21
-V`AFf@bN?[BhLPMD12eiUA2
+Ve5ZNQFBm@h?d9>d`YLEnP3
 R8
 32
 R17
@@ -82,7 +82,7 @@ R18
 R19
 R12
 R13
-!s100 e`Fh?Jk1Hb5PeE?YTXV@j0
+!s100 LGY4noZQO73GS]nBl>77Q3
 !i10b 1
 Etb_num_gen_direct_combinatorial
 Z20 w1523028034
@@ -97,7 +97,7 @@ L5
 VOimg1EmI@JUOh]c>?^lL43
 R8
 32
-Z23 !s108 1523028333.320000
+Z23 !s108 1523029474.495000
 Z24 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp04/comb/testbench_comb.vhd|
 Z25 !s107 X:/projects/cis2/exp04/comb/testbench_comb.vhd|
 R12

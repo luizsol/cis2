@@ -8,7 +8,7 @@ set arquivo3 "testbench_comb.vhd"
 set componente1 "num_gen_direct"
 set componente2 "stimuli_module"
 set componente3 "tb_num_gen_direct_combinatorial"
-set duration [expr {2 * 100}]
+set duration [expr {8 * 100}]
 # Definindo o diretório do projeto
 cd $diretorio
 # Criando as libraries do projeto
@@ -22,7 +22,5 @@ vcom -reportprogress 300 -work work $diretorio/$arquivo3
 vsim -gui -voptargs=+acc work.$componente3
 view wave
 # Configurando os sinais a serem apresentados
-add wave -position insertpoint sim:/$componente1/*
-add wave -position insertpoint sim:/$componente2/*
 add wave -position insertpoint sim:/$componente3/*
 run $duration ns

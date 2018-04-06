@@ -7,7 +7,7 @@ entity stimuli_module is
 	(
 	WIDTH	: natural := 6
 	);
-	
+
 	port
 	(
 	pos_neg			: out STD_LOGIC;
@@ -51,7 +51,13 @@ begin
 
 -- test vectors application
 
+check_num_gen(0, 0, '0');
+check_num_gen(0, 1, '0');
 check_num_gen(1, 0, '0');
+check_num_gen(1, 1, '0');
+check_num_gen(0, 0, '1');
+check_num_gen(0, 1, '1');
+check_num_gen(1, 0, '1');
 check_num_gen(1, 1, '1');
 
 wait;

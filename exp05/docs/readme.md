@@ -31,21 +31,13 @@ rca_2
 |-- testbench_rc_adder.vhd
 ```
 
-`testbench_rc_adder.vhd`:
+`stimuli_rc_adder.vhd`:
 ```vhdl
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity tb_rc_adder is
-
-GENERIC (WIDTH: natural :=8);
-
-end tb_rc_adder;
-
-architecture test of tb_rc_adder is
-
-component stimuli_module
+entity stimuli_module is
   generic
   (
   WIDTH: natural := 32
@@ -54,47 +46,54 @@ component stimuli_module
   port
   (
   a_i, b_i: out STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  c_i:      out STD_LOGIC
+  c_i:out STD_LOGIC
   );
-end component ;
+end stimuli_module ;
 
-component rc_adder_2
-  generic
-  (
-  WIDTH : integer := 32
-  );
+architecture test of stimuli_module  is
+-- "Time" that will elapse between test vectors we submit to the component.
+constant TIME_DELTA : time := 40 ns;      -- choose any value
 
-  port
-  (
-  a_i, b_i: in STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  c_i:      in STD_LOGIC;
-  z_o :     out STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  c_o:      out STD_LOGIC
-  );
-end component ;
-
-  signal a_i_s, b_i_s, z_o_s : STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  signal c_i_s, c_o_s : STD_LOGIC;
 
 begin
 
--- Instantiate DUT
-  dut : rc_adder_2
-    generic map(WIDTH => WIDTH)
-    port map(a_i => a_i_s,
-        b_i => b_i_s,
-        c_i => c_i_s,
-        z_o => z_o_s,
-        c_o => c_o_s);
+simulation : process
 
--- Instantiate test module
-  test : stimuli_module
-    generic map(WIDTH => WIDTH)
-    port map(a_i => a_i_s,
-        b_i => b_i_s,
-        c_i => c_i_s);
+-- procedure for vector generation
+
+procedure assign_input_words(constant a, b: in integer) is
+begin
+-- Assign values to estimuli_module´s outputs.
+a_i <= std_logic_vector(to_unsigned(a,WIDTH));
+b_i <= std_logic_vector(to_unsigned(b,WIDTH));
+
+wait for TIME_DELTA;
+end procedure assign_input_words;
 
 
+procedure assign_carry_in (constant a: in STD_LOGIC) is
+begin
+-- Assign values to estimuli_module´s outputs.
+c_i <= a;
+
+-- wait for TIME_DELTA;
+end procedure assign_carry_in;
+
+begin
+
+-- test vectors application
+
+assign_carry_in('0');
+assign_input_words(50, 40);
+
+assign_carry_in('0');
+assign_input_words(150, 150);
+
+assign_carry_in('1');
+assign_input_words(255, 255);
+
+wait;
+end process simulation;
 end architecture test;
 ```
 

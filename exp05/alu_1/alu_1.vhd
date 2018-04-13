@@ -1,42 +1,27 @@
---***************************************************************
---*                                *
---*  Title  :                          *
---*  Design  :                          *
---*  Author  :                          *
---*  Email  :                          *
---*                                *
---***************************************************************
---*                                *
---*  Description :                        *
---*                                *
---***************************************************************
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
 
-
 entity alu is
   generic
   (
-  WIDTH    : NATURAL  := 8
+    WIDTH: NATURAL := 8
   );
 
   port
   (
-  op_first    : in STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  rb_op      : in STD_LOGIC_VECTOR(WIDTH-1 downto 0);
-  ctrl_x_y    : in STD_LOGIC;
-  ctrl_pass_calc  : in STD_LOGIC;
-  ofc_result    : out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
+    op_first:       in STD_LOGIC_VECTOR(WIDTH-1 downto 0);
+    rb_op:          in STD_LOGIC_VECTOR(WIDTH-1 downto 0);
+    ctrl_x_y:       in STD_LOGIC;
+    ctrl_pass_calc: in STD_LOGIC;
+    ofc_result:     out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
   );
+
 end alu;
 
 
-
 architecture with_RCA of alu is
-
-
 --***********************************
 --*  COMPONENT DECLARATIONS      *
 --***********************************

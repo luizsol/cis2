@@ -1,0 +1,156 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp05\rca_3
+T_opt
+V^;gL0K=h2Km__Vj0EdO0D1
+04 11 4 work tb_rc_adder test 1
+=1-782bcbbffd2c-5ad0f412-1ae-219c
+o-quiet -auto_acc_if_foreign -work work +acc
+n@_opt
+OL;O;10.1d;51
+Efull_adder_1
+Z1 w1523632649
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dX:\projects\cis2\exp05\rca_3
+Z5 8X:/projects/cis2/exp05/rca_3/full_adder_1.vhd
+Z6 FX:/projects/cis2/exp05/rca_3/full_adder_1.vhd
+l0
+L4
+VP@450UkNm[lKo;WH8h6ZC0
+Z7 OL;C;10.1d;51
+32
+Z8 !s108 1523643409.580000
+Z9 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp05/rca_3/full_adder_1.vhd|
+Z10 !s107 X:/projects/cis2/exp05/rca_3/full_adder_1.vhd|
+Z11 o-work work
+Z12 tExplicit 1
+!s100 OAPVa<>eH0g3E@g<K;cQl2
+!i10b 1
+Adataflow
+R2
+R3
+DEx4 work 12 full_adder_1 0 22 P@450UkNm[lKo;WH8h6ZC0
+l15
+L11
+VC`@`IFcO166hekZ]ehPZz1
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!s100 dZ59hCD=W=6Zok0k5MCIQ0
+!i10b 1
+Erc_adder_3
+Z13 w1523642406
+R2
+R3
+R4
+Z14 8X:/projects/cis2/exp05/rca_3/rc_adder_3.vhd
+Z15 FX:/projects/cis2/exp05/rca_3/rc_adder_3.vhd
+l0
+L4
+V5Tz7K0TCJTAF2<OAm8G`j0
+R7
+32
+Z16 !s108 1523643409.756000
+Z17 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp05/rca_3/rc_adder_3.vhd|
+Z18 !s107 X:/projects/cis2/exp05/rca_3/rc_adder_3.vhd|
+R11
+R12
+!s100 @FXRmCn>Nm]56_8MVX:PW2
+!i10b 1
+Aarch
+R2
+R3
+DEx4 work 10 rc_adder_3 0 22 5Tz7K0TCJTAF2<OAm8G`j0
+l38
+L21
+VUiDR2KE4N@N:_gH85chEz1
+R7
+32
+R16
+R17
+R18
+R11
+R12
+!s100 HKbDFb4g;GN8B1kmNgfgO0
+!i10b 1
+Estimuli_module
+Z19 w1523643402
+Z20 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+R2
+R3
+R4
+Z21 8X:/projects/cis2/exp05/rca_3/stimuli_rc_adder.vhd
+Z22 FX:/projects/cis2/exp05/rca_3/stimuli_rc_adder.vhd
+l0
+L5
+VlGa0GQ1H5OBCVN19<TkO31
+R7
+32
+Z23 !s108 1523643409.936000
+Z24 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp05/rca_3/stimuli_rc_adder.vhd|
+Z25 !s107 X:/projects/cis2/exp05/rca_3/stimuli_rc_adder.vhd|
+R11
+R12
+!s100 Y=kJG>c`d06<_@zF]NSM82
+!i10b 1
+Atest
+R20
+R2
+R3
+DEx4 work 14 stimuli_module 0 22 lGa0GQ1H5OBCVN19<TkO31
+l23
+L19
+V[5e9a?zVAH`Xo6hb>34nU0
+R7
+32
+R23
+R24
+R25
+R11
+R12
+!s100 eP5IVFlLL=H=4^MdIeBJH3
+!i10b 1
+Etb_rc_adder
+Z26 w1523642938
+R20
+R2
+R3
+R4
+Z27 8X:/projects/cis2/exp05/rca_3/testbench_rc_adder.vhd
+Z28 FX:/projects/cis2/exp05/rca_3/testbench_rc_adder.vhd
+l0
+L5
+VH3XB58X1=30U2U;_3EbHl0
+R7
+32
+Z29 !s108 1523643410.122000
+Z30 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp05/rca_3/testbench_rc_adder.vhd|
+Z31 !s107 X:/projects/cis2/exp05/rca_3/testbench_rc_adder.vhd|
+R11
+R12
+!s100 3nC7UI]9D`N=@E5bP_4aB3
+!i10b 1
+Atest
+R20
+R2
+R3
+DEx4 work 11 tb_rc_adder 0 22 H3XB58X1=30U2U;_3EbHl0
+l46
+L11
+VY<ET2E3V7amczQj7CZ@Nj1
+R7
+32
+R29
+R30
+R31
+R11
+R12
+!s100 6n:^3:z<QF[?zolF[856:0
+!i10b 1

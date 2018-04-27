@@ -1,0 +1,49 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp06
+T_opt
+Vf`85URzkelm_?``<`R1Qb1
+04 4 2 work lfsr a1 1
+=1-782bcbbffd2c-5ae36d37-f3-22ac
+o-quiet -auto_acc_if_foreign -work work
+n@_opt
+OL;O;10.1d;51
+Elfsr
+Z1 w1524853984
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dX:\projects\cis2\exp06
+Z6 8X:/projects/cis2/exp06/lfsr.vhd
+Z7 FX:/projects/cis2/exp06/lfsr.vhd
+l0
+L31
+Vb55E[KFQ^z8:jkiPVoSc:2
+Z8 OL;C;10.1d;51
+32
+Z9 !s108 1524854061.387000
+Z10 !s90 -reportprogress|300|-work|work|X:/projects/cis2/exp06/lfsr.vhd|
+Z11 !s107 X:/projects/cis2/exp06/lfsr.vhd|
+Z12 o-work work
+Z13 tExplicit 1
+!s100 Vgo?6DH^oCniMAJjlU8Sg1
+!i10b 1
+Aa1
+R2
+R3
+R4
+DEx4 work 4 lfsr 0 22 b55E[KFQ^z8:jkiPVoSc:2
+l50
+L44
+V`;783@<f8ODPe77Dl;fMH3
+R8
+32
+R9
+R10
+R11
+R12
+R13
+!s100 _=UAO@Ie8;2^EKl>Qh<@i3
+!i10b 1

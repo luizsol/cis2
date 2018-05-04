@@ -1,0 +1,76 @@
+# Reading C:/altera/91/modelsim_ase/tcl/vsim/pref.tcl 
+# do mem_1_run_msim_rtl_vhdl.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying C:\altera\91\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:\altera\91\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vcom -93 -work work {X:/projects/cis2/exp07/mem_1/mem_1.vhd}
+# Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity mem_1
+# -- Compiling architecture syn of mem_1
+# 
+# vcom -93 -work work {X:/projects/cis2/exp07/mem_1/mem_1.vhd}
+# Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity mem_1
+# -- Compiling architecture syn of mem_1
+# vcom -93 -work work {X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd}
+# Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Loading package numeric_std
+# -- Compiling entity stimuli_module
+# -- Compiling architecture test of stimuli_module
+# vcom -93 -work work {X:/projects/cis2/exp07/mem_1/testbench_mem_1.vhd}
+# Model Technology ModelSim ALTERA vcom 6.5b Compiler 2009.10 Oct  1 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Loading package numeric_std
+# -- Compiling entity tb_mem_1
+# -- Compiling architecture test of tb_mem_1
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs="+acc" tb_mem_1
+# vsim -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs=\"+acc\" -t 1ps tb_mem_1 
+# Loading std.standard
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_mem_1(test)
+# Loading work.mem_1(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading std.textio(body)
+# Loading altera_mf.altera_common_conversion(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.altsyncram(translated)
+# Loading work.stimuli_module(test)
+# ** Failure: (vsim-3808) Incompatible modes for port "address_a".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 73
+# ** Failure: (vsim-3808) Incompatible modes for port "address_b".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 74
+# ** Failure: (vsim-3808) Incompatible modes for port "byteena_a".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 75
+# ** Failure: (vsim-3808) Incompatible modes for port "clock".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 76
+# ** Failure: (vsim-3808) Incompatible modes for port "data_a".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 77
+# ** Failure: (vsim-3808) Incompatible modes for port "data_b".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 78
+# ** Failure: (vsim-3808) Incompatible modes for port "wren_a".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 79
+# ** Failure: (vsim-3808) Incompatible modes for port "wren_b".
+#    Time: 0 ps  Iteration: 0  Instance: /tb_mem_1/test File: X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd Line: 80
+# Fatal error at X:/projects/cis2/exp07/mem_1/testbench_mem_1.vhd line 80
+#  while elaborating region: /tb_mem_1
+# Error loading design
+# Error: Error loading design 
+#        Pausing macro execution 
+# MACRO ./mem_1_run_msim_rtl_vhdl.do PAUSED at line 14

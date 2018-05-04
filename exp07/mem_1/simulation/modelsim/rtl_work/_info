@@ -1,0 +1,86 @@
+m255
+K3
+13
+cModel Technology
+Z0 dX:\projects\cis2\exp07\mem_1\simulation\modelsim
+Emem_1
+Z1 w1525461471
+Z2 DPx4 ieee 14 std_logic_1164 0 22 GH1=`jDDBJ=`LM;:Ak`kf2
+Z3 8X:/projects/cis2/exp07/mem_1/mem_1.vhd
+Z4 FX:/projects/cis2/exp07/mem_1/mem_1.vhd
+l0
+L42
+VhIY5W2EkcSOm1TV8KlMES2
+Z5 OV;C;6.5b;42
+31
+Z6 o-93 -work work -O0
+Z7 tExplicit 1
+!s100 n_Znk_RI@kej_iF^l?0g92
+Asyn
+R2
+DEx4 work 5 mem_1 0 22 hIY5W2EkcSOm1TV8KlMES2
+l106
+L59
+V6gld]WW8dPG3`7gGKl4;>3
+R5
+31
+Z8 Mx1 4 ieee 14 std_logic_1164
+R6
+R7
+!s100 M>5Nia>Q50:[oAQ7E;B?71
+Estimuli_module
+Z9 w1525462593
+Z10 DPx4 ieee 11 numeric_std 0 22 =NSdli^?T5OD8;4F<blj<3
+R2
+Z11 8X:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd
+Z12 FX:/projects/cis2/exp07/mem_1/stimuli_mem_1.vhd
+l0
+L5
+VPXK3N]Wf1U46SVTDdfkHN1
+R5
+31
+R6
+R7
+!s100 SZ>iJ]V2Zf:oenGn=BSeA0
+Atest
+R10
+R2
+DEx4 work 14 stimuli_module 0 22 PXK3N]Wf1U46SVTDdfkHN1
+l24
+L19
+V<LGV]Cd80jOS54WEIb8Rn2
+R5
+31
+Z13 Mx2 4 ieee 14 std_logic_1164
+Z14 Mx1 4 ieee 11 numeric_std
+R6
+R7
+!s100 =cili5_G0NfjL:DAzke?S0
+Etb_mem_1
+Z15 w1525462695
+R10
+R2
+Z16 8X:/projects/cis2/exp07/mem_1/testbench_mem_1.vhd
+Z17 FX:/projects/cis2/exp07/mem_1/testbench_mem_1.vhd
+l0
+L5
+VcP]cZJgk<<D:^`giW6Fn<2
+!s100 5N?hlYH@dHMSomE?ZkknK1
+R5
+31
+R6
+R7
+Atest
+R10
+R2
+DEx4 work 8 tb_mem_1 0 22 cP]cZJgk<<D:^`giW6Fn<2
+l53
+L8
+VEdl[?OIkCOA_nV8h9=;P52
+!s100 m;GM7`M9cX:<eM>XVCI;73
+R5
+31
+R13
+R14
+R6
+R7

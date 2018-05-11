@@ -1,0 +1,27 @@
+
+*******************************************************
+
+Cell: fsm_main    View: arch    Library: work
+
+*******************************************************
+
+
+ Cell       Library  References     Total Area
+
+dff         tsmc035_typ     4 x      5     19 gates
+inv01       tsmc035_typ     5 x      1      4 gates
+nand02      tsmc035_typ     7 x      1      7 gates
+nand03      tsmc035_typ     1 x      1      1 gates
+nand04      tsmc035_typ     1 x      1      1 gates
+nor02_2x    tsmc035_typ     7 x      1      7 gates
+nor03_2x    tsmc035_typ     1 x      1      1 gates
+oai21       tsmc035_typ     2 x      1      2 gates
+
+ Number of ports :                      13
+ Number of nets :                       40
+ Number of instances :                  28
+ Number of references to this view :     0
+
+Total accumulated area : 
+ Number of gates :                      43
+ Number of accumulated instances :      28

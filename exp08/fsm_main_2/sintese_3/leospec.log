@@ -1,0 +1,375 @@
+LeonardoSpectrum Level 3 - 2017a.2 (Release Production Release, compiled Jul 18 2017 at 04:17:10)
+Copyright 1990-2017 Mentor Graphics.  All rights reserved.
+Portions copyright 1991-2017 Compuware Corporation
+
+Session history will be logged to file 'C:/MGC/LeoSpec/LS2017a/demo/leospec.his'
+--
+-- Welcome to LeonardoSpectrum Level 3
+-- Run By g8586861@D4-S10
+-- Run Started On Fri May 11 13:16:06 Horário brasileiro de verão 2018
+--
+Reading library file `C:\MGC\LeoSpec\LS2017a\\lib\tsmc035_typ.syn`...
+Library version = 3.0 Release : Patch (a) : 09/13/04
+Delays assume: Process=typical Temp= 27.0 C  Voltage=3.30 V  
+Info: setting encoding to auto
+Info, Working Directory is now 'X:/projects/cis2/exp08/fsm_main_2'
+Info, History file moved to new working directory
+Info, Log file moved to new working directory
+-- Reading file C:\MGC\LeoSpec\LS2017a\\data\standard.vhd for unit standard
+-- Loading package standard into library std
+-- Reading vhdl file X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 22: Info, Enumerated type CONTROL_SELECT with 3 elements encoded as binary.
+Encodings for CONTROL_SELECT values
+        value    CONTROL_SELECT[1-0]
+====================================
+       INIT_CON  00
+       FOOD_CON  -1
+       STEP_CON  10
+
+-- Loading package my_package into library work
+-- Reading file C:\MGC\LeoSpec\LS2017a\\data\std_1164.vhd for unit std_logic_1164
+-- Loading package std_logic_1164 into library IEEE
+-- Searching for SYNOPSYS package std_logic_arith..
+-- Reading file C:\MGC\LeoSpec\LS2017a\\data\syn_arit.vhd for unit std_logic_arith
+-- Loading package std_logic_arith into library IEEE
+-- Searching for SYNOPSYS package std_logic_unsigned..
+-- Reading file C:\MGC\LeoSpec\LS2017a\\data\syn_unsi.vhd for unit std_logic_unsigned
+-- Loading package STD_LOGIC_UNSIGNED into library IEEE
+-- Loading entity fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 62: Info, Enumerated type STATE_TYPE_MAIN with 5 elements encoded as onehot.
+Encodings for STATE_TYPE_MAIN values
+        value    STATE_TYPE_MAIN[4-0]
+=====================================
+ INIT_ATIVATION  ----1
+FOOD_ACTIVATION  ---1-
+           IDLE  --1--
+STEP_ACTIVATION  -1---
+      GAME_OVER  1----
+
+-- Loading architecture arch of fsm_main into library work
+-- Compiling root entity fsm_main(arch)
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 129: Info, others clause is never selected for synthesis.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 172: Info, others clause is never selected for synthesis.
+-- Boundary optimization.
+-- Start pre-optimization for design .work.fsm_main.arch
+-- Start pre-optimization for design .work.fsm_main.arch
+Info: setting register2register to 1.000000
+Info: setting input2register to 1.000000
+Info: setting register2output to 1.000000
+->set wire_table "" 
+Info: setting wire_table to 
+NO wire table is found
+-- Optimizing netlist .work.fsm_main.arch
+-- Matching combinational logic..
+-- Matching non-combinational logic..
+-- Covering..
+-- CPU Time used :   00:00 Mapping
+-- Final Design Rule Check..
+-- Start timing optimization for design .work.fsm_main.arch
+
+Initial Timing Optimization Statistics:
+---------------------------------------
+
+	Clock                  : Frequency
+      ------------------------------------
+
+	clk                    : 911.9 MHz
+
+
+	Most Critical Slack    :       -0.1
+	Sum of Negative Slacks :       -0.5
+	Area                   :       43.4
+
+                                                             
+Final Timing Optimization Statistics:
+-------------------------------------
+
+	Clock                  : Frequency
+      ------------------------------------
+
+	clk                    : 911.9 MHz
+
+
+	Most Critical Slack    :       -0.1
+	Sum of Negative Slacks :       -0.5
+	Area                   :       43.4
+
+	Total time taken : 0 cpu secs
+NO wire table is found
+
+
+
+                        Critical Path Report
+
+
+Critical path #1, (path slack = -0.1):
+
+NAME                                  GATE              ARRIVAL              LOAD
+---------------------------------------------------------------------------------
+clock information not specified
+delay thru clock network                                0.00 (ideal)
+
+
+reg_STATE(1)/QB                       dff         0.00  0.38 dn             0.03
+ix17/Y                                nor02_2x    0.12  0.51 up             0.01
+ix318/Y                               oai21       0.16  0.67 dn             0.01
+ix83/Y                                nand02      0.21  0.89 up             0.02
+reg_STATE(1)/D                        dff         0.00  0.89 up             0.00
+data arrival time                                       0.89
+
+
+data required time  (default specified - setup time)     0.79
+---------------------------------------------------------------------------------
+data required time                                      0.79
+data arrival time                                       0.89
+                                                     ----------
+slack                                                  -0.10
+---------------------------------------------------------------------------------
+
+
+Info: setting novendor_constraint_file to FALSE
+AutoWrite args are : -format VHDL fsm_main_gt.vhd
+-- Writing file fsm_main_gt.vhd
+Info, Working Directory is now 'X:/projects/cis2/exp08/fsm_main_2/sintese_2'
+Info, History file moved to new working directory
+Info, Log file moved to new working directory
+-- Reading vhdl file X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 22: Info, Enumerated type CONTROL_SELECT with 3 elements encoded as binary.
+Encodings for CONTROL_SELECT values
+        value    CONTROL_SELECT[1-0]
+====================================
+       INIT_CON  00
+       FOOD_CON  -1
+       STEP_CON  10
+
+-- Loading package my_package into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 20: Warning, replacing my_package in HDL library work.
+-- Loading entity fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 40: Warning, replacing fsm_main in HDL library work.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 62: Info, Enumerated type STATE_TYPE_MAIN with 5 elements encoded as onehot.
+Encodings for STATE_TYPE_MAIN values
+        value    STATE_TYPE_MAIN[4-0]
+=====================================
+ INIT_ATIVATION  ----1
+FOOD_ACTIVATION  ---1-
+           IDLE  --1--
+STEP_ACTIVATION  -1---
+      GAME_OVER  1----
+
+-- Loading architecture arch of fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 58: Warning, replacing arch of entity fsm_main.
+-- Compiling root entity fsm_main(arch)
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 129: Info, others clause is never selected for synthesis.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 172: Info, others clause is never selected for synthesis.
+-- Info, replacing fsm_main(arch)
+-- Boundary optimization.
+-- Start pre-optimization for design .work.fsm_main.arch
+-- Start pre-optimization for design .work.fsm_main.arch
+Info: setting register2register to 1.666667
+Info: setting input2register to 1.666667
+Info: setting register2output to 1.666667
+->set wire_table "" 
+Info: setting wire_table to 
+NO wire table is found
+-- Optimizing netlist .work.fsm_main.arch
+-- Matching combinational logic..
+-- Matching non-combinational logic..
+-- Covering..
+-- CPU Time used :   00:00 Mapping
+-- Final Design Rule Check..
+-- Start timing optimization for design .work.fsm_main.arch
+No critical paths to optimize at this level
+NO wire table is found
+
+
+
+                        Critical Path Report
+
+
+Critical path #1, (path slack =  0.6):
+
+NAME                                  GATE              ARRIVAL              LOAD
+---------------------------------------------------------------------------------
+clock information not specified
+delay thru clock network                                0.00 (ideal)
+
+
+reg_STATE(1)/QB                       dff         0.00  0.38 dn             0.03
+ix17/Y                                nor02_2x    0.12  0.51 up             0.01
+ix318/Y                               oai21       0.16  0.67 dn             0.01
+ix83/Y                                nand02      0.21  0.89 up             0.02
+reg_STATE(1)/D                        dff         0.00  0.89 up             0.00
+data arrival time                                       0.89
+
+
+data required time  (default specified - setup time)     1.46
+---------------------------------------------------------------------------------
+data required time                                      1.46
+data arrival time                                       0.89
+                                                     ----------
+slack                                                  0.57
+---------------------------------------------------------------------------------
+
+
+Info, Working Directory is now 'X:/projects/cis2/exp08/fsm_main_2/sintese_3'
+Info, History file moved to new working directory
+Info, Log file moved to new working directory
+Info: setting bubble_tristates to FALSE
+-- Reading vhdl file X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 22: Info, Enumerated type CONTROL_SELECT with 3 elements encoded as binary.
+Encodings for CONTROL_SELECT values
+        value    CONTROL_SELECT[1-0]
+====================================
+       INIT_CON  00
+       FOOD_CON  -1
+       STEP_CON  10
+
+-- Loading package my_package into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 20: Warning, replacing my_package in HDL library work.
+-- Loading entity fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 40: Warning, replacing fsm_main in HDL library work.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 62: Info, Enumerated type STATE_TYPE_MAIN with 5 elements encoded as onehot.
+Encodings for STATE_TYPE_MAIN values
+        value    STATE_TYPE_MAIN[4-0]
+=====================================
+ INIT_ATIVATION  ----1
+FOOD_ACTIVATION  ---1-
+           IDLE  --1--
+STEP_ACTIVATION  -1---
+      GAME_OVER  1----
+
+-- Loading architecture arch of fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 58: Warning, replacing arch of entity fsm_main.
+-- Compiling root entity fsm_main(arch)
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 129: Info, others clause is never selected for synthesis.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 172: Info, others clause is never selected for synthesis.
+-- Info, replacing fsm_main(arch)
+-- Boundary optimization.
+-- Start pre-optimization for design .work.fsm_main.arch
+-- Start pre-optimization for design .work.fsm_main.arch
+Info: optimize: library 'tsmc025_typ' has not yet been loaded, it will now be loaded
+Reading library file `C:\MGC\LeoSpec\LS2017a\\lib\tsmc025_typ.syn`...
+Library version =  Release : Patch (a) : (Sep 23, 2005)
+Delays assume: Process=typical Temp=  0.0 C  Voltage=2.50 V  
+Info: setting encoding to auto
+->set wire_table "" 
+Info: setting wire_table to 
+NO wire table is found
+-- Optimizing netlist .work.fsm_main.arch
+-- Matching combinational logic..
+-- Matching non-combinational logic..
+-- Covering..
+-- CPU Time used :   00:00 Mapping
+-- Final Design Rule Check..
+-- Start timing optimization for design .work.fsm_main.arch
+No critical paths to optimize at this level
+NO wire table is found
+
+
+
+                        Critical Path Report
+
+
+Critical path #1, (path slack =  0.6):
+
+NAME                                  GATE              ARRIVAL              LOAD
+---------------------------------------------------------------------------------
+clock information not specified
+delay thru clock network                                0.00 (ideal)
+
+
+reg_STATE(1)/Q                        dff         0.00  0.43 dn             0.02
+ix313/Y                               aoi22       0.19  0.61 up             0.01
+ix51/Y                                oai22       0.14  0.75 dn             0.02
+reg_STATE(2)/D                        dff         0.00  0.75 dn             0.00
+data arrival time                                       0.75
+
+
+data required time  (default specified - setup time)     1.37
+---------------------------------------------------------------------------------
+data required time                                      1.37
+data arrival time                                       0.75
+                                                     ----------
+slack                                                  0.61
+---------------------------------------------------------------------------------
+
+
+-- Reading vhdl file X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 22: Info, Enumerated type CONTROL_SELECT with 3 elements encoded as binary.
+Encodings for CONTROL_SELECT values
+        value    CONTROL_SELECT[1-0]
+====================================
+       INIT_CON  00
+       FOOD_CON  -1
+       STEP_CON  10
+
+-- Loading package my_package into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 20: Warning, replacing my_package in HDL library work.
+-- Loading entity fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 40: Warning, replacing fsm_main in HDL library work.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 62: Info, Enumerated type STATE_TYPE_MAIN with 5 elements encoded as onehot.
+Encodings for STATE_TYPE_MAIN values
+        value    STATE_TYPE_MAIN[4-0]
+=====================================
+ INIT_ATIVATION  ----1
+FOOD_ACTIVATION  ---1-
+           IDLE  --1--
+STEP_ACTIVATION  -1---
+      GAME_OVER  1----
+
+-- Loading architecture arch of fsm_main into library work
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 58: Warning, replacing arch of entity fsm_main.
+-- Compiling root entity fsm_main(arch)
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 129: Info, others clause is never selected for synthesis.
+"X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd",line 172: Info, others clause is never selected for synthesis.
+-- Info, replacing fsm_main(arch)
+-- Boundary optimization.
+-- Start pre-optimization for design .work.fsm_main.arch
+-- Start pre-optimization for design .work.fsm_main.arch
+Info: optimize: library 'tsmc018_typ' has not yet been loaded, it will now be loaded
+Reading library file `C:\MGC\LeoSpec\LS2017a\\lib\tsmc018_typ.syn`...
+Library version = v3.1 Release : Patch (a) : (Aug 26, 2005)
+Delays assume: Process=typical Temp=  0.0 C  Voltage=1.80 V  
+Info: setting encoding to auto
+->set wire_table "" 
+Info: setting wire_table to 
+NO wire table is found
+-- Optimizing netlist .work.fsm_main.arch
+-- Matching combinational logic..
+-- Matching non-combinational logic..
+-- Covering..
+-- CPU Time used :   00:00 Mapping
+-- Final Design Rule Check..
+-- Start timing optimization for design .work.fsm_main.arch
+No critical paths to optimize at this level
+NO wire table is found
+
+
+
+                        Critical Path Report
+
+
+Critical path #1, (path slack =  1.1):
+
+NAME                                  GATE              ARRIVAL              LOAD
+---------------------------------------------------------------------------------
+clock information not specified
+delay thru clock network                                0.00 (ideal)
+
+
+reg_STATE(1)/Q                        dff         0.00  0.30 dn             0.02
+ix311/Y                               aoi22       0.11  0.41 up             0.01
+ix51/Y                                oai22       0.09  0.51 dn             0.01
+reg_STATE(2)/D                        dff         0.00  0.51 dn             0.00
+data arrival time                                       0.51
+
+
+data required time  (default specified - setup time)     1.59
+---------------------------------------------------------------------------------
+data required time                                      1.59
+data arrival time                                       0.51
+                                                     ----------
+slack                                                  1.08
+---------------------------------------------------------------------------------
+
+

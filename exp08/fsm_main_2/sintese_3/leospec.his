@@ -1,0 +1,53 @@
+#
+#
+# 
+# 05/11/18 13:16:05
+load_library tsmc035_typ
+set_working_dir X:/projects/cis2/exp08/fsm_main_2
+read -technology "tsmc035_typ"  { X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd }
+pre_optimize -common_logic -unused_logic -boundary -xor_comparator_optimize 
+pre_optimize -extract 
+view_schematic -rtl -view
+set register2register 1.000000
+set input2register 1.000000
+set register2output 1.000000
+optimize .work.fsm_main.arch -target tsmc035_typ -macro -delay -effort quick -hierarchy auto 
+ set wire_table "" 
+optimize_timing .work.fsm_main.arch 
+view_schematic -view
+report_delay -num_paths 1 -show_schematic 1 -critical_paths
+set novendor_constraint_file FALSE
+auto_write -format VHDL fsm_main_gt.vhd
+set_working_dir X:/projects/cis2/exp08/fsm_main_2/sintese_2
+read -technology "tsmc035_typ"  { X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd }
+pre_optimize -common_logic -unused_logic -boundary -xor_comparator_optimize 
+pre_optimize -extract 
+set register2register 1.666667
+set input2register 1.666667
+set register2output 1.666667
+optimize .work.fsm_main.arch -target tsmc035_typ -macro -delay -effort quick -hierarchy auto 
+ set wire_table "" 
+optimize_timing .work.fsm_main.arch 
+report_area X:/projects/cis2/exp08/fsm_main_2/relatorios_2/timing2 -cell_usage -all_leafs 
+report_area X:/projects/cis2/exp08/fsm_main_2/relatorios_2/timing2 -cell_usage -hierarchy -all_leafs 
+view_schematic -view
+report_delay -num_paths 1 -show_schematic 1 -critical_paths
+set_working_dir X:/projects/cis2/exp08/fsm_main_2/sintese_3
+set bubble_tristates FALSE
+read  { X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd }
+pre_optimize -common_logic -unused_logic -boundary -xor_comparator_optimize 
+pre_optimize -extract 
+optimize .work.fsm_main.arch -target tsmc025_typ -macro -delay -effort quick -hierarchy auto 
+ set wire_table "" 
+optimize_timing .work.fsm_main.arch 
+report_area X:/projects/cis2/exp08/fsm_main_2/relatorio_3/area.txt -cell_usage -hierarchy -all_leafs 
+view_schematic -view
+report_delay -num_paths 1 -show_schematic 1 -critical_paths
+read  { X:/projects/cis2/exp08/fsm_main_2/fonte/fsm_main_2.vhd }
+pre_optimize -common_logic -unused_logic -boundary -xor_comparator_optimize 
+pre_optimize -extract 
+optimize .work.fsm_main.arch -target tsmc018_typ -macro -delay -effort quick -hierarchy auto 
+ set wire_table "" 
+optimize_timing .work.fsm_main.arch 
+report_area X:/projects/cis2/exp08/fsm_main_2/sintese_4/area.txt -cell_usage -hierarchy -all_leafs 
+report_delay -num_paths 1 -show_schematic 1 -critical_paths

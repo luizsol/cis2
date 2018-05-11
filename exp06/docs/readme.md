@@ -16,7 +16,7 @@ O que resultará no polinômio:
 
 > apresentar um esboço (em forma digital ou manuscrito) do esquema do circuito LFSR desenvolvido.
 
-![Estrutura resultante](img/estrutura.png)
+![Estrutura resultante (Figura 1.b)](img/estrutura.png)
 
 > impressão das imagens de tela com os resultados da simulação (10 ciclos).
 
@@ -169,3 +169,9 @@ begin
   o <= oa;
 end a1;
 ```
+
+> Faça a descrição equivalente do circuito em VHDL (figura 1.b) seguindo o esquema dado no item c) (atenção: utilize os mesmos nomes para os sinais e portos).
+> - O DFF contendo um sinal de set é fornecido ao aluno (na área da disciplina no NEWSERVERLAB).
+> - Para o XOR, use o módulo utilizado para os somadores das aulas anteriores.
+> - Você deverá usar obrigatoriamente o comando GENERATE para construir o conjunto do LFSR. O comando deverá ser usado de forma "inteligente" de forma a otimizar a codificação.
+> - O vetor de estados conterá os bits de saída dos FFs (dos bits 12 a 0) e portos do módulo deverão ser de acordo com o especificado na figura 1.b.

@@ -1,3 +1,5 @@
 work
 *.ini
 *.wlf
+*.cf
+*.o

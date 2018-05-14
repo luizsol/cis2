@@ -3,3 +3,4 @@ work
 *.wlf
 *.cf
 *.o
+*.vcd

@@ -4,7 +4,7 @@ Luiz Sol - 8586861
 
 ## Experimento 6 - Implementação do LFSR
 
-> o aluno deve apresentar o polinômio, explicando como chegou à configuração
+> O aluno deve apresentar o polinômio, explicando como chegou à configuração
 
 `NUSP = 8586861`
 
@@ -14,11 +14,11 @@ O que resultará no polinômio:
 
 ![Polinômio resultante](img/codecogseqn.gif)
 
-> apresentar um esboço (em forma digital ou manuscrito) do esquema do circuito LFSR desenvolvido.
+> Apresentar um esboço (em forma digital ou manuscrito) do esquema do circuito LFSR desenvolvido.
 
 ![Estrutura resultante (Figura 1.b)](img/estrutura.png)
 
-> impressão das imagens de tela com os resultados da simulação (10 ciclos).
+> Impressão das imagens de tela com os resultados da simulação (10 ciclos).
 
 ![Estrutura resultante](img/teste1.png)
 ![Estrutura resultante](img/teste2.png)
@@ -33,145 +33,302 @@ O que resultará no polinômio:
 
 foi gerada a seguinte sequência:
 
-| Data width | Galois LFSR Output |
-|------------|--------------------|
-| 1          | 325                |
-| 2          | 64A                |
-| 3          | C94                |
-| 4          | 5F3                |
-| 5          | BE6                |
-| 6          | B17                |
-| 7          | AF5                |
-| 8          | 931                |
-| 9          | EB9                |
-| 10         | 1A9                |
+| Data width | Galois LFSR Output | Binário        | Binário Modificado | Decimal Modificado |
+|------------|--------------------|----------------|--------------------|--------------------|
+| 1          | 325                | 0011 0010 0101 | 0001 0101          | 21                 |
+| 2          | 64A                | 0110 0100 1010 | 0011 0010          | 50                 |
+| 3          | C94                | 1100 1001 0100 | 0110 0100          | 100                |
+| 4          | 5F3                | 0101 1111 0011 | 0010 0011          | 35                 |
+| 5          | BE6                | 1011 1110 0110 | 0101 0110          | 86                 |
+| 6          | B17                | 1011 0001 0111 | 0101 0111          | 87                 |
+| 7          | AF5                | 1010 1111 0101 | 0101 0101          | 85                 |
+| 8          | 931                | 1001 0011 0001 | 0100 0001          | 65                 |
+| 9          | EB9                | 1110 1011 1001 | 0111 0001          | 113                |
+| 10         | 1A9                | 0001 1010 1001 | 0000 0001          | 1                  |
 
+> Faça a descrição equivalente do circuito em VHDL (figura 1.b) seguindo o esquema dado no item c) (atenção: utilize os mesmos nomes para os sinais e portos).
+>
+> - O DFF contendo um sinal de set é fornecido ao aluno (na área da disciplina no NEWSERVERLAB).
+>
+> - Para o XOR, use o módulo utilizado para os somadores das aulas anteriores.
+>
+> - Você deverá usar obrigatoriamente o comando GENERATE para construir o conjunto do LFSR. O comando deverá ser usado de forma "inteligente" de forma a otimizar a codificação.
+>
+> - O vetor de estados conterá os bits de saída dos FFs (dos bits 12 a 0) e portos do módulo deverão ser de acordo com o especificado na figura 1.b.
+>
 > incluir a descrição do projeto em VHDL.
 
-O site gerou o seguinte VHDL:
+A seguir está o VHDL que descreve o LFSR:
 
 ```vhdl
---    /*  -------------------------------------------------------------------------
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.NUMERIC_STD.all;
 
---    This program is free software: you can redistribute it and/or modify
---    it under the terms of the GNU General Public License as published by
---    the Free Software Foundation, either version 3 of the License, or
---    any later version.
---
---    This program is distributed in the hope that it will be useful,
---    but WITHOUT ANY WARRANTY; without even the implied warranty of
---    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
---    GNU General Public License for more details.
---
---    You should have received a copy of the GNU General Public License
---    along with this program.  If not, see <http://www.gnu.org/licenses/>.
---
---    Copyright: Levent Ozturk crc@leventozturk.com
---    https://leventozturk.com/engineering/crc/
---    Polynomial: x12+x11+x10+x7+x6+x4+x3+x1+1
---    d0 is the first data processed
+entity lfsr is
+    generic(
+        WIDTH: natural := 12;
+        POL  : STD_LOGIC_VECTOR (12 downto 0) := "1110011011011"
+    );
+    port (
+        clk: in  STD_LOGIC;
+        res: in  STD_LOGIC;
+        o  : out STD_LOGIC_VECTOR (7 downto 0)
+    );
+end lfsr;
 
---    c is internal LFSR state and the CRC output. Not needed for other modules than CRC.
---    c width is always same as polynomial width.
---    o is the output of all modules except CRC. Not needed for CRC.
---    o width is always same as data width width
--------------------------------------------------------------------------*/
+architecture arch of lfsr is
+    COMPONENT xor2
+        PORT (
+            x, y: IN STD_LOGIC;
+            z:    OUT STD_LOGIC
+        );
+    END COMPONENT;
 
+    signal prev_state: STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal next_state: STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal or_signals: STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+
+begin
+    seq : process(clk)
+    begin
+        if clk'EVENT AND clk = '1' then
+            prev_state <= next_state;
+        end if;
+    end process;
+
+    layout: for I in 1 to (WIDTH - 1) generate
+        zeros: if POL(I) = '0' generate
+            next_state(I) <= prev_state(I - 1) or res;
+        end generate zeros;
+        ones: if POL(I) = '1' generate
+            generated_xor2: xor2 port map (
+                prev_state(I - 1),
+                prev_state(WIDTH - 1),
+                or_signals(I)
+            );
+
+            next_state(I) <= or_signals(I) or res;
+        end generate ones;
+    end generate layout;
+    next_state(0) <= prev_state(WIDTH - 1) or res;
+
+    o <= '0' & prev_state(WIDTH - 1 downto WIDTH - 3) & '0' & prev_state(2 downto 0);
+end arch;
+```
+
+> Incluir a descrição VHDL do testbench com seus componentes.
+
+`clock.vhd`:
+
+```vhdl
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity clock is
+    port (
+        clk: out  STD_LOGIC
+    );
+end clock;
+
+architecture arch of clock is
+    constant CLOCK_PERIOD: time := 10 ns;
+begin
+    clk_generation: process
+    begin
+        clk <= '1';
+        wait FOR CLOCK_PERIOD / 2;
+        clk <= '0';
+        wait FOR CLOCK_PERIOD / 2;
+
+    end process clk_generation;
+
+end architecture arch;
+```
+
+`reg.vhd`:
+
+```vhdl
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity reg is
+    generic(
+        WIDTH: natural := 8
+    );
+
+    port (
+        clk : in  STD_LOGIC;
+        load: in  STD_LOGIC;
+        d   : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        q   : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+    );
+end reg;
+
+architecture arch of reg is
+    signal q_s : STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := (others => '0');
+
+begin
+    q <= q_s;
+    -- Register with active-high clock & asynchronous clear
+    process(clk)
+    begin
+        if clk'EVENT AND clk = '1' then
+            if (load = '1') then
+                q_s <= d;
+            end if;
+        end if;
+    end process;
+end arch;
+```
+
+`stimuli_lfsr.vhd`:
+
+```vhdl
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity glfsr_1_1110011011011 is generic (
-  SEED : in std_ulogic_vector( 11 downto 0) := b"111111111111"
-); port (
-  clk : in std_ulogic;
-  reset : in std_ulogic;
-  fd : in std_ulogic;
-  nd : in std_ulogic;
-  rdy : out std_ulogic;
-  d : in std_ulogic_vector(  0 downto 0);
-  c : out std_ulogic_vector( 11 downto 0);
-  o : out std_ulogic_vector(  0 downto 0)
-); end glfsr_1_1110011011011;
+entity stimuli_module is
+    port (
+        c: out STD_LOGIC;
+        res  : out STD_LOGIC
+    );
+end stimuli_module ;
 
-architecture a1 of glfsr_1_1110011011011 is
-  signal                       nd_q : std_ulogic;
-  signal                       fd_q : std_ulogic;
-  signal                       dq : std_ulogic_vector ( 11 downto 0);
-  signal                       ca : std_ulogic_vector( 11 downto 0);
-  signal                       oa : std_ulogic_vector(  0 downto 0);
+architecture test of stimuli_module  is
+-- "Time" that will elapse between test vectors we submit to the component.
+constant TIME_DELTA : time := 10 ns;      -- choose any value
+
+    component clock
+        port (
+            clk: out STD_LOGIC
+        );
+    end component ;
+
 begin
-  process (clk)
-  begin
-    if (rising_edge(clk)) then
-      nd_q <= nd;
-      fd_q <= fd;
-      dq(  0) <= '0';
-      dq(  1) <= '0';
-      dq(  2) <= '0';
-      dq(  3) <= '0';
-      dq(  4) <= '0';
-      dq(  5) <= '0';
-      dq(  6) <= '0';
-      dq(  7) <= '0';
-      dq(  8) <= '0';
-      dq(  9) <= '0';
-      dq( 10) <= '0';
-      dq( 11) <= '0';
+    clock_component : clock
+        port map(
+            clk => c
+        );
 
-    end if;
-  end process;
+    simulation : process
+        procedure assign_reset (filler: in STD_LOGIC) is
+        begin
+        -- Assign values to estimuli_module´s outputs.
+            res <= '1';
+            wait for 2 * TIME_DELTA;
+            res <= '0';
+        end procedure assign_reset;
 
-  process (clk, reset)
-  begin
-    if (reset= '1') then
-      ca <= SEED;
-      rdy <= '0';
-    elsif (rising_edge(clk)) then
-      rdy <= nd_q;
-      if(nd_q= '1') then
-        if (fd_q= '1') then
-          ca(  0) <= SEED( 11) xor dq(  0);
-          ca(  1) <= SEED(  0) xor SEED( 11) xor dq(  1);
-          ca(  2) <= SEED(  1) xor dq(  2);
-          ca(  3) <= SEED(  2) xor SEED( 11) xor dq(  3);
-          ca(  4) <= SEED(  3) xor SEED( 11) xor dq(  4);
-          ca(  5) <= SEED(  4) xor dq(  5);
-          ca(  6) <= SEED(  5) xor SEED( 11) xor dq(  6);
-          ca(  7) <= SEED(  6) xor SEED( 11) xor dq(  7);
-          ca(  8) <= SEED(  7) xor dq(  8);
-          ca(  9) <= SEED(  8) xor dq(  9);
-          ca( 10) <= SEED(  9) xor SEED( 11) xor dq( 10);
-          ca( 11) <= SEED( 10) xor SEED( 11) xor dq( 11);
-
-
-          oa(  0) <= SEED( 11) xor dq(  0);
-        else
-          ca(  0) <= ca( 11) xor dq(  0);
-          ca(  1) <= ca(  0) xor ca( 11) xor dq(  1);
-          ca(  2) <= ca(  1) xor dq(  2);
-          ca(  3) <= ca(  2) xor ca( 11) xor dq(  3);
-          ca(  4) <= ca(  3) xor ca( 11) xor dq(  4);
-          ca(  5) <= ca(  4) xor dq(  5);
-          ca(  6) <= ca(  5) xor ca( 11) xor dq(  6);
-          ca(  7) <= ca(  6) xor ca( 11) xor dq(  7);
-          ca(  8) <= ca(  7) xor dq(  8);
-          ca(  9) <= ca(  8) xor dq(  9);
-          ca( 10) <= ca(  9) xor ca( 11) xor dq( 10);
-          ca( 11) <= ca( 10) xor ca( 11) xor dq( 11);
-
-          oa(  0) <= ca( 11) xor dq(  0);
-        end if;
-      end if;
-    end if;
-  end process;
-  c <= ca;
-  o <= oa;
-end a1;
+        begin
+            -- test vectors application
+            wait for 15 * TIME_DELTA;
+            assign_reset('1');
+            wait for 20 * TIME_DELTA;
+            assign_reset('1');
+            wait for 25 * TIME_DELTA;
+            -- wait;
+    end process simulation;
+end architecture test;
 ```
 
-> Faça a descrição equivalente do circuito em VHDL (figura 1.b) seguindo o esquema dado no item c) (atenção: utilize os mesmos nomes para os sinais e portos).
-> - O DFF contendo um sinal de set é fornecido ao aluno (na área da disciplina no NEWSERVERLAB).
-> - Para o XOR, use o módulo utilizado para os somadores das aulas anteriores.
-> - Você deverá usar obrigatoriamente o comando GENERATE para construir o conjunto do LFSR. O comando deverá ser usado de forma "inteligente" de forma a otimizar a codificação.
-> - O vetor de estados conterá os bits de saída dos FFs (dos bits 12 a 0) e portos do módulo deverão ser de acordo com o especificado na figura 1.b.
+`testbench_lfsr.vhd`:
+
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity tb_lfsr is
+    generic (
+        WIDTH: natural := 12
+    );
+end tb_lfsr;
+
+architecture test of tb_lfsr is
+
+    component stimuli_module
+        port (
+            c: out STD_LOGIC;
+            res  : out STD_LOGIC
+        );
+    end component ;
+
+    component lfsr
+        generic(
+            WIDTH: natural := 12;
+            POL  : STD_LOGIC_VECTOR (12 downto 0) := "1110011011011"
+        );
+        port (
+            clk: in  STD_LOGIC;
+            res: in  STD_LOGIC;
+            o  : out STD_LOGIC_VECTOR (7 downto 0)
+        );
+    end component ;
+
+    signal clk_s, res_s: STD_LOGIC;
+    signal o_s: STD_LOGIC_VECTOR(7 downto 0);
+
+
+begin
+    -- Instantiate DUT
+    dut : lfsr
+        generic map(WIDTH => WIDTH)
+        port map(
+            clk => clk_s,
+            res => res_s,
+            o => o_s
+        );
+
+    -- Instantiate test module
+    test : stimuli_module
+        port map(
+            c => clk_s,
+            res => res_s
+        );
+
+end architecture test;
+```
+
+`xor2.vhd`:
+
+```vhdl
+Library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+ENTITY xor2 IS
+    GENERIC(t_xor : time := 4 ns);
+    PORT( x, y: IN STD_LOGIC;
+             z: OUT STD_LOGIC);
+END xor2;
+
+ARCHITECTURE dataflow OF xor2 IS
+BEGIN
+    z <= x XOR y AFTER t_xor;
+END dataflow;
+```
+
+> Impressão legível da carta de tempos com pelo menos 20 ciclos de relógio (deixe os sinais importantes evidentes). Apresente tanto os sinais dos estados(12 bits) como de saída (8 bits). Obs. Represente os números aleatórios gerados com a mesma base numérica utilizada em d).
+
+![De `0[ns]` a `100[ns]`](img/w-0-100.pdf)
+
+![De `100[ns]` a `200[ns]`](img/w-100-200.pdf)
+
+![De `200[ns]` a `300[ns]`](img/w-200-300.pdf)
+
+![De `300[ns]` a `400[ns]`](img/w-300-400.pdf)
+
+![De `400[ns]` a `500[ns]`](img/w-400-500.pdf)
+
+![De `500[ns]` a `600[ns]`](img/w-500-600.pdf)
+
+![De `600[ns]` a `700[ns]`](img/w-600-700.pdf)
+
+![De `700[ns]` a `800[ns]`](img/w-700-800.pdf)
+
+> Relatório do projeto: Discuta e demonstre que (se) os resultados da simulação do projeto e da execução do software rodado são os mesmos (compatíveis entre si).
+
+A sequência de números obtida a partir da simulação é exatamente igual à esperada na especificação (tanto a saída completa de 12 bits como a modificada de 8 bits), portanto é razoável concluir que a LFSR foi implementada corretamente.

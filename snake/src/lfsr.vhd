@@ -17,13 +17,14 @@ use IEEE.NUMERIC_STD.all;
 
 entity lfsr is
     generic(
-        WIDTH: natural := 12;
-        POL  : STD_LOGIC_VECTOR (12 downto 0) := "1110011011011"
+        WIDTH   : natural := 12;
+        POL     : STD_LOGIC_VECTOR(12 downto 0) := "1110011011011"
     );
+
     port (
-        clk: in  STD_LOGIC;
-        res: in  STD_LOGIC;
-        o  : out STD_LOGIC_VECTOR (7 downto 0)
+        clk : in  STD_LOGIC;
+        res : in  STD_LOGIC;
+        o   : out STD_LOGIC_VECTOR(7 downto 0)
     );
 end lfsr;
 
@@ -63,5 +64,6 @@ begin
     end generate layout;
     next_state(0) <= prev_state(WIDTH - 1) or res;
 
-    o <= '0' & prev_state(WIDTH - 1 downto WIDTH - 3) & '0' & prev_state(2 downto 0);
+    o <= '0' & prev_state(WIDTH - 1 downto WIDTH - 3) & '0'
+        & prev_state(2 downto 0);
 end arch;

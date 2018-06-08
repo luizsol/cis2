@@ -13,6 +13,7 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
+
 use work.snake_package.all;
 
 entity button_handler is
@@ -27,41 +28,14 @@ entity button_handler is
     );
 end button_handler;
 
-
 architecture arch of button_handler is
 
---***********************************
---* TYPE DECLARATIONS               *
---***********************************
-
-
-
---***********************************
---* COMPONENT DECLARATIONS          *
---***********************************
-
-
---***********************************
---* INTERNAL SIGNAL DECLARATIONS    *
---***********************************
-signal sys_direction_s      : direction;
-signal direction_sync_s     : direction;
-
+    signal sys_direction_s      : direction;
+    signal direction_sync_s     : direction;
 
 begin
-    --*******************************
-    --* COMPONENT INSTANTIATIONS    *
-    --*******************************
-
-    --*******************************
-    --* SIGNAL ASSIGNMENTS          *
-    --*******************************
 
     direction_sync <= direction_sync_s;
-
-    --*******************************
-    --* PROCESS DEFINITIONS         *
-    --*******************************
 
     process(sys_direction)
     begin
@@ -79,46 +53,46 @@ begin
     process(clk)
     begin
         if clk'event and clk = '1' then
-            if(res = '1') then
+            if (res = '1') then
                 direction_sync_s    <= S_RIGHT; -- reset direction is RIGHT
                 step_jumper_sync    <= '0';
-            elsif(load_regs = '1') then
+            elsif (load_regs = '1') then
 
                 -- This series of conditionals will protect the snake from going
                 -- backwards
-                if(direction_sync_s = S_RIGHT) then
-                    if(sys_direction_s = S_LEFT) then
+                if (direction_sync_s = S_RIGHT) then
+                    if (sys_direction_s = S_LEFT) then
                         direction_sync_s <= direction_sync_s;
                     else
                         direction_sync_s <= sys_direction_s;
                     end if;
                 end if;
 
-                if(direction_sync_s = S_LEFT) then
-                    if(sys_direction_s = S_RIGHT) then
+                if (direction_sync_s = S_LEFT) then
+                    if (sys_direction_s = S_RIGHT) then
                         direction_sync_s <= direction_sync_s;
                     else
                         direction_sync_s <= sys_direction_s;
                     end if;
                 end if;
 
-                if(direction_sync_s = S_DOWN) then
-                    if(sys_direction_s = S_UP) then
+                if (direction_sync_s = S_DOWN) then
+                    if (sys_direction_s = S_UP) then
                         direction_sync_s <= direction_sync_s;
                     else
                         direction_sync_s <= sys_direction_s;
                     end if;
                 end if;
 
-                if(direction_sync_s = S_UP) then
-                    if(sys_direction_s = S_DOWN) then
+                if (direction_sync_s = S_UP) then
+                    if (sys_direction_s = S_DOWN) then
                         direction_sync_s <= direction_sync_s;
                     else
                         direction_sync_s <= sys_direction_s;
                     end if;
                 end if;
 
-                step_jumper_sync    <= sys_step_jumper;
+                step_jumper_sync <= sys_step_jumper;
             end if;
         end if;
     end process;

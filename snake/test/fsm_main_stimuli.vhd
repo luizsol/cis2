@@ -24,8 +24,7 @@ entity fsm_main_stimuli is
         fsm_f_start     : in STD_LOGIC;      --to fsm_food
         fsm_s_start     : in STD_LOGIC       --to fsm_start
     );
-
-end fsm_main_stimuli ;
+end fsm_main_stimuli;
 
 architecture test of fsm_main_stimuli  is
     signal clk_s : STD_LOGIC;
@@ -90,7 +89,7 @@ begin
 
         -- emulate some action
 
-        wait for 50*CLK_PERIOD;
+        wait for 50 * CLK_PERIOD;
 
         -- 525 ns
 
@@ -115,7 +114,7 @@ begin
 
         -- emulate some action
 
-        wait for 50*CLK_PERIOD;
+        wait for 50 * CLK_PERIOD;
 
         check_fsm('0', '1', '0', '0', '0', '0');    -- forcing fsm_f_done='1' and fsm_s_done='0'
 
@@ -135,7 +134,7 @@ begin
 
         check_fsm('0', '0', '0', '0', '0', '0');
 
-        wait for 50*CLK_PERIOD;
+        wait for 50 * CLK_PERIOD;
 
         while (fsm_s_start /= '1')
             loop
@@ -144,7 +143,7 @@ begin
 
         -- STEP ACTIVATION
 
-        wait for 50*CLK_PERIOD;
+        wait for 50 * CLK_PERIOD;
 
         while (fsm_s_start /= '0')
             loop

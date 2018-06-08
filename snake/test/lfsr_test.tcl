@@ -1,5 +1,7 @@
 # Saindo de uma possível simulação anterior
 quit -sim
+# Apangando a library work atual
+vmap -del work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
 

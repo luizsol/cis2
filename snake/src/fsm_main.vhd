@@ -10,21 +10,12 @@
 --* Description :                                                              *
 --*                                                                            *
 --******************************************************************************
-
-package my_package is
-    type CONTROL_SELECT is (
-        INIT_CON,
-        FOOD_CON,
-        STEP_CON
-    );
-end package;
-
-
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
 use IEEE.std_logic_unsigned.all;
-use work.my_package.all;
+
+use work.snake_package.all;
 
 entity fsm_main is
     port (

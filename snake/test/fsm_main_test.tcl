@@ -1,9 +1,11 @@
 # Saindo de uma possível simulação anterior
 quit -sim
+# Apangando a library work atual
+vmap -del work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
 
-set arquivos {"src/fsm_main.vhd" "src/clock.vhd" "test/fsm_main_stimuli.vhd" "test/fsm_main_tb.vhd"}
+set arquivos {"src/snake_package.vhd" "src/fsm_main.vhd" "src/clock.vhd" "test/fsm_main_stimuli.vhd" "test/fsm_main_tb.vhd"}
 
 set componente "fsm_main_tb"
 

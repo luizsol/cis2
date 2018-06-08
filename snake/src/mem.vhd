@@ -4,7 +4,7 @@
 -- MODULE: altsyncram
 
 -- ============================================================
--- File Name: mem_1.vhd
+-- File Name: mem.vhd
 -- Megafunction Name(s):
 --       altsyncram
 --
@@ -39,12 +39,12 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY mem_1 IS
-    PORT (
+ENTITY mem IS
+    port (
         address_a   : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
         address_b   : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
         byteena_a   : IN STD_LOGIC_VECTOR(0 DOWNTO 0) := (OTHERS => '1');
-        clock       : IN STD_LOGIC := '1';
+        clk         : IN STD_LOGIC := '1';
         data_a      : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
         data_b      : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
         wren_a      : IN STD_LOGIC := '0';
@@ -52,10 +52,10 @@ ENTITY mem_1 IS
         q_a         : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         q_b         : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
     );
-END mem_1;
+END mem;
 
 
-ARCHITECTURE SYN OF mem_1 IS
+ARCHITECTURE SYN OF mem IS
 
     SIGNAL sub_wire0: STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL sub_wire1: STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -136,7 +136,7 @@ BEGIN
         )
         PORT MAP (
             byteena_a   => byteena_a,
-            clock0      => clock,
+            clock0      => clk,
             wren_a      => wren_a,
             address_b   => address_b,
             data_b      => data_b,
@@ -258,9 +258,9 @@ END SYN;
 -- Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
 -- Retrieval info: CONNECT: q_a 0 0 8 0 @q_a 0 0 8 0
 -- Retrieval info: CONNECT: q_b 0 0 8 0 @q_b 0 0 8 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL mem_1.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL mem_1.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL mem_1.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL mem_1.bsf FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL mem_1_inst.vhd FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL mem.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL mem.inc FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL mem.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL mem.bsf FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL mem_inst.vhd FALSE
 -- Retrieval info: LIB_FILE: altera_mf

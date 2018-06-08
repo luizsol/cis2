@@ -18,7 +18,7 @@ use IEEE.NUMERIC_STD.all;
 
 entity step_counter is
     generic (
-        COUNT_MAX   : UNSIGNED  := x"3C"    -- 60 decimal
+        COUNT_MAX   : UNSIGNED := x"3C" -- 60 decimal
     );
 
     port (
@@ -30,25 +30,16 @@ entity step_counter is
 end step_counter;
 
 architecture arch of step_counter is
-    --***********************************
-    --* INTERNAL SIGNAL DECLARATIONS    *
-    --***********************************
+
     signal cnt_s    : UNSIGNED(7 downto 0) := x"00";
 
 begin
 
-    --*******************************
-    --* SIGNAL ASSIGNMENTS          *
-    --*******************************
-    cnt_rdy <=  '1' when (cnt_s = COUNT_MAX) else
-        '0';
+    cnt_rdy <= '1' when (cnt_s = COUNT_MAX)
+                   else
+                      '0';
 
-    --*******************************
-    --* PROCESS DEFINITIONS         *
-    --*******************************
-
-    --increment counter each cycle
-    --reset if max reached or clr is set
+    --increment counter each cycle, reset if max reached or clr is set
     process(clk, res)
     begin
         if clk'event and clk = '1' then

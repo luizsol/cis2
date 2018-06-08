@@ -59,8 +59,7 @@ package snake_package is
     constant CODE_VECTORS   : CODE_BITS := (BLANK_VEC, HEAD_UP_VEC,
         HEAD_DOWN_VEC, HEAD_RIGHT_VEC, HEAD_LEFT_VEC, BODY_VEC, FOOD_VEC);
 
-    type datapath_ctrl_flags is
-    record
+    type datapath_ctrl_flags is record
         ng_one_gen      : STD_LOGIC;
         ng_pos_neg      : STD_LOGIC;
         ng_one_three    : STD_LOGIC;
@@ -75,22 +74,21 @@ package snake_package is
         mem_w_e         : STD_LOGIC;
     end record;
 
-    type datapath_flags is
-    record
+    type datapath_flags is record
         ofc_of_x        : STD_LOGIC;
         ofc_of_y        : STD_LOGIC;
         cmp_food_flag   : STD_LOGIC;
         cmp_body_flag   : STD_LOGIC;
     end record;
 
-    function rand_num(width : NATURAL) return std_logic_vector;
+    function rand_num(width : NATURAL) return STD_LOGIC_VECTOR;
 
 end snake_package ;
 
 package body snake_package  is
 
-function rand_num(width : NATURAL) return std_logic_vector is
-  variable res_v : std_logic_vector(WIDTH - 1 downto 0);
+function rand_num(width : NATURAL) return STD_LOGIC_VECTOR is
+  variable res_v : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
 begin
   res_v := (others => '0');
 --  for i in 1 to WIDTH/ 2 loop

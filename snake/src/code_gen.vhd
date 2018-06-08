@@ -18,24 +18,24 @@ use work.snake_package.all;
 
 entity code_gen is
     port (
-        code    : in CODE;
-        value   : out STD_LOGIC_VECTOR(7 DOWNTO 0)
+        ctrl_ctrl   : in datapath_ctrl_flags;
+        value       : out STD_LOGIC_VECTOR(7 DOWNTO 0)
     );
 end code_gen;
 
 architecture arch of code_gen is
 begin
 
-    upd_output: process (code)
+    upd_output: process (ctrl_ctrl.cg_sel)
     begin
-        case code is
-            when BLANK      => value <= "00000000";
-            when FOOD       => value <= "10000000";
-            when S_BODY     => value <= "00001000";
-            when HEAD_UP    => value <= "00001001";
-            when HEAD_DOWN  => value <= "00001010";
-            when HEAD_LEFT  => value <= "00001100";
-            when HEAD_RIGHT => value <= "00001101";
+        case ctrl_ctrl.cg_sel is
+            when BLANK      => value <= BLANK_VEC;
+            when FOOD       => value <= FOOD_VEC;
+            when S_BODY     => value <= BODY_VEC;
+            when HEAD_UP    => value <= HEAD_UP_VEC;
+            when HEAD_DOWN  => value <= HEAD_DOWN_VEC;
+            when HEAD_LEFT  => value <= HEAD_LEFT_VEC;
+            when HEAD_RIGHT => value <= HEAD_RIGHT_VEC;
             when others     => null;
         end case;
     end process;

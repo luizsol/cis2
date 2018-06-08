@@ -51,7 +51,7 @@ begin
     upd_state:  process (clk)
     begin
         if clk'event and clk = '1' then
-            if(res = '1') then
+            if (res = '1') then
                 STATE <= INIT_ATIVATION;
             else
                 STATE <= NEXT_STATE;
@@ -68,21 +68,21 @@ begin
     begin
         case STATE is
             when INIT_ATIVATION =>
-                if(fsm_i_done = '1') then
+                if (fsm_i_done = '1') then
                     NEXT_STATE <= FOOD_ACTIVATION;
                 else
                     NEXT_STATE <= INIT_ATIVATION;
                 end if;
 
             when FOOD_ACTIVATION =>
-                if(fsm_f_done = '1') then
+                if (fsm_f_done = '1') then
                     NEXT_STATE <= IDLE;
                 else
                     NEXT_STATE <= FOOD_ACTIVATION;
                 end if;
 
             when IDLE =>
-                if(cnt_rdy = '1') then
+                if (cnt_rdy = '1') then
                     NEXT_STATE <= STEP_ACTIVATION;
                 else
                     NEXT_STATE <= IDLE;
@@ -92,10 +92,10 @@ begin
                 if (fsm_s_game_over = '1') then
                     NEXT_STATE <= GAME_OVER;
                 -- fsm_s_game_over = 0
-                elsif(cmp_food_flag = '1') then
+                elsif (cmp_food_flag = '1') then
                     NEXT_STATE <= FOOD_ACTIVATION;
                  -- fsm_s_game_over = 0 && cmp_food_flag = 0
-                elsif(fsm_s_done = '1') then
+                elsif (fsm_s_done = '1') then
                     NEXT_STATE <= IDLE;
                 else
                     NEXT_STATE <= STEP_ACTIVATION;

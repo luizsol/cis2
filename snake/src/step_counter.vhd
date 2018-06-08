@@ -52,9 +52,9 @@ begin
     process(clk, res)
     begin
         if clk'event and clk = '1' then
-            if(res = '1') then
+            if (res = '1') then
                 cnt_s <= x"00";
-            elsif(cnt_s = COUNT_MAX) then
+            elsif (cnt_s = COUNT_MAX) then
                 cnt_s <= x"00";
             else
                 cnt_s <= cnt_s + 1;

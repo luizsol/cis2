@@ -24,5 +24,6 @@ vmap work work
 vsim -gui -voptargs=+acc work.$componente
 view wave
 # Configurando os sinais a serem apresentados
-add wave -position insertpoint sim:/$componente/*
+add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.cg_sel
+add wave -position insertpoint sim:/$componente/value_s
 run $duration ns

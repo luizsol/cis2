@@ -51,21 +51,21 @@ upd_next_state: process (fsm_m_start, ofc_of_x, ofc_of_y, STATE)
 begin
     case STATE is
         when READY =>
-            if(fsm_m_start = '1') then
+            if (fsm_m_start = '1') then
                 NEXT_STATE <= RESET_ROW;
             else
                 NEXT_STATE <= READY;
             end if;
 
         when RESET_ROW =>
-            if(ofc_of_x = '1') then
+            if (ofc_of_x = '1') then
                 NEXT_STATE <= JUMP_ROW;
             else
                 NEXT_STATE <= RESET_ROW;
             end if;
 
         when JUMP_ROW =>
-            if(ofc_of_y = '1') then
+            if (ofc_of_y = '1') then
                 NEXT_STATE <= WRITE_HEAD;
             else
                 NEXT_STATE <= RESET_ROW;
@@ -83,7 +83,7 @@ end process;
 upd_state:  process (clk)
 begin
     if clk'event and clk = '1' then
-        if(res = '1')   then
+        if (res = '1')   then
             STATE <= READY;
         else
             STATE <= NEXT_STATE;

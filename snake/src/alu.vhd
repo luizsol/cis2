@@ -33,7 +33,7 @@ architecture with_RCA of alu is
     --***********************************
     --*  COMPONENT DECLARATIONS      *
     --***********************************
-    component rc_adder_2
+    component rc_adder
         generic (
             WIDTH : integer := 32
         );
@@ -59,9 +59,9 @@ begin
     --*******************************
     --*  COMPONENT INSTANTIATIONS  *
     --*******************************
-    add: rc_adder_2
+    add: rc_adder
         generic map (
-            WIDTH  => WIDTH
+            WIDTH => WIDTH
         )
         port map (
             a_i => STD_LOGIC_VECTOR(shift_op_s),

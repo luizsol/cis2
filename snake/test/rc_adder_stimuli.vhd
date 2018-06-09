@@ -44,7 +44,7 @@ begin
         end procedure write_value;
 
     begin
-        -- Test 1
+        -- This test will be performed in 16 bit in order to facilitate overflow
         write_value(TO_UNSIGNED(0, WIDTH), TO_UNSIGNED(0, WIDTH), '0');
         assert ((z_o = STD_LOGIC_VECTOR(TO_UNSIGNED(0, WIDTH))) and (c_o = '0'))
             report "Test 1: 0 + 0 != 0";
@@ -55,11 +55,11 @@ begin
 
         write_value(TO_UNSIGNED(65535, WIDTH), TO_UNSIGNED(1, WIDTH), '0');
         assert ((z_o = STD_LOGIC_VECTOR(TO_UNSIGNED(0, WIDTH))) and (c_o = '1'))
-            report "Test 3: 2147483647 + 1 != 0 + c_out";
+            report "Test 3: 65535 + 1 != 0 + c_out";
 
         write_value(TO_UNSIGNED(65535, WIDTH), TO_UNSIGNED(65535, WIDTH), '1');
         assert ((z_o = STD_LOGIC_VECTOR(TO_UNSIGNED(65535, WIDTH)))
-            and (c_o = '1')) report "Test 3: 2147483647 + 1 != 0 + c_out";
+            and (c_o = '1')) report "Test 4: 65535 + 65535 != 65535 + c_out";
 
         wait;
     end process sim;

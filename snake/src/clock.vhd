@@ -17,7 +17,7 @@ use IEEE.NUMERIC_STD.all;
 
 entity clock is
     generic (
-        CLK_PERIOD  : TIME  := 10ns
+        CLK_PERIOD: TIME := 10 ns
     );
 
     port (

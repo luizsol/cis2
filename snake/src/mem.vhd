@@ -32,6 +32,9 @@
 --Altera or its authorized distributors.  Please refer to the
 --applicable agreement for further details.
 
+-- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+-- Add flags
+-- Update tests
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;

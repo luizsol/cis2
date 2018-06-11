@@ -11,19 +11,14 @@
 --*                                                                            *
 --******************************************************************************
 
-package my_package is
-    type RB_SEL is (
-        HEAD_OUT,
-        REG2_OUT,
-        FIFO_OUT
-    );
-end package;
-
+-- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+-- Add flags and constants
+-- Create tests
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-use work.my_package.all;
+use work.snake_package.all;
 
 entity reg_bank is
     generic (
@@ -38,9 +33,7 @@ end reg_bank;
 
 
 architecture process_if_else of reg_bank is
-    --***********************************
-    --* INTERNAL SIGNAL DECLARATIONS    *
-    --***********************************
+
     signal head_out_s   : STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := "11111111";
     signal reg2_out_s   : STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := "00000000";
     signal fifo_out_s   : STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := "01010101";
@@ -52,8 +45,8 @@ begin
             alu_out <=  head_out_s;
         elsif (out_sel = REG2_OUT ) then
             alu_out <=  reg2_out_s;
-        --elsif (out_sel = FIFO_OUT ) then
-            --alu_out   <=  fifo_out_s;
+        elsif (out_sel = FIFO_OUT ) then
+            alu_out   <=  fifo_out_s;
         end if;
     end process;
 

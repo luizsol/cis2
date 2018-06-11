@@ -129,6 +129,7 @@ begin
                         '0',        -- mem_w_e
                         message
                     );
+                    assert fsm_m_done = '0' report "fsm_m_done: " & message;
                 when RESET_ROW_STATE =>
                     check_fsm_signals(
                         '0',        -- ng_one_gen
@@ -145,6 +146,7 @@ begin
                         '1',        -- mem_w_e
                         message
                     );
+                    assert fsm_m_done = '0' report "fsm_m_done: " & message;
                 when JUMP_ROW_STATE =>
                     check_fsm_signals(
                         '0',        -- ng_one_gen
@@ -161,6 +163,7 @@ begin
                         '1',        -- mem_w_e
                         message
                     );
+                    assert fsm_m_done = '0' report "fsm_m_done: " & message;
                 when WRITE_HEAD_STATE =>
                     check_fsm_signals(
                         '0',        -- ng_one_gen
@@ -292,7 +295,7 @@ begin
         );
         check_fsm_state(RESET_ROW_STATE, "Failed test 013");
 
-         reset_activate;
+        reset_activate;
         check_fsm_state(READY_STATE, "Failed test 014");
 
 

@@ -29,7 +29,7 @@ package snake_package is
         STEP_CON
     );
 
-    attribute enum_encoding : string; -- user defined
+    attribute enum_encoding : string;
     type RB_SEL is (
         HEAD_OUT,
         REG2_OUT,

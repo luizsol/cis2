@@ -18,9 +18,6 @@ use IEEE.std_logic_unsigned.all;
 
 use work.snake_package.all;
 
--- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
--- FIXME this is a work in progress! not working yet
-
 entity fsm_step is
     port (
         clk             : in STD_LOGIC;
@@ -48,7 +45,7 @@ begin
         if clk'event and clk = '1' then
             if(res = '1') then
                 STATE <= READY;
-            else -- CASE VEM AQUI PRAS TRANSIÇÕES
+            else
                 case STATE is
                     when READY =>
                         if (fsm_m_start = '1') then

@@ -17,9 +17,6 @@ use ieee.numeric_std.all;
 
 use work.snake_package.all;
 
--- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
--- FIXME this is a work in progress! not working yet
-
 entity fsm_step_stimuli is
     generic (
         CLK_PERIOD: TIME := 10 ns

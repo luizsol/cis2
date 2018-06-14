@@ -19,14 +19,13 @@ use work.snake_package.all;
 entity comparator is
     port (
         value   : in  STD_LOGIC_VECTOR(7 downto 0);
-        is_food : out STD_LOGIC := '0';
-        is_body : out STD_LOGIC := '0'
+        dp_flags: out datapath_flags
     );
 end comparator;
 
 architecture arch of comparator is
 begin
-    is_food <= value(7);
-    is_body <= value(4);
+    dp_flags.cmp_food_flag  <= value(7);
+    dp_flags.cmp_body_flag  <= value(4);
 
 end arch;

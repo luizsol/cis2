@@ -24,18 +24,18 @@ entity fsm_main_stimuli is
     );
 
     port (
-        clk             : out STD_LOGIC;     --from system
-        res             : out STD_LOGIC;     --from system
-        cnt_rdy         : out STD_LOGIC;     --from system
-        cmp_food_flag   : out STD_LOGIC;     --from datapath/comparator module
-        fsm_i_done      : out STD_LOGIC;     --from fsm_init
-        fsm_f_done      : out STD_LOGIC;     --from fsm_food_spawn
-        fsm_s_done      : out STD_LOGIC;     --from fsm_step
-        fsm_s_game_over : out STD_LOGIC;      --from fsm_step
-        con_sel         : in CONTROL_SELECT; --to internal
-        fsm_i_start     : in STD_LOGIC;      --to fsm_init
-        fsm_f_start     : in STD_LOGIC;      --to fsm_food
-        fsm_s_start     : in STD_LOGIC       --to fsm_start
+        clk             : out STD_LOGIC;
+        res             : out STD_LOGIC;
+        cnt_rdy         : out STD_LOGIC;
+        cmp_food_flag   : out STD_LOGIC;
+        fsm_i_done      : out STD_LOGIC;
+        fsm_f_done      : out STD_LOGIC;
+        fsm_s_done      : out STD_LOGIC;
+        fsm_s_game_over : out STD_LOGIC;
+        con_sel         : in CONTROL_SELECT;
+        fsm_i_start     : in STD_LOGIC;
+        fsm_f_start     : in STD_LOGIC;
+        fsm_s_start     : in STD_LOGIC
     );
 end fsm_main_stimuli;
 

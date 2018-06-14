@@ -40,97 +40,27 @@ architecture arch of fsm_step is
         READY, NEW_POSITION, CHECK, POP_WRITE_TAIL
     );
 
-    signal STATE: STATE_TYPE_INIT;
+    signal STATE, NEXT_STATE: STATE_TYPE_INIT;
 
 begin
     upd_state:  process (clk)
     begin
         if clk'event and clk = '1' then
-            if (res = '1')   then
+            if(res = '1') then
                 STATE <= READY;
-            else
+            else -- CASE VEM AQUI PRAS TRANSIÇÕES
                 case STATE is
                     when READY =>
-                        dp_ctrl.ng_one_gen      <= '0';
-                        dp_ctrl.ng_pos_neg      <= '0';
-                        dp_ctrl.ng_one_three    <= '0';
-                        dp_ctrl.alu_x_y         <= '0';
-                        dp_ctrl.alu_pass_calc   <= '0';
-                        dp_ctrl.rb_head_en      <= '0';
-                        dp_ctrl.rb_reg2_en      <= '0';
-                        dp_ctrl.rb_fifo_en      <= '0';
-                        dp_ctrl.rb_fifo_pop     <= '0';
-                        dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                        dp_ctrl.mem_w_e         <= '0';
-                        fsm_m_done      <= '0';
-                        fsm_m_game_over <= '0';
-
                         if (fsm_m_start = '1') then
                             STATE <= NEW_POSITION;
                         else
                             STATE <= READY;
-                            dp_ctrl.cg_sel <= BLANK;
                         end if;
 
                     when NEW_POSITION =>
                         STATE <= CHECK;
 
-                        dp_ctrl.ng_one_gen      <= '0';
-                        dp_ctrl.ng_one_three    <= '0';
-                        dp_ctrl.alu_pass_calc   <= '1';
-                        dp_ctrl.rb_head_en      <= '1';
-                        dp_ctrl.rb_reg2_en      <= '0';
-                        dp_ctrl.rb_fifo_en      <= '1';
-                        dp_ctrl.rb_fifo_pop     <= '0';
-                        dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                        dp_ctrl.cg_sel          <= BLANK;
-                        dp_ctrl.mem_w_e         <= '0';
-
-                        if (sys_direction = S_LEFT) then
-                            dp_ctrl.ng_pos_neg  <= '1';
-                            dp_ctrl.alu_x_y     <= '0';
-                        elsif (sys_direction = S_RIGHT) then
-                            dp_ctrl.ng_pos_neg  <= '0';
-                            dp_ctrl.alu_x_y     <= '0';
-                        elsif (sys_direction = S_UP) then
-                            dp_ctrl.ng_pos_neg  <= '1';
-                            dp_ctrl.alu_x_y     <= '1';
-                        elsif (sys_direction = S_DOWN) then
-                            dp_ctrl.ng_pos_neg  <= '0';
-                            dp_ctrl.alu_x_y     <= '1';
-                        end if;
-
                     when CHECK =>
-                        dp_ctrl.ng_one_gen      <= '0';
-                        dp_ctrl.ng_pos_neg      <= '0';
-                        dp_ctrl.ng_one_three    <= '0';
-                        dp_ctrl.alu_x_y         <= '0';
-                        dp_ctrl.alu_pass_calc   <= '0';
-                        dp_ctrl.rb_head_en      <= '0';
-                        dp_ctrl.rb_reg2_en      <= '0';
-                        dp_ctrl.rb_fifo_en      <= '0';
-                        dp_ctrl.rb_fifo_pop     <= '0';
-                        dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                        dp_ctrl.mem_w_e         <= '1';
-
-                        if (cmp_flags = "00") then
-                            fsm_m_game_over <= '0';
-                        elsif (cmp_flags = "10") then
-                            fsm_m_done <= '1';
-                        else
-                            fsm_m_game_over <= '1';
-                        end if;
-
-                        if (sys_direction = S_LEFT) then
-                            dp_ctrl.cg_sel <= HEAD_LEFT;
-                        elsif (sys_direction = S_RIGHT) then
-                            dp_ctrl.cg_sel <= HEAD_RIGHT;
-                        elsif (sys_direction = S_UP) then
-                            dp_ctrl.cg_sel <= HEAD_UP;
-                        elsif (sys_direction = S_DOWN) then
-                            dp_ctrl.cg_sel <= HEAD_DOWN;
-                        end if;
-
                         if (cmp_body_flag = '1') then
                             STATE <= READY;
                         else
@@ -139,27 +69,109 @@ begin
 
                     when POP_WRITE_TAIL =>
                         STATE <= READY;
-
-                        fsm_m_done <= '1';
-
-                        dp_ctrl.ng_one_gen      <= '0';
-                        dp_ctrl.ng_pos_neg      <= '0';
-                        dp_ctrl.ng_one_three    <= '0';
-                        dp_ctrl.alu_x_y         <= '0';
-                        dp_ctrl.alu_pass_calc   <= '0';
-                        dp_ctrl.rb_head_en      <= '0';
-                        dp_ctrl.rb_reg2_en      <= '0';
-                        dp_ctrl.rb_fifo_en      <= '0';
-                        dp_ctrl.rb_fifo_pop     <= '1';
-                        dp_ctrl.rb_out_sel      <= FIFO_OUT;
-                        dp_ctrl.cg_sel          <= BLANK;
-                        dp_ctrl.mem_w_e         <= '1';
-
                     when others => null;
                 end case;
-
             end if;
         end if;
+    end process;
+
+    upd_state_output:  process (
+        fsm_m_start, cmp_body_flag, sys_direction, cmp_flags, STATE
+    )
+    begin
+        case STATE is
+            when READY =>
+                dp_ctrl.ng_one_gen      <= '0';
+                dp_ctrl.ng_pos_neg      <= '0';
+                dp_ctrl.ng_one_three    <= '0';
+                dp_ctrl.alu_x_y         <= '0';
+                dp_ctrl.alu_pass_calc   <= '0';
+                dp_ctrl.rb_head_en      <= '0';
+                dp_ctrl.rb_reg2_en      <= '0';
+                dp_ctrl.rb_fifo_en      <= '0';
+                dp_ctrl.rb_fifo_pop     <= '0';
+                dp_ctrl.rb_out_sel      <= HEAD_OUT;
+                dp_ctrl.mem_w_e         <= '0';
+                fsm_m_done              <= '0';
+                fsm_m_game_over         <= '0';
+
+                if (fsm_m_start = '0') then
+                    dp_ctrl.cg_sel <= BLANK;
+                end if;
+
+            when NEW_POSITION =>
+                dp_ctrl.ng_one_gen      <= '0';
+                dp_ctrl.ng_one_three    <= '0';
+                dp_ctrl.alu_pass_calc   <= '1';
+                dp_ctrl.rb_head_en      <= '1';
+                dp_ctrl.rb_reg2_en      <= '0';
+                dp_ctrl.rb_fifo_en      <= '1';
+                dp_ctrl.rb_fifo_pop     <= '0';
+                dp_ctrl.rb_out_sel      <= HEAD_OUT;
+                dp_ctrl.cg_sel          <= BLANK;
+                dp_ctrl.mem_w_e         <= '0';
+
+                if (sys_direction = S_LEFT) then
+                    dp_ctrl.ng_pos_neg  <= '1';
+                    dp_ctrl.alu_x_y     <= '0';
+                elsif (sys_direction = S_RIGHT) then
+                    dp_ctrl.ng_pos_neg  <= '0';
+                    dp_ctrl.alu_x_y     <= '0';
+                elsif (sys_direction = S_UP) then
+                    dp_ctrl.ng_pos_neg  <= '1';
+                    dp_ctrl.alu_x_y     <= '1';
+                elsif (sys_direction = S_DOWN) then
+                    dp_ctrl.ng_pos_neg  <= '0';
+                    dp_ctrl.alu_x_y     <= '1';
+                end if;
+
+            when CHECK =>
+                dp_ctrl.ng_one_gen      <= '0';
+                dp_ctrl.ng_pos_neg      <= '0';
+                dp_ctrl.ng_one_three    <= '0';
+                dp_ctrl.alu_x_y         <= '0';
+                dp_ctrl.alu_pass_calc   <= '0';
+                dp_ctrl.rb_head_en      <= '0';
+                dp_ctrl.rb_reg2_en      <= '0';
+                dp_ctrl.rb_fifo_en      <= '0';
+                dp_ctrl.rb_fifo_pop     <= '0';
+                dp_ctrl.rb_out_sel      <= HEAD_OUT;
+                dp_ctrl.mem_w_e         <= '1';
+
+                if (cmp_flags = "00") then
+                    fsm_m_game_over <= '0';
+                elsif (cmp_flags = "10") then
+                    fsm_m_done <= '1';
+                else
+                    fsm_m_game_over <= '1';
+                end if;
+
+                if (sys_direction = S_LEFT) then
+                    dp_ctrl.cg_sel <= HEAD_LEFT;
+                elsif (sys_direction = S_RIGHT) then
+                    dp_ctrl.cg_sel <= HEAD_RIGHT;
+                elsif (sys_direction = S_UP) then
+                    dp_ctrl.cg_sel <= HEAD_UP;
+                elsif (sys_direction = S_DOWN) then
+                    dp_ctrl.cg_sel <= HEAD_DOWN;
+                end if;
+
+            when POP_WRITE_TAIL =>
+                dp_ctrl.ng_one_gen      <= '0';
+                dp_ctrl.ng_pos_neg      <= '0';
+                dp_ctrl.ng_one_three    <= '0';
+                dp_ctrl.alu_x_y         <= '0';
+                dp_ctrl.alu_pass_calc   <= '0';
+                dp_ctrl.rb_head_en      <= '0';
+                dp_ctrl.rb_reg2_en      <= '0';
+                dp_ctrl.rb_fifo_en      <= '0';
+                dp_ctrl.rb_fifo_pop     <= '1';
+                dp_ctrl.rb_out_sel      <= FIFO_OUT;
+                dp_ctrl.cg_sel          <= BLANK;
+                dp_ctrl.mem_w_e         <= '1';
+                fsm_m_done              <= '1';
+            when others => null;
+        end case;
     end process;
 
 end arch;

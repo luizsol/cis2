@@ -67,25 +67,44 @@ begin
             fsm_m_start_s   : in STD_LOGIC;
             cmp_body_flag_s : in STD_LOGIC;
             sys_direction_s : in direction;
-            cmp_flags_s     : in STD_LOGIC_VECTOR(1 downto 0)
+            cmp_flags_s     : in STD_LOGIC_VECTOR(1 downto 0);
+            sync            : in BOOLEAN
         ) is
         begin
-            wait until falling_edge(clk_s);
+            if sync then
+                wait until falling_edge(clk_s);
+            end if;
             fsm_m_start     <= fsm_m_start_s;
             cmp_body_flag   <= cmp_body_flag_s;
             sys_direction   <= sys_direction_s;
             cmp_flags       <= cmp_flags_s;
-            wait until falling_edge(clk_s);
+            if sync then
+                wait until falling_edge(clk_s);
+            end if;
         end procedure set_fsm;
 
         procedure check_fsm_signals(
-            ng_one_gen, ng_pos_neg, ng_one_three, alu_x_y, alu_pass_calc,
-            rb_head_en, rb_reg2_en, rb_fifo_en, rb_fifo_pop: in STD_LOGIC;
-            rb_out_sel: in RB_SEL; cg_sel: in CODE; mem_w_e, fsm_m_done_s,
-            fsm_m_game_over_s: in STD_LOGIC; message: in STRING(1 to 15)
+            ng_one_gen          : in STD_LOGIC;
+            ng_pos_neg          : in STD_LOGIC;
+            ng_one_three        : in STD_LOGIC;
+            alu_x_y             : in STD_LOGIC;
+            alu_pass_calc       : in STD_LOGIC;
+            rb_head_en          : in STD_LOGIC;
+            rb_reg2_en          : in STD_LOGIC;
+            rb_fifo_en          : in STD_LOGIC;
+            rb_fifo_pop         : in STD_LOGIC;
+            rb_out_sel          : in RB_SEL;
+            cg_sel              : in CODE;
+            mem_w_e             : in STD_LOGIC;
+            fsm_m_done_s        : in STD_LOGIC;
+            fsm_m_game_over_s   : in STD_LOGIC;
+            message             : in STRING(1 to 15);
+            sync                : in BOOLEAN
         ) is
         begin
-
+            if sync then
+                wait until falling_edge(clk_s);
+            end if;
             assert ng_one_gen = dp_ctrl.ng_one_gen report message;
             assert ng_one_gen = dp_ctrl.ng_one_gen report message;
             assert ng_one_gen = dp_ctrl.ng_one_gen
@@ -130,7 +149,8 @@ begin
             '0',    -- fsm_m_start
             '0',    -- cmp_body_flag
             S_UP,   -- sys_direction
-            "00"    -- cmp_flags
+            "00",   -- cmp_flags
+            true    -- sync
         );
 
         wait until rising_edge(clk_s);
@@ -142,98 +162,290 @@ begin
             '0',    -- fsm_m_start
             '0',    -- cmp_body_flag
             S_UP,   -- sys_direction
-            "00"    -- cmp_flags
+            "00",   -- cmp_flags
+            true    -- sync
         );
         check_fsm_signals(  -- At the READY state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y
-            '0',        -- alu_pass_calc
-            '0',        -- rb_head_en
-            'X',        -- rb_reg2_en -- PREVIOUS VALUE
-            '0',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '0',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 001"
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en -- PREVIOUS VALUE
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 001",  -- message
+            false               -- sync
         );
 
         set_fsm(
             '0',    -- fsm_m_start
-            '1',    -- cmp_body_flag
+            '1',    -- cmp_body_flag    -- CHANGE
             S_UP,   -- sys_direction
-            "10"    -- cmp_flags
+            "10",   -- cmp_flags        -- CHANGE
+            true    -- sync
         );
         check_fsm_signals( -- At the READY state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y
-            '0',        -- alu_pass_calc
-            '0',        -- rb_head_en
-            'X',        -- rb_reg2_en -- PREVIOUS VALUE
-            '0',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '0',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 002"
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en -- PREVIOUS VALUE
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 002",  -- message
+            false               -- sync
         );
 
         -- Test 2 - when at the READY state, if fsm_m_start is 1 the fsm should
         --  go to the NEW_POSITION state.
 
         set_fsm(
-            '1',    -- fsm_m_start
-            '1',    -- cmp_body_flag
+            '1',    -- fsm_m_start      -- CHANGE
+            '0',    -- cmp_body_flag    -- CHANGE
             S_UP,   -- sys_direction
-            "00"    -- cmp_flags
+            "00",   -- cmp_flags        -- CHANGE
+            true    -- sync
         );
         check_fsm_signals( -- At the NEW_POSITION state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg -- PREVIOUS VALUE
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y -- PREVIOUS VALUE
-            '1',        -- alu_pass_calc
-            '1',        -- rb_head_en
-            '0',        -- rb_reg2_en
-            '1',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '0',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 003"
+            '0',                -- ng_one_gen
+            '1',                -- ng_pos_neg       -- CHANGE
+            '0',                -- ng_one_three
+            '1',                -- alu_x_y          -- CHANGE
+            '1',                -- alu_pass_calc    -- CHANGE
+            '1',                -- rb_head_en       -- CHANGE
+            '0',                -- rb_reg2_en
+            '1',                -- rb_fifo_en       -- CHANGE
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 003",  -- message
+            false               -- sync
         );
+
+        -- Test 3 - as this is a Mealy FSM, the value of the outputs at any
+        --  given time depend on the current state and on the inputs, therefore
+        --  if during the NEW_POSITION state whe change the value of the
+        --  sys_direction output whe should see the value of both pos_neg and
+        --  alu_x_y change.
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_DOWN, -- sys_direction    -- CHANGE
+            "00",   -- cmp_flags
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the NEW_POSITION state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg       -- CHANGE
+            '0',                -- ng_one_three
+            '1',                -- alu_x_y
+            '1',                -- alu_pass_calc
+            '1',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '1',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 004",  -- message
+            false               -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_LEFT, -- sys_direction    -- CHANGE
+            "00",   -- cmp_flags
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the NEW_POSITION state
+            '0',                -- ng_one_gen
+            '1',                -- ng_pos_neg       -- CHANGE
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y          -- CHANGE
+            '1',                -- alu_pass_calc
+            '1',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '1',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 005",  -- message
+            false               -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_RIGHT,-- sys_direction    -- CHANGE
+            "00",   -- cmp_flags
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the NEW_POSITION state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg       -- CHANGE
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '1',                -- alu_pass_calc
+            '1',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '1',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 006",  -- message
+            false               -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_UP,   -- sys_direction    -- CHANGE
+            "00",   -- cmp_flags
+            false   -- sync
+        );
+        wait for 1 ps;
 
         -- Test 3 - when at the NEW_POSITION state the fsm should go
         --  automatically to the CHECK state, and depending on the value of
-        --  sys_direction during the transition the values of both ng_pos_neg
-        --  and alu_x_y will change.
+        --  cmp_flags and sys_direction we should see differents outputs on
+        -- fsm_m_game, fsm_m_done, and dp_ctrl.cg_sel
 
         check_fsm_signals( -- At the CHECK state
-            '0',        -- ng_one_gen
-            '1',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '1',        -- alu_x_y
-            '1',        -- alu_pass_calc
-            '1',        -- rb_head_en
-            '0',        -- rb_reg2_en
-            '1',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '0',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 004"
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc    -- CHANGE
+            '0',                -- rb_head_en       -- CHANGE
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en       -- CHANGE
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_UP,            -- cg_sel           -- CHANGE
+            '1',                -- mem_w_e          -- CHANGE
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 007",  -- message
+            true                -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_RIGHT,-- sys_direction    -- CHANGE
+            "10",   -- cmp_flags        -- CHANGE
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the CHECK state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_RIGHT,         -- cg_sel           -- CHANGE
+            '1',                -- mem_w_e
+            '1',                -- fsm_m_done       -- CHANGE
+            '0',                -- fsm_m_game_over
+            "Failed test 008",  -- message
+            false                -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_DOWN,-- sys_direction     -- CHANGE
+            "01",   -- cmp_flags        -- CHANGE
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the CHECK state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_DOWN,          -- cg_sel           -- CHANGE
+            '1',                -- mem_w_e
+            '1',                -- fsm_m_done
+            '1',                -- fsm_m_game_over  -- CHANGE
+            "Failed test 009",  -- message
+            false                -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_LEFT, -- sys_direction    -- CHANGE
+            "11",   -- cmp_flags        -- CHANGE
+            false   -- sync
+        );
+        wait for 1 ps;
+        check_fsm_signals( -- At the CHECK state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_LEFT,          -- cg_sel           -- CHANGE
+            '1',                -- mem_w_e
+            '1',                -- fsm_m_done
+            '1',                -- fsm_m_game_over
+            "Failed test 010",  -- message
+            false                -- sync
+        );
+
+        set_fsm(
+            '1',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_UP,   -- sys_direction    -- CHANGE
+            "00",   -- cmp_flags        -- CHANGE
+            false   -- sync
         );
 
         -- Test 4 - when at the CHECK state and if cmp_body_flag is 1 the fsm
@@ -242,70 +454,124 @@ begin
         --  the values of both fsm_m_done and cg_sel will change.
 
         check_fsm_signals( -- At the POP_WRITE_TAIL state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y
-            '0',        -- alu_pass_calc
-            '0',        -- rb_head_en
-            '0',        -- rb_reg2_en
-            '0',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            HEAD_UP,    -- cg_sel
-            '1',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 005"
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc        -- CHANGE
+            '0',                -- rb_head_en           -- CHANGE
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en           -- CHANGE
+            '1',                -- rb_fifo_pop          -- CHANGE
+            FIFO_OUT,           -- rb_out_sel           -- CHANGE
+            BLANK,              -- cg_sel
+            '1',                -- mem_w_e              -- CHANGE
+            '1',                -- fsm_m_done
+            '0',                -- fsm_m_game_over      -- CHANGE
+            "Failed test 011",  -- message
+            true                -- sync
         );
 
-        -- Test 5 - when at the POP_WRITE_TAIL state the fsm should go
-        -- automatically to the READY state.
+        set_fsm(
+            '0',    -- fsm_m_start
+            '0',    -- cmp_body_flag
+            S_LEFT, -- sys_direction
+            "10",   -- cmp_flags
+            false    -- sync
+        );
+        check_fsm_signals(  -- At the READY state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en -- PREVIOUS VALUE
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 012",  -- message
+            true                -- sync
+        );
 
-        check_fsm_signals(  -- At the POP_WRITE_TAIL state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y
-            '0',        -- alu_pass_calc
-            '0',        -- rb_head_en
-            '0',        -- rb_reg2_en
-            '0',        -- rb_fifo_en
-            '1',        -- rb_fifo_pop
-            FIFO_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '1',        -- mem_w_e
-            '1',        -- fsm_m_done
-            '0',        -- fsm_m_game_over -- PREVIOUS VALUE
-            "Failed test 006"
+        -- Test 5 - Now we wil try to go from the CHECK state straight to the
+        --  READY state.
+
+        set_fsm( -- Now we will test another path
+            '1',    -- fsm_m_start
+            '1',    -- cmp_body_flag
+            S_RIGHT,-- sys_direction
+            "00",   -- cmp_flags
+            false    -- sync
+        );
+        check_fsm_signals( -- At the NEW_POSITION state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '1',                -- alu_pass_calc    -- CHANGE
+            '1',                -- rb_head_en       -- CHANGE
+            '0',                -- rb_reg2_en
+            '1',                -- rb_fifo_en       -- CHANGE
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            BLANK,              -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 006",  -- message
+            true                -- sync
         );
 
         set_fsm( -- Now we will test another path
             '1',    -- fsm_m_start
-            '0',    -- cmp_body_flag
-            S_LEFT, -- sys_direction
-            "10"    -- cmp_flags
+            '1',    -- cmp_body_flag
+            S_RIGHT,-- sys_direction
+            "00",   -- cmp_flags
+            false    -- sync
+        );
+        check_fsm_signals( -- At the CHECK state
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_RIGHT,         -- cg_sel
+            '1',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 010",  -- message
+            true                -- sync
         );
 
         check_fsm_signals(  -- At the READY state
-            '0',        -- ng_one_gen
-            '0',        -- ng_pos_neg
-            '0',        -- ng_one_three
-            '0',        -- alu_x_y
-            '0',        -- alu_pass_calc
-            '0',        -- rb_head_en
-            '0',        -- rb_reg2_en -- PREVIOUS VALUE
-            '0',        -- rb_fifo_en
-            '0',        -- rb_fifo_pop
-            HEAD_OUT,   -- rb_out_sel
-            BLANK,      -- cg_sel
-            '0',        -- mem_w_e
-            '0',        -- fsm_m_done
-            '0',        -- fsm_m_game_over
-            "Failed test 007"
+            '0',                -- ng_one_gen
+            '0',                -- ng_pos_neg
+            '0',                -- ng_one_three
+            '0',                -- alu_x_y
+            '0',                -- alu_pass_calc
+            '0',                -- rb_head_en
+            '0',                -- rb_reg2_en -- PREVIOUS VALUE
+            '0',                -- rb_fifo_en
+            '0',                -- rb_fifo_pop
+            HEAD_OUT,           -- rb_out_sel
+            HEAD_RIGHT,         -- cg_sel
+            '0',                -- mem_w_e
+            '0',                -- fsm_m_done
+            '0',                -- fsm_m_game_over
+            "Failed test 012",  -- message
+            true                -- sync
         );
 
-        -- Test 5 - Now we wil test the other possible loops
 
         wait;
     end process sim;

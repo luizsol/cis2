@@ -9,7 +9,7 @@ set arquivos {"src/snake_package.vhd" "src/fsm_step.vhd" "src/clock.vhd" "test/f
 
 set componente "fsm_step_tb"
 
-set duration [expr {10 * 25 * 10}]
+set duration [expr {160}]
 # Definindo o diretório do projeto
 cd $diretorio
 # Criando as libraries do projeto

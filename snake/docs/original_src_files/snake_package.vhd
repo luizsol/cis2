@@ -50,7 +50,7 @@ package snake_package is
 	type CODE_BITS is array (CODE) of STD_LOGIC_VECTOR(7 downto 0);
 	constant CODE_VECTORS	: CODE_BITS	:= (BLANK_VEC, HEAD_UP_VEC, HEAD_DOWN_VEC, HEAD_RIGHT_VEC, HEAD_LEFT_VEC, BODY_VEC, FOOD_VEC);
 					
-	type datapath_ctrl_flags is
+	type datapath_ctrl is
 	record
 		ng_one_gen		: STD_LOGIC;
 		ng_pos_neg		: STD_LOGIC;

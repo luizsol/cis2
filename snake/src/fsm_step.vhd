@@ -2,12 +2,13 @@
 --*                                                                            *
 --* Title   : fsm_step.vhd                                                     *
 --* Design  :                                                                  *
---* Author  : Luiz Sol                                                         *
+--* Author  : Frederik Luhrs                                                   *
 --* Email   : luizedusol@gmail.com                                             *
 --*                                                                            *
 --******************************************************************************
 --*                                                                            *
---* Description :                                                              *
+--* Description : FSM to execute a step by finding the new head position and   *
+--*               checking if there was body or food hit.                      *
 --*                                                                            *
 --******************************************************************************
 
@@ -20,12 +21,12 @@ use work.snake_package.all;
 
 entity fsm_step is
     port (
-        clk             : in STD_LOGIC;
-        res             : in STD_LOGIC;
-        fsm_m_start     : in STD_LOGIC;
-        cmp_body_flag   : in STD_LOGIC;
-        sys_direction   : in direction;
-        cmp_flags       : in STD_LOGIC_VECTOR(1 downto 0);
+        clk             : in  STD_LOGIC;
+        res             : in  STD_LOGIC;
+        fsm_m_start     : in  STD_LOGIC;
+        cmp_food_flag   : in  STD_LOGIC;
+        cmp_body_flag   : in  STD_LOGIC;
+        sys_direction   : in  direction;
         dp_ctrl         : out datapath_ctrl_flags;
         fsm_m_done      : out STD_LOGIC;
         fsm_m_game_over : out STD_LOGIC
@@ -33,142 +34,304 @@ entity fsm_step is
 end fsm_step;
 
 architecture arch of fsm_step is
-    type STATE_TYPE_INIT is (
+
+    type STATE_TYPE_STEP is (
         READY, NEW_POSITION, CHECK, POP_WRITE_TAIL
     );
 
-    signal STATE, NEXT_STATE: STATE_TYPE_INIT;
+    signal STATE, NEXT_STATE: STATE_TYPE_STEP;
+
+    signal CMP_FLAGS : STD_LOGIC_VECTOR(1 downto 0);
 
 begin
-    upd_state:  process (clk)
-    begin
-        if clk'event and clk = '1' then
-            if(res = '1') then
-                STATE <= READY;
-            else
-                case STATE is
-                    when READY =>
-                        if (fsm_m_start = '1') then
-                            STATE <= NEW_POSITION;
-                        else
-                            STATE <= READY;
-                        end if;
 
-                    when NEW_POSITION =>
-                        STATE <= CHECK;
+    CMP_FLAGS <= cmp_food_flag & cmp_body_flag;
 
-                    when CHECK =>
-                        if (cmp_body_flag = '1') then
-                            STATE <= READY;
-                        else
-                            STATE <= POP_WRITE_TAIL;
-                        end if;
 
-                    when POP_WRITE_TAIL =>
-                        STATE <= READY;
-                    when others => null;
-                end case;
-            end if;
-        end if;
-    end process;
+------------------------------------
+-- Next State Logic (combinatorial)
+------------------------------------
 
-    upd_state_output:  process (
-        fsm_m_start, cmp_body_flag, sys_direction, cmp_flags, STATE
+    upd_next_state: process (
+        fsm_m_start, cmp_body_flag, cmp_food_flag, sys_direction, STATE
     )
     begin
         case STATE is
             when READY =>
-                dp_ctrl.ng_one_gen      <= '0';
-                dp_ctrl.ng_pos_neg      <= '0';
-                dp_ctrl.ng_one_three    <= '0';
-                dp_ctrl.alu_x_y         <= '0';
-                dp_ctrl.alu_pass_calc   <= '0';
-                dp_ctrl.rb_head_en      <= '0';
-                dp_ctrl.rb_reg2_en      <= '0';
-                dp_ctrl.rb_fifo_en      <= '0';
-                dp_ctrl.rb_fifo_pop     <= '0';
-                dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                dp_ctrl.mem_w_e         <= '0';
-                fsm_m_done              <= '0';
-                fsm_m_game_over         <= '0';
-
-                if (fsm_m_start = '0') then
-                    dp_ctrl.cg_sel <= BLANK;
+                if(fsm_m_start = '1') then
+                    NEXT_STATE <= NEW_POSITION;
+                else
+                    NEXT_STATE <= READY;
                 end if;
 
-            when NEW_POSITION =>
-                dp_ctrl.ng_one_gen      <= '0';
-                dp_ctrl.ng_one_three    <= '0';
-                dp_ctrl.alu_pass_calc   <= '1';
-                dp_ctrl.rb_head_en      <= '1';
-                dp_ctrl.rb_reg2_en      <= '0';
-                dp_ctrl.rb_fifo_en      <= '1';
-                dp_ctrl.rb_fifo_pop     <= '0';
-                dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                dp_ctrl.cg_sel          <= BLANK;
-                dp_ctrl.mem_w_e         <= '0';
-
-                if (sys_direction = S_LEFT) then
-                    dp_ctrl.ng_pos_neg  <= '1';
-                    dp_ctrl.alu_x_y     <= '0';
-                elsif (sys_direction = S_RIGHT) then
-                    dp_ctrl.ng_pos_neg  <= '0';
-                    dp_ctrl.alu_x_y     <= '0';
-                elsif (sys_direction = S_UP) then
-                    dp_ctrl.ng_pos_neg  <= '1';
-                    dp_ctrl.alu_x_y     <= '1';
-                elsif (sys_direction = S_DOWN) then
-                    dp_ctrl.ng_pos_neg  <= '0';
-                    dp_ctrl.alu_x_y     <= '1';
-                end if;
+            when NEW_POSITION => NEXT_STATE <= CHECK;
 
             when CHECK =>
-                dp_ctrl.ng_one_gen      <= '0';
-                dp_ctrl.ng_pos_neg      <= '0';
-                dp_ctrl.ng_one_three    <= '0';
-                dp_ctrl.alu_x_y         <= '0';
-                dp_ctrl.alu_pass_calc   <= '0';
-                dp_ctrl.rb_head_en      <= '0';
-                dp_ctrl.rb_reg2_en      <= '0';
-                dp_ctrl.rb_fifo_en      <= '0';
-                dp_ctrl.rb_fifo_pop     <= '0';
-                dp_ctrl.rb_out_sel      <= HEAD_OUT;
-                dp_ctrl.mem_w_e         <= '1';
-
-                if (cmp_flags = "00") then
-                    fsm_m_game_over <= '0';
-                elsif (cmp_flags = "10") then
-                    fsm_m_done <= '1';
+                if(cmp_food_flag = '1') then
+                    NEXT_STATE <= READY;
                 else
-                    fsm_m_game_over <= '1';
+                    NEXT_STATE <= POP_WRITE_TAIL;
                 end if;
 
-                if (sys_direction = S_LEFT) then
-                    dp_ctrl.cg_sel <= HEAD_LEFT;
-                elsif (sys_direction = S_RIGHT) then
-                    dp_ctrl.cg_sel <= HEAD_RIGHT;
-                elsif (sys_direction = S_UP) then
-                    dp_ctrl.cg_sel <= HEAD_UP;
-                elsif (sys_direction = S_DOWN) then
-                    dp_ctrl.cg_sel <= HEAD_DOWN;
-                end if;
+            when POP_WRITE_TAIL => NEXT_STATE <= READY;
 
-            when POP_WRITE_TAIL =>
-                dp_ctrl.ng_one_gen      <= '0';
-                dp_ctrl.ng_pos_neg      <= '0';
-                dp_ctrl.ng_one_three    <= '0';
-                dp_ctrl.alu_x_y         <= '0';
-                dp_ctrl.alu_pass_calc   <= '0';
-                dp_ctrl.rb_head_en      <= '0';
-                dp_ctrl.rb_reg2_en      <= '0';
-                dp_ctrl.rb_fifo_en      <= '0';
-                dp_ctrl.rb_fifo_pop     <= '1';
-                dp_ctrl.rb_out_sel      <= FIFO_OUT;
-                dp_ctrl.cg_sel          <= BLANK;
-                dp_ctrl.mem_w_e         <= '1';
-                fsm_m_done              <= '1';
             when others => null;
+
         end case;
     end process;
 
+------------------------------------
+-- Current State Logic (sequential)
+------------------------------------
+    upd_state: process (clk)
+    begin
+        if clk'event and clk = '1' then
+            if(res = '1')    then
+                STATE <= READY;
+            else
+                STATE <= NEXT_STATE;
+            end if;
+        end if;
+    end process;
+
+
+------------------------------------
+-- OUTPUT Logic (combinatorial)
+------------------------------------
+    upd_output: process (fsm_m_start, CMP_FLAGS, sys_direction, STATE)
+    begin
+        case STATE is
+            when READY =>
+                case fsm_m_start is
+                    when '0' =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => BLANK,
+                            mem_w_e         => '0'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when '1' =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => S_BODY,
+                            mem_w_e         => '1'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when others => null;
+                end case;
+
+            when NEW_POSITION =>
+                case sys_direction is
+                    when S_LEFT =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '1',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '1',
+                            rb_head_en      => '1',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '1',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => BLANK,
+                            mem_w_e         => '0'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when S_RIGHT =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '1',
+                            rb_head_en      => '1',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '1',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => BLANK,
+                            mem_w_e         => '0'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when S_UP =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '1',
+                            ng_one_three    => '0',
+                            alu_x_y         => '1',
+                            alu_pass_calc   => '1',
+                            rb_head_en      => '1',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '1',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => BLANK,
+                            mem_w_e         => '0'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when S_DOWN =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '1',
+                            alu_pass_calc   => '1',
+                            rb_head_en      => '1',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '1',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => BLANK,
+                            mem_w_e         => '0'
+                        );
+
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when others => null;
+                end case;
+
+            when CHECK =>
+                case CMP_FLAGS is
+                    when "00" =>
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '0';
+
+                    when "10" =>
+                        fsm_m_done      <= '1';
+                        fsm_m_game_over <= '0';
+
+                    when "01" | "11" =>
+                        fsm_m_done      <= '0';
+                        fsm_m_game_over <= '1';
+
+                    when others => null;
+
+                end case;
+
+                case sys_direction is
+                    when S_LEFT =>
+                        dp_ctrl <= (
+                            ng_one_gen        => '0',
+                            ng_pos_neg        => '0',
+                            ng_one_three    => '0',
+                            alu_x_y            => '0',
+                            alu_pass_calc    => '0',
+                            rb_head_en        => '0',
+                            rb_reg2_en        => '0',
+                            rb_fifo_en        => '0',
+                            rb_fifo_pop        => '0',
+                            rb_out_sel        => HEAD_OUT,
+                            cg_sel            => HEAD_LEFT,
+                            mem_w_e            => '1'
+                        );
+
+                    when S_RIGHT =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => HEAD_RIGHT,
+                            mem_w_e          => '1'
+                        );
+
+                    when S_UP =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => HEAD_UP,
+                            mem_w_e         => '1'
+                        );
+
+                    when S_DOWN =>
+                        dp_ctrl <= (
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
+                            ng_one_three    => '0',
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => HEAD_DOWN,
+                            mem_w_e         => '1'
+                        );
+
+                    when others => null;
+
+                end case;
+
+            when POP_WRITE_TAIL =>
+                dp_ctrl <= (
+                    ng_one_gen      => '0',
+                    ng_pos_neg      => '0',
+                    ng_one_three    => '0',
+                    alu_x_y         => '0',
+                    alu_pass_calc   => '0',
+                    rb_head_en      => '0',
+                    rb_reg2_en      => '0',
+                    rb_fifo_en      => '0',
+                    rb_fifo_pop     => '1',
+                    rb_out_sel      => FIFO_OUT,
+                    cg_sel          => BLANK,
+                    mem_w_e         => '1'
+                );
+
+                fsm_m_done      <= '1';
+                fsm_m_game_over <= '0';
+
+            when others => null;
+        end case;
+    end process;
 end arch;

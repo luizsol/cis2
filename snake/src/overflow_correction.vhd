@@ -23,19 +23,20 @@ entity overflow_correction is
     );
 
     port (
-        ofc_result  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        result      : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        dp_flags    : out datapath_flags
+        alu_result  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        rb_result   : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        ctrl_of_x   : out STD_LOGIC;
+        ctrl_of_y   : out STD_LOGIC
     );
 end overflow_correction;
 
 
 architecture arch of overflow_correction is
 begin
-    result <= "0" & ofc_result(WIDTH - 2 downto WIDTH / 2) & "0"
-        & ofc_result(WIDTH / 2 - 2 downto 0);
+    rb_result <= "0" & alu_result(WIDTH - 2 downto WIDTH / 2) & "0"
+        & alu_result(WIDTH / 2 - 2 downto 0);
 
-    dp_flags.ofc_of_y <= ofc_result(WIDTH - 1);
-    dp_flags.ofc_of_x <= ofc_result(WIDTH / 2 - 1);
+    ctrl_of_y <= alu_result(WIDTH - 1);
+    ctrl_of_x <= alu_result(WIDTH / 2 - 1);
 
 END arch;

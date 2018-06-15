@@ -23,9 +23,10 @@ entity overflow_correction_stimuli is
     );
 
     port (
-        ofc_result  : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        result      : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        dp_flags    : in  datapath_flags
+        alu_result  : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        rb_result   : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        ctrl_of_x   : in  STD_LOGIC;
+        ctrl_of_y   : in  STD_LOGIC
     );
 end overflow_correction_stimuli;
 
@@ -35,29 +36,29 @@ begin
     begin
         -- Test 1
 
-        ofc_result <= "11111111";
+        alu_result <= "11111111";
         wait for 1 ns;
-        assert result = "01110111" report "Test 1.1: Wrong result";
-        assert dp_flags.ofc_of_x = '1' report "Test 1.2: Wrong ofc_of_x";
-        assert dp_flags.ofc_of_y = '1' report "Test 1.3: Wrong ofc_of_y";
+        assert rb_result = "01110111" report "Test 1.1: Wrong result";
+        assert ctrl_of_x = '1' report "Test 1.2: Wrong ofc_of_x";
+        assert ctrl_of_y = '1' report "Test 1.3: Wrong ofc_of_y";
 
-        ofc_result <= "00110011";
+        alu_result <= "00110011";
         wait for 1 ns;
-        assert result = "00110011" report "Test 2.1: Wrong result";
-        assert dp_flags.ofc_of_x = '0' report "Test 2.2: Wrong ofc_of_x";
-        assert dp_flags.ofc_of_y = '0' report "Test 2.3: Wrong ofc_of_y";
+        assert rb_result = "00110011" report "Test 2.1: Wrong result";
+        assert ctrl_of_x = '0' report "Test 2.2: Wrong ofc_of_x";
+        assert ctrl_of_y = '0' report "Test 2.3: Wrong ofc_of_y";
 
-        ofc_result <= "10110011";
+        alu_result <= "10110011";
         wait for 1 ns;
-        assert result = "00110011" report "Test 3.1: Wrong result";
-        assert dp_flags.ofc_of_x = '0' report "Test 3.2: Wrong ofc_of_x";
-        assert dp_flags.ofc_of_y = '1' report "Test 3.3: Wrong ofc_of_y";
+        assert rb_result = "00110011" report "Test 3.1: Wrong result";
+        assert ctrl_of_x = '0' report "Test 3.2: Wrong ofc_of_x";
+        assert ctrl_of_y = '1' report "Test 3.3: Wrong ofc_of_y";
 
-        ofc_result <= "00111011";
+        alu_result <= "00111011";
         wait for 1 ns;
-        assert result = "00110011" report "Test 3.1: Wrong result";
-        assert dp_flags.ofc_of_x = '1' report "Test 3.2: Wrong ofc_of_x";
-        assert dp_flags.ofc_of_y = '0' report "Test 3.3: Wrong ofc_of_y";
+        assert rb_result = "00110011" report "Test 3.1: Wrong result";
+        assert ctrl_of_x = '1' report "Test 3.2: Wrong ofc_of_x";
+        assert ctrl_of_y = '0' report "Test 3.3: Wrong ofc_of_y";
 
 
         wait;

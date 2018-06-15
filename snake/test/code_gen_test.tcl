@@ -4,6 +4,7 @@ quit -sim
 vmap -del work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
+# set diretorio "X:/projects/cis2/snake"
 
 set arquivos {"src/snake_package.vhd" "src/code_gen.vhd" "test/code_gen_stimuli.vhd" "test/code_gen_tb.vhd"}
 
@@ -24,6 +25,5 @@ vmap work work
 vsim -gui -voptargs=+acc work.$componente
 view wave
 # Configurando os sinais a serem apresentados
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.cg_sel
-add wave -position insertpoint sim:/$componente/value_s
+add wave -position insertpoint sim:/$componente/*
 run $duration ns

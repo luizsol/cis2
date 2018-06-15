@@ -19,16 +19,16 @@ use work.snake_package.all;
 
 entity fsm_step_stimuli is
     generic (
-        CLK_PERIOD: TIME := 10 ns
+        CLK_PERIOD: TIME := 20 ns
     );
 
     port (
         clk             : out STD_LOGIC;
         res             : out STD_LOGIC;
         fsm_m_start     : out STD_LOGIC;
+        cmp_food_flag   : out STD_LOGIC;
         cmp_body_flag   : out STD_LOGIC;
         sys_direction   : out direction;
-        cmp_flags       : out STD_LOGIC_VECTOR(1 downto 0);
         dp_ctrl         : in  datapath_ctrl_flags;
         fsm_m_done      : in  STD_LOGIC;
         fsm_m_game_over : in  STD_LOGIC
@@ -41,6 +41,7 @@ architecture test of fsm_step_stimuli is
     );
 
     signal clk_s : STD_LOGIC;
+    signal cmp_flags: STD_LOGIC_VECTOR(1 downto 0);
 
     component clock
         generic (
@@ -52,9 +53,15 @@ architecture test of fsm_step_stimuli is
     end component ;
 
 begin
+    cmp_food_flag <= cmp_flags(1);
+    cmp_body_flag <= cmp_flags(0);
+
     clk <= clk_s;
 
     clock_cmp : clock
+        generic map (
+            CLK_PERIOD => CLK_PERIOD
+        )
         port map (
             clk => clk_s
         );
@@ -180,6 +187,7 @@ begin
             "Failed test 001",  -- message
             false               -- sync
         );
+        wait for 1 ns;
 
         set_fsm(
             '0',    -- fsm_m_start
@@ -188,6 +196,7 @@ begin
             "10",   -- cmp_flags        -- CHANGE
             true    -- sync
         );
+        wait for 1 ns;
         check_fsm_signals( -- At the READY state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -242,6 +251,7 @@ begin
         --  sys_direction output whe should see the value of both pos_neg and
         --  alu_x_y change.
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -249,7 +259,7 @@ begin
             "00",   -- cmp_flags
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the NEW_POSITION state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg       -- CHANGE
@@ -269,6 +279,7 @@ begin
             false               -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -276,7 +287,7 @@ begin
             "00",   -- cmp_flags
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the NEW_POSITION state
             '0',                -- ng_one_gen
             '1',                -- ng_pos_neg       -- CHANGE
@@ -296,6 +307,7 @@ begin
             false               -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -303,7 +315,7 @@ begin
             "00",   -- cmp_flags
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the NEW_POSITION state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg       -- CHANGE
@@ -330,7 +342,7 @@ begin
             "00",   -- cmp_flags
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
 
         -- Test 3 - when at the NEW_POSITION state the fsm should go
         --  automatically to the CHECK state, and depending on the value of
@@ -356,6 +368,7 @@ begin
             true                -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -363,7 +376,7 @@ begin
             "10",   -- cmp_flags        -- CHANGE
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the CHECK state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -383,6 +396,7 @@ begin
             false                -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -390,7 +404,7 @@ begin
             "01",   -- cmp_flags        -- CHANGE
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the CHECK state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -404,12 +418,13 @@ begin
             HEAD_OUT,           -- rb_out_sel
             HEAD_DOWN,          -- cg_sel           -- CHANGE
             '1',                -- mem_w_e
-            '1',                -- fsm_m_done
-            '1',                -- fsm_m_game_over  -- CHANGE
+            '1',                -- fsm_m_done       -- CHANGE
+            '0',                -- fsm_m_game_over  -- CHANGE
             "Failed test 009",  -- message
             false                -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -417,7 +432,7 @@ begin
             "11",   -- cmp_flags        -- CHANGE
             false   -- sync
         );
-        wait for 1 ps;
+        wait for 1 ns;
         check_fsm_signals( -- At the CHECK state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -431,12 +446,13 @@ begin
             HEAD_OUT,           -- rb_out_sel
             HEAD_LEFT,          -- cg_sel           -- CHANGE
             '1',                -- mem_w_e
-            '1',                -- fsm_m_done
-            '1',                -- fsm_m_game_over
+            '1',                -- fsm_m_done       -- CHANGE
+            '0',                -- fsm_m_game_over
             "Failed test 010",  -- message
             false                -- sync
         );
 
+        wait for 1 ns;
         set_fsm(
             '1',    -- fsm_m_start
             '0',    -- cmp_body_flag
@@ -476,6 +492,7 @@ begin
             "10",   -- cmp_flags
             false    -- sync
         );
+        wait for 1 ns;
         check_fsm_signals(  -- At the READY state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -505,6 +522,7 @@ begin
             "00",   -- cmp_flags
             false    -- sync
         );
+        wait for 1 ns;
         check_fsm_signals( -- At the NEW_POSITION state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -520,17 +538,18 @@ begin
             '0',                -- mem_w_e
             '0',                -- fsm_m_done
             '0',                -- fsm_m_game_over
-            "Failed test 006",  -- message
+            "Failed test 013",  -- message
             true                -- sync
         );
 
         set_fsm( -- Now we will test another path
-            '1',    -- fsm_m_start
+            '0',    -- fsm_m_start
             '1',    -- cmp_body_flag
             S_RIGHT,-- sys_direction
-            "00",   -- cmp_flags
+            "10",   -- cmp_flags
             false    -- sync
         );
+        wait for 1 ns;
         check_fsm_signals( -- At the CHECK state
             '0',                -- ng_one_gen
             '0',                -- ng_pos_neg
@@ -546,7 +565,7 @@ begin
             '1',                -- mem_w_e
             '0',                -- fsm_m_done
             '0',                -- fsm_m_game_over
-            "Failed test 010",  -- message
+            "Failed test 014",  -- message
             true                -- sync
         );
 
@@ -561,11 +580,11 @@ begin
             '0',                -- rb_fifo_en
             '0',                -- rb_fifo_pop
             HEAD_OUT,           -- rb_out_sel
-            HEAD_RIGHT,         -- cg_sel
+            BLANK,              -- cg_sel
             '0',                -- mem_w_e
             '0',                -- fsm_m_done
             '0',                -- fsm_m_game_over
-            "Failed test 012",  -- message
+            "Failed test 015",  -- message
             true                -- sync
         );
 

@@ -18,18 +18,21 @@ use ieee.numeric_std.all;
 use work.snake_package.all;
 
 entity fsm_step_tb is
-    GENERIC (WIDTH: natural :=8);
+    GENERIC (
+        WIDTH       : natural :=8;
+        CLK_PERIOD  : TIME := 20 ns
+    );
 end fsm_step_tb;
 
 architecture test of fsm_step_tb is
     component fsm_step
         port (
-            clk             : in STD_LOGIC;
-            res             : in STD_LOGIC;
-            fsm_m_start     : in STD_LOGIC;
-            cmp_body_flag   : in STD_LOGIC;
-            sys_direction   : in direction;
-            cmp_flags       : in STD_LOGIC_VECTOR(1 downto 0);
+            clk             : in  STD_LOGIC;
+            res             : in  STD_LOGIC;
+            fsm_m_start     : in  STD_LOGIC;
+            cmp_food_flag   : in  STD_LOGIC;
+            cmp_body_flag   : in  STD_LOGIC;
+            sys_direction   : in  direction;
             dp_ctrl         : out datapath_ctrl_flags;
             fsm_m_done      : out STD_LOGIC;
             fsm_m_game_over : out STD_LOGIC
@@ -45,20 +48,18 @@ architecture test of fsm_step_tb is
             clk             : out STD_LOGIC;
             res             : out STD_LOGIC;
             fsm_m_start     : out STD_LOGIC;
+            cmp_food_flag   : out STD_LOGIC;
             cmp_body_flag   : out STD_LOGIC;
             sys_direction   : out direction;
-            cmp_flags       : out STD_LOGIC_VECTOR(1 downto 0);
             dp_ctrl         : in  datapath_ctrl_flags;
             fsm_m_done      : in  STD_LOGIC;
             fsm_m_game_over : in  STD_LOGIC
         );
     end component;
-
-    signal clk_s, res_s, fsm_m_start_s, cmp_body_flag_s, fsm_m_done_s,
-        fsm_m_game_over_s: STD_LOGIC;
-    signal cmp_flags_s: STD_LOGIC_VECTOR(1 downto 0);
-    signal sys_direction_s: direction;
-    signal dp_ctrl_s: datapath_ctrl_flags;
+        signal clk_s, res_s, fsm_m_start_s, cmp_food_flag_s, cmp_body_flag_s,
+            fsm_m_done_s, fsm_m_game_over_s: STD_LOGIC;
+        signal sys_direction_s: direction;
+        signal dp_ctrl_s: datapath_ctrl_flags;
 
 begin
     -- Instantiate DUT
@@ -67,9 +68,9 @@ begin
             clk             => clk_s,
             res             => res_s,
             fsm_m_start     => fsm_m_start_s,
+            cmp_food_flag   => cmp_food_flag_s,
             cmp_body_flag   => cmp_body_flag_s,
             sys_direction   => sys_direction_s,
-            cmp_flags       => cmp_flags_s,
             dp_ctrl         => dp_ctrl_s,
             fsm_m_done      => fsm_m_done_s,
             fsm_m_game_over => fsm_m_game_over_s
@@ -77,13 +78,16 @@ begin
 
     -- Instantiate stimuli generation module
     test : fsm_step_stimuli
+        generic map (
+            CLK_PERIOD => CLK_PERIOD
+        )
         port map (
             clk             => clk_s,
             res             => res_s,
             fsm_m_start     => fsm_m_start_s,
+            cmp_food_flag   => cmp_food_flag_s,
             cmp_body_flag   => cmp_body_flag_s,
             sys_direction   => sys_direction_s,
-            cmp_flags       => cmp_flags_s,
             dp_ctrl         => dp_ctrl_s,
             fsm_m_done      => fsm_m_done_s,
             fsm_m_game_over => fsm_m_game_over_s

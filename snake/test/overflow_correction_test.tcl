@@ -3,7 +3,8 @@ quit -sim
 # Apangando a library work atual
 vmap -del work
 # Definindo variáveis da compilação e simulação
-set diretorio "~/projects/cis2/snake"
+# set diretorio "~/projects/cis2/snake"
+set diretorio "X:/projects/cis2/snake"
 
 set arquivos {"src/snake_package.vhd" "src/overflow_correction.vhd" "test/overflow_correction_stimuli.vhd" "test/overflow_correction_tb.vhd"}
 

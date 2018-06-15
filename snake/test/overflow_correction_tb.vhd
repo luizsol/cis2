@@ -30,9 +30,10 @@ architecture test of overflow_correction_tb is
         );
 
         port (
-            ofc_result  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-            result      : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-            dp_flags    : out datapath_flags
+            alu_result  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+            rb_result   : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+            ctrl_of_x   : out STD_LOGIC;
+            ctrl_of_y   : out STD_LOGIC
         );
     end component;
 
@@ -42,14 +43,15 @@ architecture test of overflow_correction_tb is
         );
 
         port (
-            ofc_result  : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-            result      : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-            dp_flags    : in  datapath_flags
+            alu_result  : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+            rb_result   : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+            ctrl_of_x   : in  STD_LOGIC;
+            ctrl_of_y   : in  STD_LOGIC
         );
     end component;
 
-    signal dp_flags_s: datapath_flags;
-    signal ofc_result_s, result_s : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal ctrl_of_x_s, ctrl_of_y_s: STD_LOGIC;
+    signal alu_result_s, rb_result_s : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
 
 begin
     -- Instantiate DUT
@@ -58,9 +60,10 @@ begin
             WIDTH => WIDTH
         )
         port map (
-            ofc_result  => ofc_result_s,
-            result      => result_s,
-            dp_flags    => dp_flags_s
+            alu_result  => alu_result_s,
+            rb_result   => rb_result_s,
+            ctrl_of_x   => ctrl_of_x_s,
+            ctrl_of_y   => ctrl_of_y_s
         );
 
     -- Instantiate stimuli generation module
@@ -69,9 +72,10 @@ begin
             WIDTH => WIDTH
         )
         port map (
-            ofc_result  => ofc_result_s,
-            result      => result_s,
-            dp_flags    => dp_flags_s
+            alu_result  => alu_result_s,
+            rb_result   => rb_result_s,
+            ctrl_of_x   => ctrl_of_x_s,
+            ctrl_of_y   => ctrl_of_y_s
         );
 
 end architecture test;

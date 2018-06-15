@@ -2,8 +2,8 @@
 --*                                                                            *
 --* Title   : code_gen.vhd                                                     *
 --* Design  :                                                                  *
---* Author  :                                                                  *
---* Email   :                                                                  *
+--* Author  : Luiz Sol                                                         *
+--* Email   : luizedusol@gmail.com                                             *
 --*                                                                            *
 --******************************************************************************
 --*                                                                            *
@@ -18,24 +18,24 @@ use work.snake_package.all;
 
 entity code_gen is
     port (
-        ctrl_ctrl   : in datapath_ctrl_flags;
-        value       : out STD_LOGIC_VECTOR(7 DOWNTO 0)
+        ctrl_code_sel   : in CODE;
+        mem_code_w      : out STD_LOGIC_VECTOR(7 downto 0)
     );
 end code_gen;
 
 architecture arch of code_gen is
 begin
 
-    upd_output: process (ctrl_ctrl.cg_sel)
+    upd_output: process (ctrl_code_sel)
     begin
-        case ctrl_ctrl.cg_sel is
-            when BLANK      => value <= BLANK_VEC;
-            when FOOD       => value <= FOOD_VEC;
-            when S_BODY     => value <= BODY_VEC;
-            when HEAD_UP    => value <= HEAD_UP_VEC;
-            when HEAD_DOWN  => value <= HEAD_DOWN_VEC;
-            when HEAD_LEFT  => value <= HEAD_LEFT_VEC;
-            when HEAD_RIGHT => value <= HEAD_RIGHT_VEC;
+        case ctrl_code_sel is
+            when BLANK      => mem_code_w <= BLANK_VEC;
+            when FOOD       => mem_code_w <= FOOD_VEC;
+            when S_BODY     => mem_code_w <= BODY_VEC;
+            when HEAD_UP    => mem_code_w <= HEAD_UP_VEC;
+            when HEAD_DOWN  => mem_code_w <= HEAD_DOWN_VEC;
+            when HEAD_LEFT  => mem_code_w <= HEAD_LEFT_VEC;
+            when HEAD_RIGHT => mem_code_w <= HEAD_RIGHT_VEC;
             when others     => null;
         end case;
     end process;

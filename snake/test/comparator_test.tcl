@@ -4,6 +4,7 @@ quit -sim
 vmap -del work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
+# set diretorio "X:/projects/cis2/snake"
 
 set arquivos {"src/snake_package.vhd" "src/comparator.vhd" "test/comparator_stimuli.vhd" "test/comparator_tb.vhd"}
 

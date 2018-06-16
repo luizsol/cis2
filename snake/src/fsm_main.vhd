@@ -43,13 +43,8 @@ architecture arch of fsm_main is
 
     signal STATE, NEXT_STATE: STATE_TYPE_MAIN;
 
-    -- Declarations of pre-registered internal signals
-
 begin
 
-    ------------------------------------
-    -- Next to Current State Logic (sequential)
-    ------------------------------------
     upd_state:  process (clk)
     begin
         if clk'event and clk = '1' then
@@ -60,10 +55,6 @@ begin
             end if;
         end if;
     end process;
-
-    ------------------------------------
-    -- Next State Logic (combinatorial)
-    ------------------------------------
 
     upd_next_state: process (cnt_rdy, cmp_food_flag, fsm_i_done, fsm_f_done,
         fsm_s_done, fsm_s_game_over, STATE)
@@ -112,9 +103,6 @@ begin
         end case;
     end process;
 
-    ------------------------------------
-    -- OUTPUT Logic (combinatorial)
-    ------------------------------------
     upd_output: process (STATE)
     begin
         case STATE is
@@ -148,10 +136,7 @@ begin
                 fsm_f_start <= '0';
                 fsm_s_start <= '0';
 
-            when others =>
-                null;
-
+            when others => null;
         end case;
     end process;
-
 end arch;

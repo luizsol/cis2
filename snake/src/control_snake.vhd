@@ -89,7 +89,6 @@ architecture arch of control_snake is
         );
     end component;
 
-
     --signals from FSM_MAIN to sub FSMs
     signal init_start_s     : STD_LOGIC;
     signal food_start_s     : STD_LOGIC;

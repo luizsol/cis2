@@ -47,11 +47,6 @@ begin
 
     CMP_FLAGS <= cmp_food_flag & cmp_body_flag;
 
-
-------------------------------------
--- Next State Logic (combinatorial)
-------------------------------------
-
     upd_next_state: process (
         fsm_m_start, cmp_body_flag, cmp_food_flag, sys_direction, STATE
     )
@@ -80,9 +75,6 @@ begin
         end case;
     end process;
 
-------------------------------------
--- Current State Logic (sequential)
-------------------------------------
     upd_state: process (clk)
     begin
         if clk'event and clk = '1' then
@@ -94,10 +86,6 @@ begin
         end if;
     end process;
 
-
-------------------------------------
--- OUTPUT Logic (combinatorial)
-------------------------------------
     upd_output: process (fsm_m_start, CMP_FLAGS, sys_direction, STATE)
     begin
         case STATE is
@@ -246,18 +234,18 @@ begin
                 case sys_direction is
                     when S_LEFT =>
                         dp_ctrl <= (
-                            ng_one_gen        => '0',
-                            ng_pos_neg        => '0',
+                            ng_one_gen      => '0',
+                            ng_pos_neg      => '0',
                             ng_one_three    => '0',
-                            alu_x_y            => '0',
-                            alu_pass_calc    => '0',
-                            rb_head_en        => '0',
-                            rb_reg2_en        => '0',
-                            rb_fifo_en        => '0',
-                            rb_fifo_pop        => '0',
-                            rb_out_sel        => HEAD_OUT,
-                            cg_sel            => HEAD_LEFT,
-                            mem_w_e            => '1'
+                            alu_x_y         => '0',
+                            alu_pass_calc   => '0',
+                            rb_head_en      => '0',
+                            rb_reg2_en      => '0',
+                            rb_fifo_en      => '0',
+                            rb_fifo_pop     => '0',
+                            rb_out_sel      => HEAD_OUT,
+                            cg_sel          => HEAD_LEFT,
+                            mem_w_e         => '1'
                         );
 
                     when S_RIGHT =>

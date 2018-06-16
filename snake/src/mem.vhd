@@ -32,15 +32,11 @@
 --Altera or its authorized distributors.  Please refer to the
 --applicable agreement for further details.
 
--- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
--- Add flags
--- Update tests
+library ieee;
+use ieee.std_logic_1164.all;
 
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-
-LIBRARY altera_mf;
-USE altera_mf.all;
+library altera_mf;
+use altera_mf.all;
 
 ENTITY mem IS
     port (

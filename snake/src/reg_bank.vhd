@@ -22,12 +22,19 @@ use work.snake_package.all;
 
 entity reg_bank is
     generic (
-        WIDTH   : NATURAL := 8
+        WIDTH : NATURAL := 8
     );
 
     port (
-        out_sel : in RB_SEL;
-        alu_out : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+        clk         : in  STD_LOGIC;
+        res         : in  STD_LOGIC;
+        ofc_address : in  STD_LOGIC_VECTOR(WIDTH-1 downto 0);
+        load_head   : in  STD_LOGIC;
+        load_reg2   : in  STD_LOGIC;
+        load_fifo   : in  STD_LOGIC;
+        fifo_pop    : in  STD_LOGIC;
+        out_sel     : in  RB_SEL;
+        alu_out     : out STD_LOGIC_VECTOR(WIDTH-1 downto 0)
     );
 end reg_bank;
 

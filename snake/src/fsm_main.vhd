@@ -20,18 +20,18 @@ use work.snake_package.all;
 
 entity fsm_main is
     port (
-        clk             : in STD_LOGIC;       --from system
-        res             : in STD_LOGIC;       --from system
-        cnt_rdy         : in STD_LOGIC;       --from system
-        cmp_food_flag   : in STD_LOGIC;       --from datapath/comparator module
-        fsm_i_done      : in STD_LOGIC;       --from fsm_init
-        fsm_f_done      : in STD_LOGIC;       --from fsm_food_spawn
-        fsm_s_done      : in STD_LOGIC;       --from fsm_step
-        fsm_s_game_over : in STD_LOGIC;       --from fsm_step
-        con_sel         : out CONTROL_SELECT; --to internal
-        fsm_i_start     : out STD_LOGIC;      --to fsm_init
-        fsm_f_start     : out STD_LOGIC;      --to fsm_food
-        fsm_s_start     : out STD_LOGIC       --to fsm_start
+        clk             : in STD_LOGIC;
+        res             : in STD_LOGIC;
+        cnt_rdy         : in STD_LOGIC;
+        cmp_food_flag   : in STD_LOGIC;
+        fsm_i_done      : in STD_LOGIC;
+        fsm_f_done      : in STD_LOGIC;
+        fsm_s_done      : in STD_LOGIC;
+        fsm_s_game_over : in STD_LOGIC;
+        con_sel         : out CONTROL_SELECT;
+        fsm_i_start     : out STD_LOGIC;
+        fsm_f_start     : out STD_LOGIC;
+        fsm_s_start     : out STD_LOGIC
     );
 end fsm_main;
 

@@ -24,14 +24,13 @@ entity step_counter is
     port (
         clk         : in STD_LOGIC;
         res         : in STD_LOGIC;
-        cnt_rdy     : out STD_LOGIC;
-        cnt_value   : out UNSIGNED(7 downto 0)
+        cnt_rdy     : out STD_LOGIC
     );
 end step_counter;
 
 architecture arch of step_counter is
 
-    signal cnt_s    : UNSIGNED(7 downto 0) := x"00";
+    signal cnt_s : UNSIGNED(7 downto 0) := x"00";
 
 begin
 
@@ -53,5 +52,4 @@ begin
         end if;
     end process;
 
-    cnt_value <= cnt_s;
 end arch;

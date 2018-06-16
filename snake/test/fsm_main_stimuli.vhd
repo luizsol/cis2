@@ -79,7 +79,7 @@ begin
 
         procedure reset_activate is    -- reset activation procedure
         begin
-            wait until falling_edge(CLK_s);
+            wait until falling_edge(clk_s);
             res <= '1';
             wait for CLK_PERIOD;
             res <= '0';

@@ -2,6 +2,7 @@
 quit -sim
 # Apangando a library work atual
 vmap -del work
+vdel -all -lib work
 # Definindo variáveis da compilação e simulação
 # set diretorio "~/projects/cis2/snake"
 set diretorio "X:/projects/cis2/snake"

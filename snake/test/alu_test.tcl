@@ -2,6 +2,7 @@
 quit -sim
 # Apangando a library work atual
 vmap -del work
+vdel -all -lib work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
 
@@ -24,9 +25,5 @@ vmap work work
 vsim -gui -voptargs=+acc work.$componente
 view wave
 # Configurando os sinais a serem apresentados
-add wave -position insertpoint sim:/$componente/op_first_s
-add wave -position insertpoint sim:/$componente/rb_op_s
-add wave -position insertpoint sim:/$componente/ofc_result_s
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.alu_x_y
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.alu_pass_calc
+add wave -position insertpoint sim:/$componente/*
 run $duration ns

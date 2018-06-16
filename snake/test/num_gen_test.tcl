@@ -2,14 +2,15 @@
 quit -sim
 # Apangando a library work atual
 vmap -del work
+vdel -all -lib work
 # Definindo variáveis da compilação e simulação
 set diretorio "~/projects/cis2/snake"
 
-set arquivos {"src/snake_package.vhd" "src/num_gen.vhd" "test/num_gen_stimuli.vhd" "test/num_gen_tb.vhd"}
+set arquivos {"src/snake_package.vhd" "src/xor2.vhd" "src/lfsr.vhd" "src/clock.vhd" "src/num_gen.vhd" "test/num_gen_stimuli.vhd" "test/num_gen_tb.vhd"}
 
 set componente "num_gen_tb"
 
-set duration [expr {8}]
+set duration [expr {100}]
 # Definindo o diretório do projeto
 cd $diretorio
 # Criando as libraries do projeto
@@ -24,9 +25,5 @@ vmap work work
 vsim -gui -voptargs=+acc work.$componente
 view wave
 # Configurando os sinais a serem apresentados
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.ng_one_gen
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.ng_pos_neg
-add wave -position insertpoint sim:/$componente/ctrl_ctrl_s.ng_one_three
-add wave -position insertpoint sim:/$componente/random_num_s
-add wave -position insertpoint sim:/$componente/number_s
+add wave -position insertpoint sim:/$componente/*
 run $duration ns

@@ -26,8 +26,7 @@ entity step_counter_stimuli is
     port (
         clk         : out STD_LOGIC;
         res         : out STD_LOGIC := '0';
-        cnt_rdy     : in  STD_LOGIC;
-        cnt_value   : in  UNSIGNED(7 downto 0)
+        cnt_rdy     : in  STD_LOGIC
     );
 end step_counter_stimuli;
 
@@ -59,21 +58,18 @@ begin
         res <= '1';
         wait for 2 ns;
         assert cnt_rdy = '0' report "Test 1: cnt_rdy = 1 when res.";
-        assert cnt_value = "00000000" report "Test 1: cnt_value not reset.";
 
         wait until falling_edge(clk_s);
         res <= '0';
         wait until rising_edge(clk_s);
         wait for 60 * CLK_PERIOD;
         assert cnt_rdy = '1' report "Test 2: cnt_rdy != 1 when count ready.";
-        assert cnt_value = "00111100" report "Test 2: wrong cnt_value.";
 
         wait for 5 * CLK_PERIOD;
         wait until falling_edge(clk_s);
         res <= '1';
         wait until falling_edge(clk_s);
         assert cnt_rdy = '0' report "Test 3: cnt_rdy = 1 when res.";
-        assert cnt_value = "00000000" report "Test 3: reset failed.";
 
         wait;
     end process sim;

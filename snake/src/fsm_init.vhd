@@ -20,13 +20,13 @@ use work.snake_package.all;
 
 entity fsm_init is
     port (
-        clk         : in STD_LOGIC;            --from system
-        res         : in STD_LOGIC;            --from system
-        fsm_m_start : in STD_LOGIC;            --from fsm main
-        ofc_of_x    : in STD_LOGIC;            --from datapath/overflow module
-        ofc_of_y    : in STD_LOGIC;            --from datapath/overflow module
-        dp_ctrl     : out datapath_ctrl_flags; --to datapath
-        fsm_m_done  : out STD_LOGIC            --to fsm main
+        clk         : in STD_LOGIC;
+        res         : in STD_LOGIC;
+        fsm_m_start : in STD_LOGIC;
+        ofc_of_x    : in STD_LOGIC;
+        ofc_of_y    : in STD_LOGIC;
+        dp_ctrl     : out datapath_ctrl_flags;
+        fsm_m_done  : out STD_LOGIC
     );
 end fsm_init;
 

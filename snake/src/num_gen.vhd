@@ -2,8 +2,8 @@
 --*                                                                            *
 --* Title   : num_gen.vhd                                                      *
 --* Design  :                                                                  *
---* Author  :                                                                  *
---* Email   :                                                                  *
+--* Author  : Luiz Sol                                                         *
+--* Email   : luizedusol@gmail.com                                             *
 --*                                                                            *
 --******************************************************************************
 --*                                                                            *
@@ -11,9 +11,9 @@
 --*                                                                            *
 --******************************************************************************
 
-LIBRARY IEEE;
-USE IEEE.std_logic_1164.all;
-USE IEEE.numeric_std.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 use work.snake_package.all;
 
@@ -23,8 +23,11 @@ entity num_gen is
     );
 
     port (
-        ctrl_ctrl   : in  datapath_ctrl_flags;
-        random_num  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        clk         : in  STD_LOGIC;
+        res         : in  STD_LOGIC;
+        pos_neg     : in  STD_LOGIC;
+        one_three   : in  STD_LOGIC;
+        one_num_gen : in  STD_LOGIC;
         number      : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
     );
 end num_gen;
@@ -32,32 +35,56 @@ end num_gen;
 
 architecture arch of num_gen is
 
-    signal pos_neg_s      : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-    signal one_three_s    : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-    signal one_gen_s      : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal pos_neg_s    : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal one_three_s  : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal one_gen_s    : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+    signal res_s        : STD_LOGIC;
+    signal clk_s        : STD_LOGIC;
+    signal random_num_s : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+
+    component lfsr is
+        generic(
+            WIDTH   : natural := 12;
+            POL     : STD_LOGIC_VECTOR(12 downto 0) := "1110011011011"
+        );
+
+        port (
+            clk : in  STD_LOGIC;
+            res : in  STD_LOGIC;
+            o   : out STD_LOGIC_VECTOR(7 downto 0)
+        );
+    end component;
 
 begin
-    pos_neg_s <= STD_LOGIC_VECTOR(TO_UNSIGNED(1, pos_neg_s'length))
-                 when (ctrl_ctrl.ng_pos_neg = '0')
-                 else
-                     STD_LOGIC_VECTOR(TO_SIGNED(-1, pos_neg_s'length))
-                     when (ctrl_ctrl.ng_pos_neg = '1')
-                     else
-                         (OTHERS => 'X' );
+    clk_s <= clk;
+    res_s <= res;
 
-    one_three_s <= pos_neg_s when (ctrl_ctrl.ng_one_three = '0')
-                   else
-                       pos_neg_s(WIDTH - 1 downto 2) & (NOT pos_neg_s(1))
-                           & pos_neg_s(0) when(ctrl_ctrl.ng_one_three = '1')
-                       else
-                           (OTHERS => 'X' );
+    lfsr_c: lfsr
+        port map (
+            clk => clk_s,
+            res => res_s,
+            o   => random_num_s
+        );
 
-    one_gen_s <= one_three_s when ctrl_ctrl.ng_one_gen = '0'
-                 else
-                    random_num when ctrl_ctrl.ng_one_gen = '1'
-                    else
-                        (OTHERS => 'X' );
-
-    number <= one_gen_s;
+    upd: process (clk, res, pos_neg, one_three, one_num_gen)
+    begin
+        if (one_num_gen = '1') then
+            number <= random_num_s;
+        else
+            if (pos_neg = '0') then
+                if (one_three = '0') then
+                    number <= STD_LOGIC_VECTOR(TO_UNSIGNED(1, WIDTH));
+                else
+                    number <= STD_LOGIC_VECTOR(TO_UNSIGNED(3, WIDTH));
+                end if;
+            else
+                if (one_three = '0') then
+                    number <= STD_LOGIC_VECTOR(TO_SIGNED(-1, WIDTH));
+                else
+                    number <= STD_LOGIC_VECTOR(TO_SIGNED(-3, WIDTH));
+                end if;
+            end if;
+        end if;
+    end process;
 
 END arch;

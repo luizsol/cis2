@@ -23,10 +23,11 @@ entity alu_stimuli is
     );
 
     port (
-        op_first    : out  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        rb_op       : out  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        ctrl_ctrl   : out  datapath_ctrl_flags;
-        ofc_result  : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+        op_first        : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        rb_op           : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        ctrl_x_y        : out STD_LOGIC;
+        ctrl_pass_calc  : out STD_LOGIC;
+        ofc_result      : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
     );
 end alu_stimuli;
 
@@ -45,13 +46,13 @@ begin
         ) is
         begin
             case m is
-                when BYPASS => ctrl_ctrl.alu_pass_calc <= '0';
+                when BYPASS => ctrl_pass_calc <= '0';
                 when SUM =>
-                    ctrl_ctrl.alu_pass_calc <= '1';
-                    ctrl_ctrl.alu_x_y <= '0';
+                    ctrl_pass_calc <= '1';
+                    ctrl_x_y <= '0';
                 when SHIFT_AND_SUM =>
-                    ctrl_ctrl.alu_pass_calc <= '1';
-                    ctrl_ctrl.alu_x_y <= '1';
+                    ctrl_pass_calc <= '1';
+                    ctrl_x_y <= '1';
                 when others => null;
             end case;
             op_first <= op;
@@ -62,10 +63,10 @@ begin
 
     begin
         -- > Behaviours to be tested:
-        -- 1) ctrl_ctrl.alu_pass_calc = '0' => ofc_result <= rb_op
-        -- 2) ctrl_ctrl.alu_pass_calc ='1' and ctrl_ctrl.alu_x_y = '0' =>
+        -- 1) ctrl_pass_calc = '0' => ofc_result <= rb_op
+        -- 2) ctrl_pass_calc ='1' and ctrl_x_y = '0' =>
         --    ofc_result <= rb_op + op_first
-        -- 3) ctrl_ctrl.alu_pass_calc ='1' and ctrl_ctrl.alu_x_y = '1' =>
+        -- 3) ctrl_pass_calc ='1' and ctrl_x_y = '1' =>
         --    ofc_result <= rb_op + (op_first << 4)
 
          -- Start behaviour test 1:

@@ -33,8 +33,7 @@ architecture test of step_counter_tb is
         port (
             clk         : in STD_LOGIC;
             res         : in STD_LOGIC;
-            cnt_rdy     : out STD_LOGIC;
-            cnt_value   : out UNSIGNED(7 downto 0)
+            cnt_rdy     : out STD_LOGIC
         );
     end component;
 
@@ -47,21 +46,18 @@ architecture test of step_counter_tb is
         port (
             clk         : out STD_LOGIC;
             res         : out STD_LOGIC := '0';
-            cnt_rdy     : in  STD_LOGIC;
-            cnt_value   : in  UNSIGNED(7 downto 0)
+            cnt_rdy     : in  STD_LOGIC
         );
     end component;
 
     signal clk_s, res_s, cnt_rdy_s: STD_LOGIC;
-    signal cnt_value_s: UNSIGNED(7 downto 0);
 
 begin
     dut : step_counter
         port map (
             clk         => clk_s,
             res         => res_s,
-            cnt_rdy     => cnt_rdy_s,
-            cnt_value   => cnt_value_s
+            cnt_rdy     => cnt_rdy_s
         );
 
     -- Instantiate stimuli generation module
@@ -73,8 +69,7 @@ begin
         port map (
             clk         => clk_s,
             res         => res_s,
-            cnt_rdy     => cnt_rdy_s,
-            cnt_value   => cnt_value_s
+            cnt_rdy     => cnt_rdy_s
         );
 
 end architecture test;

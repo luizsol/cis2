@@ -1,6 +1,6 @@
 --******************************************************************************
 --*                                                                            *
---* Title   : full_adder.vhd                                                   *
+--* Title   : address_counter.vhd                                              *
 --* Design  :                                                                  *
 --* Author  :                                                                  *
 --* Email   :                                                                  *
@@ -11,30 +11,43 @@
 --*                                                                            *
 --******************************************************************************
 
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
-entity full_adder is
-    port (
-        a_in    : in  STD_LOGIC;
-        b_in    : in  STD_LOGIC;
-        c_in    : in  STD_LOGIC;
-        z_out   : out STD_LOGIC;
-        c_out   : out STD_LOGIC
+entity address_counter is
+    generic (
+        WIDTH : natural := 6
     );
-end full_adder;
 
-architecture arch of full_adder is
+    port (
+        clk      : in  STD_LOGIC;
+        res      : in  STD_LOGIC;
+        addr     : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        cnt_done : out STD_LOGIC
+    );
+end address_counter;
 
-    signal aux_xor, aux_and_1, aux_and_2, aux_and_3: STD_LOGIC;
+architecture arch of address_counter is
+
+    signal temp : UNSIGNED(WIDTH - 1 downto 0) := to_unsigned(0, WIDTH);
 
 begin
 
-    z_out       <= aux_xor XOR c_in;
-    aux_xor     <= a_in XOR b_in;
-    aux_and_1   <= a_in AND b_in;
-    aux_and_2   <= a_in AND c_in;
-    c_out       <= aux_and_1 OR aux_and_2 OR aux_and_3;
-    aux_and_3   <= b_in AND c_in;
+    addr <= STD_LOGIC_VECTOR(temp);
+
+    process(clk)
+    begin
+        if clk'event and clk = '1' then
+            if (res = '1') then
+                temp        <= to_unsigned(0, WIDTH);
+                cnt_done    <= '0';
+            elsif (temp = 63) then
+                cnt_done    <= '1';
+            else
+                temp <= temp + 1;
+            end if;
+        end if;
+    end process;
 
 end arch;

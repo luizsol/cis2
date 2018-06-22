@@ -170,7 +170,7 @@ begin
         );
 
 
-    alu_un: entity work.alu(without_pass)
+    alu_un: alu
         generic map (
             WIDTH => WIDTH
         )
@@ -201,7 +201,7 @@ begin
             mem_code_w      => mem_a_data_w_s
         );
 
-    field_map: entity work.mem(rtl)
+    field_map: mem
         port map (
             address_a   => mem_a_addr_s,
             address_b   => mem_b_addr,

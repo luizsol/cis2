@@ -16,15 +16,16 @@ use IEEE.std_logic_1164.all;
 use IEEE.NUMERIC_STD.all;
 
 entity reg is
-    generic(
+    generic (
         WIDTH: natural := 8
     );
 
     port (
-        clk : in  STD_LOGIC;
-        load: in  STD_LOGIC;
-        d   : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        q   : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+        clk     : in  STD_LOGIC;
+        clr     : in  STD_LOGIC;
+        load    : in  STD_LOGIC;
+        d       : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        q       : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
     );
 end reg;
 
@@ -37,7 +38,10 @@ begin
     process(clk)
     begin
         if clk'EVENT AND clk = '1' then
-            if (load = '1') then
+            if clr = '1' then
+                q_s <= (others => '0');
+                q   <= (others => '0');
+            elsif (load = '1') then
                 q_s <= d;
             end if;
         end if;

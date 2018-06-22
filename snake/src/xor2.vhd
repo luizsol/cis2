@@ -22,7 +22,7 @@ ENTITY xor2 IS
     );
 END xor2;
 
-ARCHITECTURE dataflow OF xor2 IS
+ARCHITECTURE arch OF xor2 IS
 BEGIN
     z <= x XOR y;
-END dataflow;
+END arch;

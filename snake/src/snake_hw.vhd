@@ -12,7 +12,8 @@
 --******************************************************************************
 
 library IEEE;
-use IEEE.std_logic_1164.all;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
 use work.snake_package.all;
 
@@ -124,7 +125,7 @@ begin
 
     step_cnt: step_counter
         generic map (
-            COUNT_MAX => 100
+            COUNT_MAX => x"64"
         )
 
         port map (

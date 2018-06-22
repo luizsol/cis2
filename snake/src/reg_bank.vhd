@@ -53,13 +53,13 @@ architecture arch of reg_bank is
         );
 
         port (
-            clk     : in  STD_LOGIC;
-            data    : in  STD_LOGIC_VECTOR(7 DOWNTO 0);
-            rdreq   : in  STD_LOGIC;
-            sclr    : in  STD_LOGIC;
-            wrreq   : in  STD_LOGIC;
+            clk     : in STD_LOGIC := '0';
+            data    : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+            rdreq   : in STD_LOGIC := '0';
+            res     : in STD_LOGIC := '0';
+            wrreq   : in STD_LOGIC := '0';
             empty   : out STD_LOGIC;
-            q       : out STD_LOGIC_VECTOR(7 DOWNTO 0)
+            q       : out STD_LOGIC_VECTOR(7 downto 0)
         );
     end component;
 
@@ -69,11 +69,11 @@ architecture arch of reg_bank is
         );
 
         port (
-            clk  : in  STD_LOGIC;
-            clr  : in  STD_LOGIC;
-            load : in  STD_LOGIC;
-            d    : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-            q    : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+            clk : in  STD_LOGIC := '0';
+            clr : in  STD_LOGIC := '0';
+            load: in  STD_LOGIC := '0';
+            d   : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := (others => '0');
+            q   : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
         );
     end component;
 
@@ -87,12 +87,12 @@ begin
                   fifo_out_s);
     head_cmp : reg
         generic map (
-            WIDTH       => WIDTH
+            WIDTH => WIDTH
         )
         port map (clk, res, load_head, ofc_address, head_out_s);
     reg2_cmp : reg
         generic map (
-            WIDTH       => WIDTH
+            WIDTH => WIDTH
         )
         port map (clk, res, load_reg2, ofc_address, reg2_out_s);
 

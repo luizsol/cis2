@@ -103,7 +103,7 @@ architecture arch of control_snake is
     signal init_control_s   : datapath_ctrl_flags;
     signal food_control_s   : datapath_ctrl_flags;
     signal step_control_s   : datapath_ctrl_flags;
-    signal test_go_state_s  : STD_LOGIC    :='0';
+    signal test_go_state_s  : STD_LOGIC :='0';
 
 begin
     main: fsm_main
@@ -157,10 +157,16 @@ begin
             fsm_m_game_over => game_over_s
         );
 
-    with select_fsm_s select
-        dp_ctrl <= init_control_s when INIT_CON,
-                   food_control_s when FOOD_CON,
-                   step_control_s when STEP_CON;
+    process (select_fsm_s)
+    begin
+        if (select_fsm_s = INIT_CON) then
+            dp_ctrl <= init_control_s;
+        elsif (select_fsm_s = FOOD_CON) then
+            dp_ctrl <= food_control_s;
+        elsif (select_fsm_s = STEP_CON) then
+            dp_ctrl <= step_control_s;
+        end if;
+    end process;
 
     test_idle_state <= (not init_start_s) and (not food_start_s)
         and (not step_start_s);

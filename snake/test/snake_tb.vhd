@@ -72,12 +72,10 @@ architecture arch of snake_tb is
     --***********************************
     --* INTERNAL SIGNAL DECLARATIONS    *
     --***********************************
-    signal clk_s            : STD_LOGIC;
-    signal res_s            : STD_LOGIC;
-    signal sys_direction_s  : STD_LOGIC_VECTOR (3 downto 0);
-    signal sys_step_jumper_s: STD_LOGIC;
-
-
+    signal clk_s                : STD_LOGIC;
+    signal res_s                : STD_LOGIC;
+    signal sys_direction_s      : STD_LOGIC_VECTOR(3 downto 0);
+    signal sys_step_jumper_s    : STD_LOGIC;
     signal test_mem_b_addr_s    : STD_LOGIC_VECTOR(5 downto 0);
     signal test_mem_b_data_s    : STD_LOGIC_VECTOR(7 downto 0);
     signal test_idle_state_s    : STD_LOGIC;

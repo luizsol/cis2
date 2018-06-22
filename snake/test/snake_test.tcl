@@ -10,7 +10,7 @@ set arquivos {"src/snake_package.vhd" "src/address_counter.vhd" "src/reg.vhd" "s
 
 set componente "snake_tb"
 
-# set duration [expr {6000}]
+set duration [expr {10000}]
 # Definindo o diretório do projeto
 cd $diretorio
 # Criando as libraries do projeto
@@ -78,6 +78,7 @@ add wave -noupdate -expand -group MONITOR -color Pink -label STR_DATA -radix asc
 add wave -noupdate -expand -group MONITOR -color Pink -label {PRINT_RDY} /snake_tb/mon/print_rdy_delay_s
 add wave -noupdate -expand -group MONITOR -color Pink -label PRINT_DONE /snake_tb/mon/print_done_delay_s
 add wave -noupdate -expand -group MONITOR -color Pink -label LINE_WRITTEN /snake_tb/mon/written_s
+add wave /snake_tb/dut/dp_dummy/alu_un/*
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {979383 ps} 0}
 quietly wave cursor active 1
@@ -96,5 +97,6 @@ configure wave -timeline 0
 configure wave -timelineunits ns
 update
 WaveRestoreZoom {4939801 ps} {4979366 ps}
-run 1000 ns
-# run 10 ns
+# run 10000 ns
+# run 20 ns
+run $duration ns

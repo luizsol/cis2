@@ -67,17 +67,17 @@ begin
 
     process
     begin
-
-        sys_direction <= RT;
-        sys_step_jumper <= '0';
+        sys_direction <= NO;
 
         res <= '1';
         wait for 10 ns;
         res <= '0';
 
-        sys_direction <= NO;
+        sys_direction <= RT;
+        sys_step_jumper <= '0';
 
-        wait for 30000 ns;
+
+        wait for 300 ns;
 
         sys_direction <= RT;
 
@@ -92,7 +92,7 @@ begin
         wait for 200 ns;
         sys_direction <= UP;
 
-        wait for 1000 ns;
+        wait for 100 ns;
         res <= '1';
         wait for 10 ns;
         res <= '0';

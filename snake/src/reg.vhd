@@ -21,10 +21,10 @@ entity reg is
     );
 
     port (
-        clk     : in  STD_LOGIC;
-        clr     : in  STD_LOGIC;
-        load    : in  STD_LOGIC;
-        d       : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        clk     : in  STD_LOGIC := '0';
+        clr     : in  STD_LOGIC := '0';
+        load    : in  STD_LOGIC := '0';
+        d       : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0) := (others => '0');
         q       : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
     );
 end reg;

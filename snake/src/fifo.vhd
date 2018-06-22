@@ -21,11 +21,11 @@ entity fifo is
     );
 
     port (
-        clk     : in STD_LOGIC;
-        data    : in STD_LOGIC_VECTOR(7 downto 0);
-        rdreq   : in STD_LOGIC;
-        sclr    : in STD_LOGIC;
-        wrreq   : in STD_LOGIC;
+        clk     : in STD_LOGIC := '0';
+        data    : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+        rdreq   : in STD_LOGIC := '0';
+        res     : in STD_LOGIC := '0';
+        wrreq   : in STD_LOGIC := '0';
         empty   : out STD_LOGIC;
         q       : out STD_LOGIC_VECTOR(7 downto 0)
     );
@@ -36,17 +36,17 @@ architecture arch of fifo is
 begin
 
     fifo_proc : process (clk)
-        type FIFO_Memory is array (0 to FIFO_DEPTH - 1)
-            of STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
+        type FIFO_Memory is array (0 to FIFO_DEPTH - 1) of STD_LOGIC_VECTOR(
+            WIDTH - 1 downto 0);
         variable Memory : FIFO_Memory;
 
-        variable Head : natural range 0 to FIFO_DEPTH - 1;
-        variable Tail : natural range 0 to FIFO_DEPTH - 1;
+        variable Head : NATURAL range 0 to FIFO_DEPTH - 1 := 0;
+        variable Tail : NATURAL range 0 to FIFO_DEPTH - 1 := 0;
 
-        variable Looped : boolean;
+        variable Looped : BOOLEAN;
     begin
         if rising_edge(clk) then
-            if sclr = '1' then
+            if res = '1' then
                 Head := 0;
                 Tail := 0;
                 Looped := false;

@@ -22,12 +22,12 @@ entity datapath is
     );
 
     port (
-        sys_clk     : in  STD_LOGIC;
-        res         : in  STD_LOGIC;
-        mem_b_addr  : in  STD_LOGIC_VECTOR(2 * COR_WIDTH - 1 downto 0);
-        ctrl_ctrl   : in  datapath_ctrl_flags;
-        mem_b_data  : out STD_LOGIC_VECTOR(7 downto 0);
-        ctrl_flags  : out datapath_flags
+        clk             : in  STD_LOGIC;
+        res             : in  STD_LOGIC;
+        mem_b_addr      : in  STD_LOGIC_VECTOR(2 * COR_WIDTH - 1 downto 0);
+        ctrl_ctrl       : in  datapath_ctrl_flags;
+        mem_b_data      : out STD_LOGIC_VECTOR(7 downto 0);
+        ctrl_flags      : out datapath_flags
     );
 end datapath;
 
@@ -126,6 +126,21 @@ architecture arch of datapath is
         );
     end component;
 
+    component reg
+        generic (
+            WIDTH: natural := 8
+        );
+
+        port (
+            clk     : in  STD_LOGIC := '0';
+            clr     : in  STD_LOGIC := '0';
+            load    : in  STD_LOGIC := '0';
+            d       : in  STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+                := (others => '0');
+            q       : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0)
+        );
+    end component;
+
     signal ng_2_alu_s       : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
     signal rb_2_alu_s       : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
     signal alu_2_ofc_s      : STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
@@ -135,6 +150,11 @@ architecture arch of datapath is
     signal mem_a_addr_s     : STD_LOGIC_VECTOR (WIDTH - 3 downto 0);
     signal mem_a_read_s     : STD_LOGIC_VECTOR (7 downto 0);
 
+    signal reg1_2_reg2      : STD_LOGIC_VECTOR(5 downto 0);
+    signal mem_a_addr_2_s   : STD_LOGIC_VECTOR(5 downto 0);
+    signal mem_a_addr_2     : STD_LOGIC_VECTOR(5 downto 0);
+    signal mem_a_data_r_s   : STD_LOGIC_VECTOR(7 downto 0);
+
 begin
 
     n_g: num_gen
@@ -143,7 +163,7 @@ begin
         )
 
         port map (
-            clk         => sys_clk,
+            clk         => clk,
             res         => res,
             pos_neg     => ctrl_ctrl.ng_pos_neg,
             one_three   => ctrl_ctrl.ng_one_three,
@@ -158,7 +178,7 @@ begin
         )
 
         port map (
-            clk         => sys_clk,
+            clk         => clk,
             res         => res,
             ofc_address => ofc_2_rb_s,
             load_head   => ctrl_ctrl.rb_head_en,
@@ -168,7 +188,6 @@ begin
             out_sel     => ctrl_ctrl.rb_out_sel,
             alu_out     => rb_2_alu_s
         );
-
 
     alu_un: alu
         generic map (
@@ -203,15 +222,15 @@ begin
 
     field_map: mem
         port map (
-            address_a   => mem_a_addr_s,
+            address_a   => mem_a_addr_2,
             address_b   => mem_b_addr,
             byteena_a   => mem_a_en,
-            clk         => sys_clk,
+            clk         => clk,
             data_a      => mem_a_data_w_s,
             data_b      => (others => '0'),
             wren_a      => ctrl_ctrl.mem_w_e,
             wren_b      => '0',
-            q_a         => mem_a_read_s,
+            q_a         => mem_a_data_r_s,
             q_b         => mem_b_data
         );
 
@@ -222,11 +241,46 @@ begin
             body_flag   => ctrl_flags.cmp_body_flag
         );
 
+    reg1: reg
+        generic map(
+            WIDTH => 6
+        )
+        port map (
+            clk     => clk,
+            clr     => res,
+            load    => '1',
+            d       => mem_a_addr_s,
+            q       => reg1_2_reg2
+        );
+
+    reg2: reg
+        generic map(
+            WIDTH => 6
+        )
+        port map (
+            clk     => clk,
+            clr     => res,
+            load    => '1',
+            d       => reg1_2_reg2,
+            q       => mem_a_addr_2_s
+        );
+
     -- cut off the overflowbits (msb of every coordinate)
-    mem_a_addr_s <= ofc_2_rb_s(WIDTH - 2 downto WIDTH / 2)
-        & ofc_2_rb_s(WIDTH / 2 - 2 downto 0);
+    -- mem_a_addr_s <= ofc_2_rb_s(WIDTH - 2 downto WIDTH / 2)
+    --     & ofc_2_rb_s(WIDTH / 2 - 2 downto 0);
+
+    mem_a_addr_s <=  ofc_2_rb_s(5 downto 0);
 
     mem_a_en <= "1";
+
+    process (ctrl_ctrl.cg_sel, ctrl_ctrl.mem_w_e)
+    begin
+        if ctrl_ctrl.cg_sel = FOOD and ctrl_ctrl.mem_w_e = '1' then
+            mem_a_addr_2 <= mem_a_addr_2_s;
+        else
+            mem_a_addr_2 <= mem_a_addr_s;
+        end if;
+    end process;
 
 end arch;
 
